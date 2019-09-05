@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login page</title>
+	<script type="text/javascript">
+		function userdata()
+		{
+			myvalue=document.getElementById('nn')
+			mypass=document.getElementById('pp')
+			err=0;
+			if(myvalue.value=="")
+			{
+		myvalue.style.borderColor=="rosybrown";
+		document.getElementById('un').innerHTML="invalid entry";
+		err++;
+			}
+			else
+			{
+				myvalue.style.borderColor="";
+				document.getElementById("").innerHTML="";
+			}
+
+		}
+	</script>
+	<style type="text/css">
+		body{
+			background-color: skyblue;
+			
+
+		}
+		form{
+			
+			
+			background-color: white;
+			margin-top: 100px;
+			margin-left: 500px;
+			margin-bottom: 100px;
+			margin-right: 100px;
+			width: 500px;
+			height: 400px;
+		}
+		input{
+			margin-left: 35px;
+			width: 400px;
+			height: 40px;
+			font-style: bold;
+			font-size: 15px;
+			border-style: ridge;
+			padding-left: 10px;
+
+		}
+		h1{
+			margin-left: 170px;
+		}
+		#btn{
+			background-color: rgb(5 148 124);
+		}
+		a
+		{
+			text-decoration: none;
+			padding-left: 80px;
+
+		}
+		/*#ff
+		{
+			background-clip: padding-box;
+			border:5px solid lightblue;
+			border-radius: 5px;
+			padding-bottom: 85px;
+			margin-bottom: px;
+			
+
+		}*/
+		span
+		{
+			padding-left: 50px;
+		}
+
+			
+
+			</style>
+</head>
+<body>
+	<div>
+		
+	<form action="/trackapp/" method="POST">
+		{%csrf_token%}
+		<div id="ff">
+		<h1>SIGN IN</h1><br><br>
+		<span  style="color: red" id="un">(*mandatory)</span>
+		<input type="text" name="uname" placeholder="Username" id="nn">
+		<br><br>
+		<span style="color: red" id="pp" >(*mandatory)</span>
+		<input type="password" name="password" placeholder="Password" id="pp">
+		<br><br>
+		<input type="submit" value="Log In" id="btn" id="bb" onclick="userdata();">
+		<br><br>
+		<span>{{msg}}</span>
+		<a href="">Forgot your password?</a>
+		</div>
+</div>
+		
+	</form>
+	
+
+		
+
+
+</body>
+</html>
