@@ -2,6 +2,11 @@
 <html>
 <head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<title>Dashboard</title>
 	
 	<style type="text/css">
@@ -13,31 +18,14 @@
 		.first_nav_bar{
 			background-color: #2b3d52;
 			color: White;
-			padding-left: 100px;
-			padding-right: 100px;
-			padding-bottom: 30px;
-			padding-top: 25px;
-			max-height: 10px;
+			padding-left: 50px;
+			padding-bottom: 20px;
+			padding-top: 20px;
 		}
 
 		.second_nav_bar{
 			background-color: white;
 			color:#006666;
-			padding-left: 100px;
-			padding-right: 100px;
-			padding-bottom: 30px;
-			padding-top: 25px;
-			max-height: 10px;
-		}
-
-		#f{			
-			color:#2b3d52;
-			text-decoration: none;
-			font-size: 17px;
-		}
-
-		#b{
-			background-color: #f2f2f2;
 		}
 
 		#tb{
@@ -49,43 +37,62 @@
 			float: right;
 			padding: 10px;
 		}
+		.icon-btn{
+			outline: none;
+			background: none;
+			border: none;
+			color: white;
+		}
+		.list-inline{
+			color:#2b3d52;
+			display: inline;
+			padding-left: 50px;
+		}
 	</style>
 </head>
-<body id="b">
-   <nav class="first_nav_bar">
-		{{username}}
-   		<a class="list-group-item" href="#"><i class="fa fa-address-book-o" style="color: red"></i>&nbsp;</a>&nbsp;&nbsp;
-   		<a class="list-group-item" href="#"><i class="fa fa-calendar-check-o"></i>&nbsp;</a>&nbsp;&nbsp;
-   		<a class="list-group-item" href="#"><i class="fa fa-phone" ></i>&nbsp;</a>&nbsp;&nbsp;
-    	<a class="list-group-item" href="#"><i class="fa fa-bell-o"></i>&nbsp;</a></li>&nbsp;
-   </nav>
-   <nav class="second_nav_bar">
-   	<table id="tb">   	
-   		<tr>
-			<td id="t">
-				<a id="f"  href="#"><i class="fa fa-th-large" aria-hidden="true"></i>&nbsp;Dashboard</a>
-			</td>
-			<td id="t">
-				<a id="f" href="#"><i class="fa fa-tags"></i>Enquiry</a>
-			</td>
-   		 	<td id="t">
-				<a id="f" href="#"><i class="fa fa-user-circle-o"></i>&nbsp;Consumer</a>
-			</td>
-   	    	<td id="t">
-				<a id="f" href="#"><i class="fa fa-address-card"></i>&nbsp;Employee</a>
-			</td>
-   	    	<td id="t">
-				<a id="f" href="#"><i class="fa fa-dot-circle-o"></i>&nbsp;Others</a>
-			</td>
-   	    	<td id="t">
-				<a id="f" href="#"><i class="fa fa-bar-chart"></i>&nbsp;Reports </a>
-			</td>
-   	    	<td id="t">
-				<a id="f" href="#"><i class="fa fa-line-chart"></i>&nbsp;Charts</a>
-			</td>
-		</tr>	
-   </table>
-</nav>
+<body style="background-color: #f5f5f5;">
 
+	<div class="row">
+   		<nav class="first_nav_bar col-md-12 col-lg-12">
+	   		<span class="col-md-6 col-lg-6">
+				{{username}}
+	   		</span>
+	   		<span class="col-md-6 col-lg-6" style="float: right; padding-left: 450px;">
+				<button class="icon-btn"><i class="fa fa-bell-o"></i></button>
+				<button class="icon-btn"><i class="fa fa-calendar-check-o"></i></button>
+				<button class="icon-btn"><i class="fa fa-phone"></i></button>
+
+				<button class="icon-btn" data-toggle="dropdown">
+					<i class="fa fa-address-book-o" style="color: red"></i>
+				</button>
+				<div class="dropdown-menu">
+					<span>{{username}}</span>
+					<a class="dropdown-item" href="#">Change password</a>
+					<a class="dropdown-item" href="/trackapp/logout">Logout</a>
+				</div>
+
+	   		</span>
+   		</nav>
+	</div>
+
+	<div class="row">
+   		<nav class="second_nav_bar col-lg-12 col-md-12">
+			<span class="col-lg-12 col-md-12">
+				<ul>
+					<li class="list-inline"><i class="fa fa-th-large" aria-hidden="true"></i>&nbsp;Dashboard</li>
+					<li class="list-inline"><i class="fa fa-tags"></i>Enquiry</li>
+					<li class="list-inline"><i class="fa fa-user-circle-o"></i>&nbsp;Consumer</li>
+					<li class="list-inline"><i class="fa fa-address-card"></i>&nbsp;Employee</li>
+					<li class="list-inline"><i class="fa fa-dot-circle-o"></i>&nbsp;Others</li>
+					<li class="list-inline"><i class="fa fa-bar-chart"></i>&nbsp;Reports </li>
+					<li class="list-inline"><i class="fa fa-line-chart"></i>&nbsp;Charts</li>
+				</ul>
+			</span>
+		</nav>
+	</div>
+
+	<div class="container">
+		testing
+	</div>
 </body>
 </html>
