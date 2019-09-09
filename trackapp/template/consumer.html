@@ -2,12 +2,126 @@
 
 {% block head %}
     <title>consumer</title>
+    <style type="text/css">
+		#tb{
+			width: 80%;
+		}
+		.list-group-item{
+			color: white;
+			float: right;
+			padding:10px;
+		}
+		#table{
+	      
+	       border:2px;
+	       background-color: white;
+		   margin: -100px;
+		   margin-left: 250px;
+		   padding-left: 50px;
+           
+		   height:300px;
+		   width:1000px;
+	    }
+	    #search{
+	    	color: darkgreen;
+
+	    }
+	    #input{
+			text-decoration: none;
+			background-color:white;
+			color: blue;
+			font-size: 20px;
+			border: 100px;
+		    margin-left: 50px;
+		    padding-left: 10px;
+		    padding-right: 10px;
+
+		
+		}
+		#input:hover{
+			text-decoration: none;
+			background-color: skyblue;
+	        }
+	         #h{
+			text-decoration: none;
+			color: black;
+			font-size: 20px;
+		   }
+		    #btn{
+         	color:white;
+         	background-color: skyblue;
+         	padding: 10px;
+           
+         }
+		
+	       th{
+	       	color: green;
+	       	text-align: left;
+
+	       }
+	       select{
+	       	  padding-left: 30px;
+	       	  padding-right: 60px;
+	       }
+	       a{
+	       	text-decoration: none;
+	       }
+
+	       
+	   
+	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script>
+	function userdata()
+		{
+		myval=document.getElementById('n');
+		
+		if(myval.value=="")
+		  	 {
+		  	 	myval.style.borderColor="red";
+             }
+		  	
+		  	 else
+		  	 {
+		  	 	myval.style.borderColor="";
+		  	}
+		  	 
+		  	 
+		  	}
+	</script>
+	
 {% endblock %}
 
 {% block body %}
 
-    <div class="container">
+    <!-- <div class="container">
         <span>In consumer</span>
-    </div>
+    </div> -->
+   		<a  id="input" href="#">Consumer</a><br>
+   		<a  id="input" href="#"><i class="fa fa-magic"></i>New</a><br>
+   		<a  id="input" href="#"><i class="fa fa-eye"></i>View</a>
+
+   		
+   <table id="table">
+   	  <th>CONSUMER<hr></th>
+   	<tr>
+   		<td>Name<span style="color:red;">(*Mandatory)</span><br><input  id="n" type="text"></td>
+   		<td>Contact Person<br><input id="cp" type="text"></td>
+   	    <td> Email<br><input id="e" type="text"></td>
+   	</tr>
+   	<tr>
+   		<td>Phone<br><input type="text"></td>
+   		<td>Location<br><input type="text"></td>
+           <td>Gender<br><input type="radio" name="gender">Male
+        <input type="radio" name="gender">Female</td>
+
+   		
+   	</tr>
+    <tr>
+        <td>
+   		<button id="btn" onclick="userdata();"><i class="fa fa-save"></i>Save Consumer</button></td>
+   	</tr>
+   	  	</table>
+       
 
 {% endblock %}
