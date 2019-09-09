@@ -61,3 +61,54 @@ def enquires(request):
 		return render(request, 'enquires.html', context)
 	except Exception as identifier:
 		print(identifier)
+
+def consumer(request):
+	try:
+		user_obj = UserLogin.objects.get(id=request.session['userId'])
+		context = {
+			"username": user_obj.username
+		}
+		return render(request, 'consumer.html', context)
+	except Exception as identifier:
+		print(identifier)
+
+def employee(request):
+	try:
+		user_obj = UserLogin.objects.get(id=request.session['userId'])
+		context = {
+			"username": user_obj.username
+		}
+		return render(request, 'employee.html', context)
+	except Exception as identifier:
+		print(identifier)
+
+def others(request):
+	try:
+		user_obj = UserLogin.objects.get(id=request.session['userId'])
+		context = {
+			"username": user_obj.username
+		}
+		return render(request, 'others.html', context)
+	except Exception as identifier:
+		print(identifier)
+
+
+def reports(request):
+	try:
+		user_obj = UserLogin.objects.get(id=request.session['userId'])
+		context = {
+			"username": user_obj.username
+		}
+		return render(request, 'reports.html', context)
+	except Exception as identifier:
+		print(identifier)
+
+def charts(request):
+	try:
+		user_obj = UserLogin.objects.get(id=request.session['userId'])
+		context = {
+			"username": user_obj.username
+		}
+		return render(request, 'charts.html', context)
+	except Exception as identifier:
+		print(identifier)
