@@ -4,5 +4,6 @@ from .import views
 urlpatterns = [
 	path('', views.indexPage),
 	path('dashboard', views.home),
-	path('logout', views.logoutUser)
+	path('logout', views.logoutUser),
+	path('enquires', views.enquires)
 ]

@@ -7,7 +7,6 @@ from .models import *
 # Create your views here.
 def indexPage(request):
 	try:
-		print('in login')
 		if request.method == 'POST':
 			uname = request.POST.get('uname')
 			upass = request.POST.get('password')
@@ -24,7 +23,6 @@ def indexPage(request):
 
 def home(request):
 	try:
-		print('in home')
 		if 'userId' in request.session:
 			if 'userRoleId' in request.session:
 				if 'companyId' in request.session:
@@ -52,3 +50,14 @@ def logoutUser(request):
 	except Exception as identifier:
 		print(identifier)
 		return redirect('/trackapp')
+
+
+def enquires(request):
+	try:
+		user_obj = UserLogin.objects.get(id=request.session['userId'])
+		context = {
+			"username": user_obj.username
+		}
+		return render(request, 'enquires.html', context)
+	except Exception as identifier:
+		print(identifier)
