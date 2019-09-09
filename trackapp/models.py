@@ -1,78 +1,76 @@
 from django.db import models
 
 # Create your models here.
-class Login(models.Model):
-	username=models.CharField(max_length=20)
-	password=models.CharField(max_length=20)
-	role=models.CharField(max_length=20)
-
 
 class Company(models.Model):
-	company_title = models.CharField(max_length=20)
-	company_name = models.CharField(max_length=25)
-	address = models.CharField(max_length=25)
-	email = models.CharField(max_length=25)
-	phn = models.CharField(max_length=25)
+	company_name = models.CharField(max_length=30)
+	address = models.CharField(max_length=100)
+	email = models.CharField(max_length=50)
 
-class Role(models.Model):  
-	role_title = models.CharField(max_length=15)
+
+class UserRole(models.Model):
 	fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
-		
+	role_title = models.CharField(max_length=20)
+
+
+class Permission(models.Model):
+	fk_role_id = models.ForeignKey(UserRole, on_delete=models.CASCADE)
+	permission_title = models.CharField(max_length=20)
+
+
+class UserLogin(models.Model):
+	fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
+	role = models.ForeignKey(UserRole, on_delete=models.CASCADE)
+	username = models.CharField(max_length=20)
+	password = models.CharField(max_length=20)
+
+
 class UserDetails(models.Model):
-	fk_login_id = models.ForeignKey(Login, on_delete=models.CASCADE)
-	user_name = models.CharField(max_length=25)
+	fk_login_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
+	firstname = models.CharField(max_length=25)
+	lastname = models.CharField(max_length=25)
 	address = models.CharField(max_length=25)
-	dob = models.CharField(max_length=25)
+	dob = models.DateField()
 	email = models.CharField(max_length=25)
 	mobile = models.CharField(max_length=25)
-	password=models.CharField(max_length=25)
-
-class Enquiry(models.Model):
-    lead_title = models.CharField(max_length=25)
-    lead_status = models.CharField(max_length=25)
-    lead_source = models.CharField(max_length=25)
-
-class Enquires(models.Model):
-	enquiry_title = models.CharField(max_length=25)
-	enquiry_date = models.DateField()
-	description = models.CharField(max_length=50)
-	phn = models.CharField(max_length=25)
-	email = models.CharField(max_length=25)
-	fk_emp_id = models.ForeignKey(Enquiry, on_delete=models.CASCADE)
+	gender = models.CharField(max_length=10)
 
 
-class Employee(models.Model):
-    emp_name = models.CharField(max_length=25)
-    address = models.CharField(max_length=25)
-    dob = models.CharField(max_length=25)
-    mobile = models.CharField(max_length=25)
-    email = models.CharField(max_length=25)
-    password = models.CharField(max_length=25)
-    fk_login_id = models.ForeignKey(Login,on_delete=models.CASCADE)
+class Leads(models.Model):
+	fk_created_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
+	fk_updated_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE, default=None, related_name="fk_updated_user_id")
+	fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
+	fk_assigned_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE, related_name="fk_assigned_user_id")
+	lead_title = models.CharField(max_length=30)
+	lead_source = models.CharField(max_length=20)
+	lead_stage = models.CharField(max_length=15)
+	created_date = models.DateField(auto_now_add=True)
+	created_time = models.TimeField(auto_now_add=True)
+	updated_date = models.DateField(null=True, blank=True)
+
+
+class LeadDetails(models.Model):
+	fk_lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
+	first_name = models.CharField(max_length=30)
+	last_name = models.CharField(max_length=30)
+	product = models.CharField(max_length=30)
+	phone_number = models.CharField(max_length=15)
+	email = models.CharField(max_length=30)
+	address = models.CharField(max_length=50)
+	gender = models.CharField(max_length=10)
+	description = models.CharField(max_length=100)
+
 
 class FollowUp(models.Model):
-    plan = models.CharField(max_length=25)
-    date = models.CharField(max_length=25)
-    time = models.CharField(max_length=25)
-    remainder = models.CharField(max_length=25)
-    follows = models.CharField(max_length=25)
-    fk_enq_id = models.ForeignKey(Enquiry, on_delete=models.CASCADE)
+	fk_lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
+	fk_created_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
+	followup_title = models.CharField(max_length=20)
+	followup_description = models.CharField(max_length=100)
+	created_date = models.DateField(auto_now_add=True)
+	created_time = models.TimeField(auto_now_add=True)
 
-class Remainder(models.Model):
-	remainder = models.CharField(max_length=25)
-	date = models.CharField(max_length=25)
 
-class Sms(models.Model):
-	msg = models.CharField(max_length=25)
-   
-class Work_Assign(models.Model):
-	work_title = models.CharField(max_length=25)
-	
 class Notification(models.Model):
-	date = models.CharField(max_length=25)
-	time = models.CharField(max_length=25)
-	subject = models.CharField(max_length=25)
-	to = models.CharField(max_length=25)
-	fromaddr = models.CharField(max_length=25)
-    
-
+	fk_reciver_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
+	notification_title = models.CharField(max_length=25)
+	created_date = models.DateField(auto_now_add=True)
