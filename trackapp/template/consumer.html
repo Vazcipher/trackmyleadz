@@ -1,93 +1,87 @@
 {% extends 'home.html' %}
 
 {% block head %}
-    <title>consumer</title>
-    <style type="text/css">
+	<title>consumer</title>
+
+	<style type="text/css">
+	
 		#tb{
 			width: 80%;
 		}
+
 		.list-group-item{
 			color: white;
 			float: right;
-			padding:10px;
+			padding: 10px;
 		}
-		#table{
-	      
-	       border:2px;
+
+		#table{  
+	       border: 2px;
 	       background-color: white;
 		   margin: -100px;
 		   margin-left: 250px;
 		   padding-left: 50px;
-           
-		   height:300px;
-		   width:1000px;
+		   height: 300px;
+		   width: 1000px;
 	    }
+
 	    #search{
 	    	color: darkgreen;
-
 	    }
+
 	    #input{
 			text-decoration: none;
-			background-color:white;
+			background-color: white;
 			color: blue;
 			font-size: 20px;
 			border: 100px;
 		    margin-left: 50px;
 		    padding-left: 10px;
 		    padding-right: 10px;
-
-		
 		}
+
 		#input:hover{
 			text-decoration: none;
 			background-color: skyblue;
-	        }
-	         #h{
+	    }
+
+	    #h{
 			text-decoration: none;
 			color: black;
 			font-size: 20px;
-		   }
-		    #btn{
-         	color:white;
+		}
+
+		#btn{
+			color: white;
          	background-color: skyblue;
          	padding: 10px;
-           
          }
 		
-	       th{
-	       	color: green;
+		th{
+			color: green;
 	       	text-align: left;
+		}
 
-	       }
-	       select{
-	       	  padding-left: 30px;
-	       	  padding-right: 60px;
-	       }
-	       a{
-	       	text-decoration: none;
-	       }
+	    select{
+			padding-left: 30px;
+	       	padding-right: 60px;
+	    }
 
-	       
-	   
+	    a{
+			text-decoration: none;
+		}
+
 	</style>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 	<script>
-	function userdata()
-		{
-		myval=document.getElementById('n');
-		
-		if(myval.value=="")
-		  	 {
-		  	 	myval.style.borderColor="red";
-             }
-		  	
-		  	 else
-		  	 {
-		  	 	myval.style.borderColor="";
-		  	}
-		  	 
-		  	 
-		  	}
+		function userdata() {
+			const myval = document.getElementById('n');
+			if (myval.value == '') {
+				myval.style.borderColor = 'red';
+			} else {
+				myval.style.borderColor = '';
+			}	  	 
+		}
 	</script>
 	
 {% endblock %}

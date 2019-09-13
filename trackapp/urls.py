@@ -10,6 +10,7 @@ urlpatterns = [
 	path('employee', views.employee),
 	path('others', views.others),
 	path('reports', views.reports),
-	path('charts', views.charts)
-	
+	path('charts', views.charts),
+	path('createEnquiry', views.fn_create_enquiry),
+	path('getEnquiry', views.fn_get_enquiry)
 ]
