@@ -4,8 +4,8 @@
 	<title>login page</title>
 	<script type="text/javascript">
 		function userdata() {
-			myvalue = document.getElementById('nn');
-			mypass = document.getElementById('pp');
+			const myvalue = document.getElementById('nn');
+			const mypass = document.getElementById('pp');
 			err = 0;
 			if (myvalue.value == '') {
 				myvalue.style.borderColor == "rosybrown";
@@ -13,7 +13,7 @@
 				err++;
 			} else {
 				myvalue.style.borderColor = '';
-				document.getElementById("").innerHTML='';
+				document.getElementById('un').innerHTML = '';
 			}
 		}
 	</script>
