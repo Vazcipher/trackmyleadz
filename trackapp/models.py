@@ -25,6 +25,19 @@ class UserLogin(models.Model):
 	password = models.CharField(max_length=20)
 
 
+class Consumer(models.Model):
+	fk_created_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
+	fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
+	fistname = models.CharField(max_length=25)
+	lastname = models.CharField(max_length=25)
+	email = models.CharField(max_length=30)
+	phone = models.CharField(max_length=15)
+	address = models.CharField(max_length=30)
+	gender = models.CharField(max_length=10)
+	created_date = models.DateField(auto_now_add=True)
+	created_time = models.TimeField(auto_now_add=True)
+
+
 class UserDetails(models.Model):
 	fk_login_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
 	firstname = models.CharField(max_length=25)
@@ -41,9 +54,8 @@ class Leads(models.Model):
 	fk_updated_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE, default=None, related_name="fk_updated_user_id")
 	fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
 	fk_assigned_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE, related_name="fk_assigned_user_id")
+	fk_consumer_id = models.ForeignKey(Consumer, on_delete=models.CASCADE)
 	lead_title = models.CharField(max_length=30)
-	lead_source = models.CharField(max_length=20)
-	lead_stage = models.CharField(max_length=15)
 	created_date = models.DateField(auto_now_add=True)
 	created_time = models.TimeField(auto_now_add=True)
 	updated_date = models.DateField(null=True, blank=True)
@@ -51,14 +63,10 @@ class Leads(models.Model):
 
 class LeadDetails(models.Model):
 	fk_lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
-	first_name = models.CharField(max_length=30)
-	last_name = models.CharField(max_length=30)
 	product = models.CharField(max_length=30)
-	phone_number = models.CharField(max_length=15)
-	email = models.CharField(max_length=30)
-	address = models.CharField(max_length=50)
-	gender = models.CharField(max_length=10)
 	description = models.CharField(max_length=100)
+	lead_source = models.CharField(max_length=20)
+	lead_stage = models.CharField(max_length=15)
 
 
 class FollowUp(models.Model):

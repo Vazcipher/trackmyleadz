@@ -2,7 +2,8 @@
 
 {% block head %}
 <style type="text/css">
-		.d{
+
+		.d {
 			background-color: #006666;
 			color: white;
 			padding-left: 50px;
@@ -11,6 +12,7 @@
 			padding-top: 30px;
 			font-size: 20px;
 		}
+
 		.e{
 			background-color: white;
 			color: #006666;
@@ -20,52 +22,63 @@
 			padding-top: 30px;
 			font-size: 20px;
 		}
-		#f{
-			color:black;
+
+		#f {
+			color: black;
 			text-decoration: none;
 			font-style: bold;
 		}
-		#f:hover{
-			color:blue;
+
+		#f:hover {
+			color: blue;
 			text-decoration:none;
 		}
-		#b{
+
+		#b {
 			background-color: #f2f2f2;
 		}
-		#tb{
+
+		#tb {
 			width: 80%;
 		}
-		.list-group-item{
+
+		.list-group-item {
 			color: white;
 			float: right;
-			padding:10px;
+			padding: 10px;
 		}
-		#table{
-	      
-	       border:2px;
+
+		#table {
+	       border: 2px;
 	       background-color: white;
 		   margin-top: -270px;
 		   margin-left: 250px;
 		   padding-left: 50px;
-		   height:500px;
-		   width:1000px;
-
+		   height: 500px;
+		   width: 1000px;
 	    }
-	    #view_enq{
-	    	border:2px;
-	       background-color: white;
-		   margin-top: -270px;
-		   margin-left: 250px;
-		   padding-left: 50px;
-		   height:500px;
-		   width:1000px;
 
+	    #view_enq {
+	    	border: 2px;
+	       	background-color: white;
+		   	margin-top: -270px;
+		   	margin-left: 250px;
+		   	padding-left: 50px;
+		   	height: 500px;
 	    }
-	    #search{
+
+	    #search {
 	    	color: darkgreen;
-
 	    }
-	    .input{
+
+	    .input {
+		    margin-left: 50px;
+		    padding-left: 10px;
+		    padding-right: 10px;
+			width: 12%;
+		}
+
+		#input1 {
 			text-decoration: none;
 			background-color:white;
 			color: blue;
@@ -75,50 +88,42 @@
 		    padding-left: 10px;
 		    padding-right: 10px;
 		}
-		#input1{
-			text-decoration: none;
-			background-color:white;
-			color: blue;
-			font-size: 20px;
-			border: 100px;
-		    margin-left: 50px;
-		    padding-left: 10px;
-		    padding-right: 10px;
-		}
-		#input:hover{
+
+		#input:hover {
 			text-decoration: none;
 			background-color: skyblue;
-	        }
+	    }
 	       
-	       th{
+	    th {
 	       	color: green;
 	       	text-align: left;
+	    }
+	    
+		select{
+	       	padding-left: 30px;
+	       	padding-right: 120px;
+	    }
 
-	       }
-	       select{
-	       	  padding-left: 30px;
-	       	  padding-right: 120px;
-	       }
-	       a{
+	    a {
 	       	text-decoration: none;
-	       }
-         #btn{
+	    }
+
+        #btn {
          	color:white;
          	background-color: skyblue;
          	padding: 15px;
-           
-         }
-         input{
+        }
+
+        input {
          	padding-left: 10px;
          	padding-right: 50px;
-         }
-          #h{
+        }
+
+        #h {
 			text-decoration: none;
 			color: black;
 			font-size: 20px;
-		   }
-	       
-	   
+		}
 	</style>
     <title>enquires</title>
 
@@ -144,10 +149,28 @@
 {% block body %}
 
     <div class="container">
-   		<br><br><span class="input" id="Enquiry">Enquiry</span><br><br><br><br>
-   		<span id="New"><i class="fa fa-eye input"></i>New</span><br><br><br><br>
-   		<span id="view"><i class="fa fa-eye input"></i>View</span><br><br><br><br>
-   		<a id="Queue"><i class="fa fa-folder-open input"></i>My Queue</a>
+		
+		   <br>
+		   	<span class="input" id="Enquiry">
+			   Enquiry
+			</span>
+			<br><br><br>
+			
+			<button id="New" class="btn btn-primary input">
+				<i class="fa fa-eye">&nbsp; New</i>
+			</button>
+			
+			<br><br><br><br>
+			   
+			<button id="view" class="btn btn-primary input">
+				<i class="fa fa-eye">&nbsp; View</i>
+			</button>
+			
+			<br><br><br><br>
+
+			<button id="Queue" class="btn btn-primary input">
+				<i class="fa fa-folder-open">&nbsp; My Queue</i>
+			</button>
 
  	<div id="view_enq" class="row">	         
   <table class="table">
@@ -165,68 +188,79 @@
 </div>
 
 
-   	<form>	
-   <table id="table">
+   <table id="table" cellpadding="4px">
    	 <th>CONSUMER<hr></th>
    	<tr>
-   		<td>Consumer<span style="color:red;">(*Mandatory)</span>&nbsp;&nbsp;&nbsp;<br><select>
+		   <td>Consumer<span style="color:red;">(*Mandatory)</span>&nbsp;&nbsp;&nbsp;<br>
+			<select class="form-control" >
    			        <option value="g"></option>
    			        <option value="m">Male</option>
    			        <option value="f">Female</option>
    			    </select>
-   		<td>Email<br><input type="text"></td>
-   	    <td>Phone<br><input  type="text"></td>
+   		<td>Email<br><input class="form-control" type="text"></td>
+   	    <td>Phone<br><input class="form-control" type="text"></td>
    	 </tr>
-   	 <tr>
-   	 	<td>Location<br><input id="cp" type="text"></td>
-   	 	<td>Gender<br><select>
-   			        <option value="g"></option>
-   			        <option value="m">Male</option>
-   			        <option value="f">Female</option>
-   			    </select>
-   		</td>
-   		
-   	</tr>
+
    	<th>LEAD DETAILS<hr></th>
    	<tr>
-   		<td>Lead Stage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><select>
-   			        <option value="g"></option>
-   			        <option value="m"></option>
-   			        <option value="f"></option>
-   			    </select>
+		   <td>
+			   <select class="form-control">
+				   <option selected disabled>Lead Stage</option>
+				   <option value="o">Open</option>
+				   <option value="c">Close</option>
+				   <option value="w">Won</option>
+   				</select>
    			</td>
-   	    <td>Lead Source&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><select>
-   			        <option value="g"></option>
-   			        <option value="m"></option>
-   			        <option value="f"></option>
-   			    </select>
+			<td>
+				<select class="form-control">
+					<option selected disabled>Lead Source</option>
+   			    	<option value="g">Website</option>
+   			    	<option value="m">Facebook</option>
+   			    	<option value="f">Reference</option>
+   				</select>
    			</td>
-
-   	</tr>
+	</tr>
+	   
    	<th>GENERAL<hr></th>
    	<tr>
-   		<td>Product&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><input  type="text"></td>
-   		<td>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><input   type="text"></td>
-   	</tr>
-   	<tr>
-   		<td>Department&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><input  type="text" placeholder="choose"></td>
-   		<td>Assigned to&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><select>
-   			        <option value="g"></option>
-   			        <option value="m"></option>
-   			        <option value="f"></option>
-   			    </select></td>
-   </tr>
+		   <td>
+			<input placeholder="Product" class="form-control" type="text"></td>
+
+			<td>
+				<select class="form-control">
+					<option selected disabled>Assigned to</option>
+					<option value="g">test</option>
+					<option value="m"></option>
+					<option value="f"></option>
+				</select>
+			</td>
+	   </tr>
+
    <tr>
-   	<td>Description<span style="color:red;">(*Mandatory)</span><br><textarea id="des"></textarea></td>
+	   <td>Description<span style="color:red;">(*Mandatory)</span><br>
+		<textarea class="form-control" id="des"></textarea></td>
    </tr>
+
    <tr>
-   	<td><a id="h" href="#"><i class="fa fa-check-square"></i>Send sms</a></td>
-      <td><button id="btn"  onclick="userdata();"><i class="fa fa-save"></i>&nbsp;Save Enquiry</button></td>
+		<td>
+			<div class="form-check">
+				<label class="form-check-label">
+					<input type="checkbox" class="form-check-input" name="sendsms">
+					Send sms
+				</label>
+			</div>
+		</td>
+
+		<td>
+			<button id="btn">
+				<i class="fa fa-save"></i>
+				&nbsp;Save Enquiry
+			</button>
+		</td>
     </tr>
-   	  	</table>
+</table>
        
 
-   	</form>   	
     </div>
 
 {% endblock %}

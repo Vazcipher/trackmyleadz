@@ -29,21 +29,12 @@
 	    	color: darkgreen;
 	    }
 
-	    #input{
-			text-decoration: none;
-			background-color: white;
-			color: blue;
-			font-size: 20px;
-			border: 100px;
+	    .input{
 		    margin-left: 50px;
 		    padding-left: 10px;
 		    padding-right: 10px;
+			width: 10%;
 		}
-
-		#input:hover{
-			text-decoration: none;
-			background-color: skyblue;
-	    }
 
 	    #h{
 			text-decoration: none;
@@ -55,7 +46,7 @@
 			color: white;
          	background-color: skyblue;
          	padding: 10px;
-         }
+        }
 		
 		th{
 			color: green;
@@ -80,7 +71,6 @@
 			} else {
 				myval.style.borderColor = '';
 			}	
-
 		}
 		
 	</script>
@@ -89,34 +79,80 @@
 
 {% block body %}
 
-    <!-- <div class="container">
-        <span>In consumer</span>
-    </div> -->
-   		<a  id="input" href="#">Consumer</a><br>
-   		<a  id="input" href="#"><i class="fa fa-magic"></i>New</a><br>
-   		<a  id="input" href="#"><i class="fa fa-eye"></i>View</a>
+<br>
+	<span class="input">Consumer</span>
+<br>
+<br>
+	<button class="input btn btn-primary">
+		<i class="fa fa-magic">&nbsp; New</i>
+	</button>
+<br>
+<br>
+	<button class="input btn btn-primary">
+		<i class="fa fa-eye">&nbsp; View</i>
+	</button>
 
-   		
-   <table id="table">
-   	  <th>CONSUMER<hr></th>
-   	<tr>
-   		<td>Name<span style="color:red;">(*Mandatory)</span><br><input  id="n" type="text"></td>
-   		<td>Contact Person<br><input id="cp" type="text"></td>
-   	    <td> Email<br><input id="e" type="text"></td>
-   	</tr>
-   	<tr>
-   		<td>Phone<br><input type="text"></td>
-   		<td>Location<br><input type="text"></td>
-           <td>Gender<br><input type="radio" name="gender">Male
-        <input type="radio" name="gender">Female</td>
 
-   		
-   	</tr>
-    <tr>
-        <td>
-   		<button id="btn" onclick="userdata();"><i class="fa fa-save"></i>Save Consumer</button></td>
-   	</tr>
-   	  	</table>
+   <table id="table" cellpadding="7px">
+   	  	<th>CONSUMER<hr></th>
+		<tr>
+			<td>
+				Firstname
+				<br>
+				<input id="e" class="form-control" name="email" type="email">
+			</td>
+			<td>
+				Lastname
+				<br>
+				<input id="n" class="form-control" type="text">
+			</td>
+
+			<td>
+				Email
+				<br>
+				<input id="e" class="form-control" name="email" type="email">
+			</td>
+		</tr>
+	   
+   		<tr>
+   			<td>
+				Phone
+				<br>
+				<input class="form-control" name="phone" type="text">
+			</td>
+
+   			<td>
+				Address
+				<br>
+				<input class="form-control" name="location" type="text">
+			</td>
+
+            <td>
+				Gender
+				<br>
+				<div class="form-check-inline">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" name="gender">Male
+					</label>
+				</div>
+				
+				<div class="form-check-inline">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" name="gender">Female
+					</label>
+				</div>
+			</td>
+   		</tr>
+		
+		<tr>
+        	<td>
+				<button id="btn" onclick="userdata();">
+					<i class="fa fa-save"></i>
+					Save Consumer
+				</button>
+			</td>
+   		</tr>
+   	</table>
        
 
 {% endblock %}
