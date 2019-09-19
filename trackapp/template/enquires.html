@@ -1,4 +1,4 @@
-{% extends 'home.html' %}
+#{% extends 'home.html' %}
 
 {% block head %}
 <style type="text/css">
@@ -49,12 +49,23 @@
 		   padding-left: 50px;
 		   height:500px;
 		   width:1000px;
+
+	    }
+	    #view_enq{
+	    	border:2px;
+	       background-color: white;
+		   margin-top: -270px;
+		   margin-left: 250px;
+		   padding-left: 50px;
+		   height:500px;
+		   width:1000px;
+
 	    }
 	    #search{
 	    	color: darkgreen;
 
 	    }
-	    #input{
+	    .input{
 			text-decoration: none;
 			background-color:white;
 			color: blue;
@@ -63,8 +74,16 @@
 		    margin-left: 50px;
 		    padding-left: 10px;
 		    padding-right: 10px;
-
-		
+		}
+		#input1{
+			text-decoration: none;
+			background-color:white;
+			color: blue;
+			font-size: 20px;
+			border: 100px;
+		    margin-left: 50px;
+		    padding-left: 10px;
+		    padding-right: 10px;
 		}
 		#input:hover{
 			text-decoration: none;
@@ -102,18 +121,51 @@
 	   
 	</style>
     <title>enquires</title>
+
+    <script>
+    	$(document).ready( () => {
+
+    		$("#table").hide();
+
+    		$("#New").click( () => {
+    			$("#view_enq").hide();
+    			$("#table").show();
+    		});
+
+    		$("#view").click( () => {
+    			$("#view_enq").show();
+    			$("#table").hide();
+    		});
+
+    	});
+    </script>
 {% endblock %}
 
 {% block body %}
 
     <div class="container">
-        <form>
-   		<br><br><a  id="input" href="#">Enquiry</a><br><br><br><br>
-   		<a  id="input" href="#"><i class="fa fa-eye"></i>New</a><br><br><br><br>
-   		<a  id="input" href="#"><i class="fa fa-eye"></i>View</a><br><br><br><br>
-   		<a  id="input" href="#"><i class="fa fa-folder-open"></i>My Queue</a>
+   		<br><br><span class="input" id="Enquiry">Enquiry</span><br><br><br><br>
+   		<span id="New"><i class="fa fa-eye input"></i>New</span><br><br><br><br>
+   		<span id="view"><i class="fa fa-eye input"></i>View</span><br><br><br><br>
+   		<a id="Queue"><i class="fa fa-folder-open input"></i>My Queue</a>
 
-   		
+ 	<div id="view_enq" class="row">	         
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+</div>
+
+
+   	<form>	
    <table id="table">
    	 <th>CONSUMER<hr></th>
    	<tr>
