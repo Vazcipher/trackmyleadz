@@ -4,14 +4,25 @@
     <title>employee</title>
     
     <style type="text/css">
-		.d{
-			background-color: #006666;
+		#New{
+			background-color: blue;
 			color: white;
-			padding-left: 50px;
-			padding-right: 100px;
-			padding-bottom: 30px;
-			padding-top: 30px;
-			font-size: 20px;
+			padding-left: 8px;
+			padding-right: 50px;
+			padding-bottom: 5px;
+			padding-top: 5px;
+			font-size: 15px;
+			margin-left: 50px;
+		}
+		#View{
+			background-color: blue;
+			color: white;
+			padding-left: 8px;
+			padding-right: 50px;
+			padding-bottom: 5px;
+			padding-top: 5px;
+			font-size: 15px;
+			margin-left: 50px;
 		}
 		.e{
 			background-color: white;
@@ -48,13 +59,13 @@
 
 	    }
         #table{
-          border:2px;
-          background-color: white;
-          margin-top: -270px;
-          margin-left: 250px;
-          padding-left: 50px;
-          height:500px;
-          width:1000px;
+          border: 2px;
+	       background-color: white;
+		   margin-top: -270px;
+		   margin-left: 150px;
+		   padding-left: 50px;
+		   height: 500px;
+		   width: 1000px;
        }
 	    #input{
 			text-decoration: none;
@@ -62,7 +73,7 @@
 			color: blue;
 			font-size: 20px;
 			border: 100px;
-		    margin-left: 50px;
+		    margin-left: 40px;
 		    padding-left: 10px;
 		    padding-right: 10px;
 		}
@@ -92,6 +103,11 @@
 	       a{
 	       	text-decoration: none;
 	       }
+	       span
+	       {
+	       	margin-left: 50px;
+	       }
+
 
 	       
 	   
@@ -99,36 +115,54 @@
 {% endblock %}
 
 {% block body %}
-    <div>
-        <a  id="input" href="#">Employee</a>
-   		<a  id="input" href="#"><i class="fa fa-magic"></i>New</a>
-   		<a  id="input" href="#"><i class="fa fa-eye"></i>View</a>
+   
+        <span class="input" id="Employee">Employee</span>
+
+        <br><br><br><br>
+
+   		<button id="New" class="btn btn-primary input"><i class="fa fa-magic"></i>&nbsp;&nbsp;New</button>
+
+   		<br><br><br><br>
+
+   		<button id="View" class="btn btn-primary input"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</button>
+
     
 <div class="container">
-<table id="table">
-        <th>EMPLOYEE<hr></th>
+<table id="table" cellpadding="7px">
+	<th> EMPLOYEE<hr></th>
       <tr>
-          <td>Name<span style="color:red;">(*Mandatory)</span><br><input  id="n" type="text"></td>
-          <td>E-mail<span style="color:red;">(*Mandatory)</span><br><input id="e" type="text"></td>
-          <td> Phone<span style="color:red;">(*Mandatory)</span><br><input id="ph" type="text"></td>
+          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Name"></td>
+          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="E-mail"></td>
+          <td><span style="color:red;"></span><br><input class="form-control"  type="text" placeholder="Phone"></td>
       </tr>
       <tr>
-          <td>Location<br><input type="text"></td>
-          <td>Gender<span style="color:red;">(*Mandatory)</span><br><select id="g">
-                      <option value="g"></option>
-                      <option value="m">Male</option>
-                      <option value="f">Female</option>
-                  </select></td>
-         
+          <td><br><input class="form-control" type="text" placeholder="Location"></td>
+           <td>
+				Gender
+				<br>
+				<div class="form-check-inline">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" name="gender">Male
+					</label>
+				</div>
+				
+				<div class="form-check-inline">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" name="gender">Female
+					</label>
+				</div>
+			</td>
+          <td>Role<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;<br>
+			<select class="form-control" >
+   			        <option value="g"></option>
+   			        <option value="m">Male</option>
+   			        <option value="f">Female</option>
+   			    </select>
 
       </tr>
+
       <tr>
-          <td>Role<span style="color:red;">(*Mandatory)</span><br>
-               <select id="r">
-                      <option value="r" selected></option>
-                      <option value=""></option>
-                      <option value=""></option>
-                  </select></td>
+         
          
           <td><button id="btn" onclick="userdata();"><i class="fa fa-save"></i>Save Employee</button></td>
             </table>		
