@@ -24,7 +24,15 @@
 		   height: 300px;
 		   width: 1000px;
 	    }
-
+		#view_enq {
+	    	border: 2px;
+	       	background-color: white;
+		   	margin-top: -155px;
+		   	margin-left: 250px;
+		   	padding-left: 50px;
+		   	height: 500px;
+			width: 1000px;
+	    }
 	    #search{
 	    	color: darkgreen;
 	    }
@@ -64,6 +72,23 @@
 
 	</style>
 	<script>
+			$(document).ready( () => {
+	
+				$("#table").hide();
+	
+				$("#New").click( () => {
+					$("#view_enq").hide();
+					$("#table").show();
+				});
+	
+				$("#view").click( () => {
+					$("#view_enq").show();
+					$("#table").hide();
+				});
+	
+			});
+		</script>
+	<script>
 		function userdata() {
 			const myval = document.getElementById('n');
 			if (myval.value == '') {
@@ -83,16 +108,29 @@
 	<span class="input">Consumer</span>
 <br>
 <br>
-	<button class="input btn btn-primary">
+	<button id="New" class="input btn btn-primary">
 		<i class="fa fa-magic">&nbsp; New</i>
 	</button>
 <br>
 <br>
-	<button class="input btn btn-primary">
+	<button id="view" class="input btn btn-primary">
 		<i class="fa fa-eye">&nbsp; View</i>
 	</button>
 
-
+	<div id="view_enq" class="row">	         
+			<table class="table">
+			  <thead>
+				<tr>
+				  <th>Firstname</th>
+				  <th>Lastname</th>
+				  <th>Email</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				
+			  </tbody>
+			</table>
+		  </div>
    <table id="table" cellpadding="7px">
    	  	<th>CONSUMER<hr></th>
 		<tr>
