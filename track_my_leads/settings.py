@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'track_my_leads.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'track',
+        'NAME': 'trackmyleadz',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
