@@ -60,18 +60,40 @@
 				{{username}}
 	   		</span>
 	   		<span class="col-md-6 col-lg-6" style="float: right; padding-left: 450px;">
-				<button class="icon-btn"><i class="fa fa-bell-o"></i></button>
-				<button class="icon-btn"><i class="fa fa-calendar-check-o"></i></button>
-				<button class="icon-btn"><i class="fa fa-phone"></i></button>
-
+	   			<div class="btn-group">
+				<button class="icon-btn" data-toggle="dropdown"><i class="fa fa-bell-o"></i></button>
+				<div class="dropdown-menu">
+					
+					<a class="dropdown-item" href="#">C</a>
+					<a class="dropdown-item" href="#">L0</a>
+				</div>
+			</div>
+				<div class="btn-group">
+				<button class="icon-btn" data-toggle="dropdown"><i class="fa fa-calendar-check-o"></i></button>
+				<div class="dropdown-menu">
+					
+					<a class="dropdown-item" href="#">Ch </a>
+					<a class="dropdown-item" href="#">Log</a>
+				</div>
+			</div>
+				<div class="btn-group">
+				<button class="icon-btn" data-toggle="dropdown"><i class="fa fa-phone"></i></button>
+				<div class="dropdown-menu">
+				
+					<a class="dropdown-item" href="#">Change </a>
+					<a class="dropdown-item" href="#">L</a>
+				</div>
+			</div>
+				<div class="btn-group">
 				<button class="icon-btn" data-toggle="dropdown">
 					<i class="fa fa-address-book-o" style="color: red"></i>
 				</button>
 				<div class="dropdown-menu">
-					<span>{{username}}</span>
+					<span >{{username}}</span>
 					<a class="dropdown-item" href="#">Change password</a>
 					<a class="dropdown-item" href="/trackapp/logout">Logout</a>
 				</div>
+			</div>
 
 	   		</span>
    		</nav>
