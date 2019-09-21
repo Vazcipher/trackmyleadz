@@ -184,24 +184,39 @@ def fn_create_consumer(request):
 				return HttpResponse('new consumer created')
 			return HttpResponse('failed to create consumer')
 	except:
-		pass
+		return HttpResponse('an error occurred')
+
 
 def fn_create_employee(request):
 	try:
 		if request.method == 'POST':
-			name = request.POST['name']
+			fname = request.POST['fname']
+			lname = request.POST['lname']
+			uname = request.POST['uname']
+			pword = request.POST['password']
 			email = request.POST['email']
 			phone = request.POST['phone']
+			dob = request.POST['dob']
 			location = request.POST['location']
 			gender = request.POST['gender']
 			role = request.POST['role']
 
-			# user_obj = UserLogin.
+			company_obj = Company.objects.get(id=request.session['companyId'])
+			role_obj = UserRole(fk_company_id=company_obj, role_title=role)
 
+			emp_obj = UserLogin(fk_company_id=company_obj, role=role_obj, username=uname, password=pword)
 
+			emp_obj.save()
 
+			if emp_obj.id > 0:
+				emp_detail_obj = UserDetail(fk_login_id=emp_obj, firstname=fname, 
+								lastname=lname,address=address, dob=dob, email=email, gender=gender)
+				emp_detail_obj.save()
 
+				if emp_detail_obj.id > 0:
+					return HttpResponse("new employee created")
+
+				return HttpResponse("failed to create employee")
+			return HttpResponse("failed to create employee")
 	except:
-		pass
-
-
+		return HttpResponse('An error occurred')
