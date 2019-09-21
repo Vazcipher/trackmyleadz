@@ -159,7 +159,10 @@
 					data: {
 						fname: $('#fn').val(),
 						lname: $('#ln').val(),
-						
+						email: $('#em').val(),
+						phone: $('#ph').val(),
+						address: $('#ad').val(),
+						gender: $("input[name='gender']:checked").val()
 					},
 					success: res => console.log(res),
 					error: e => console.log(e)
@@ -240,14 +243,14 @@
 				<br>
 				<div class="form-check-inline">
 					<label class="form-check-label">
-						<input type="radio" class="form-check-input" name="gender">
+						<input type="radio" class="form-check-input" value="Male" name="gender">
 						<span id="g1">Male</span>
 					</label>
 				</div>
 				
 				<div class="form-check-inline">
 					<label class="form-check-label">
-						<input type="radio" class="form-check-input" name="gender">
+						<input type="radio" class="form-check-input" value="Female" name="gender">
 						<span id="g2">Female</span>
 					</label>
 				</div>
