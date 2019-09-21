@@ -213,10 +213,14 @@
 					data: {
 						fname: $('#fn').val(),
 						lname: $('#ln').val(),
+						uname: $('#un').val(),
+						password: $('#pw').val(),
 						email: $('#em').val(),
 						phone: $('#ph').val(),
-						address: $('#ad').val(),
-						gender: $("input[name='gender']:checked").val()
+						dob: $('#dd').val(),
+						Location: $('#loc').val(),
+						gender: $("input[name='gender']:checked").val(),
+						role: $('#role').val()
 					},
 					success: res => console.log(res),
 					error: e => console.log(e)
