@@ -59,8 +59,8 @@ def enquires(request):
 			"username": user_obj.username
 		}
 		return render(request, 'enquires.html', context)
-	except Exception as identifier:
-		print(identifier)
+	except Exception:
+		return HttpResponse('an error occurred')
 
 
 def consumer(request):
@@ -70,8 +70,8 @@ def consumer(request):
 			"username": user_obj.username
 		}
 		return render(request, 'consumer.html', context)
-	except Exception as identifier:
-		print(identifier)
+	except Exception:
+		return HttpResponse('an error occurred')
 
 
 def employee(request):
@@ -84,8 +84,8 @@ def employee(request):
 			"roles": role_obj
 		}
 		return render(request, 'employee.html', context)
-	except Exception as identifier:
-		print(identifier)
+	except Exception:
+		return HttpResponse('an error occurred')
 
 
 def others(request):
