@@ -89,15 +89,88 @@
 			});
 		</script>
 	<script>
-		function userdata() {
-			const myval = document.getElementById('n');
-			if (myval.value == '') {
-				myval.style.borderColor = 'red';
+		function validate() {
+			let flag = 0;
+
+			if ($('#fn').val().length > 0) {
+				$('#fn').css("border-color", "#ced4da");
+				flag++;
 			} else {
-				myval.style.borderColor = '';
-			}	
+				$('#fn').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#ln').val().length > 0) {
+				$('#ln').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#ln').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#em').val().length > 0) {
+				$('#em').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#em').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#ad').val().length > 0) {
+				$('#ad').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#ad').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#ph').val().length > 0) {
+				$('#ph').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#ph').css("border-color", "red");
+				flag--;
+			}
+
+
+			if ($("input[name='gender']:checked").length > 0) {
+				$('#g1').css("color", "black");
+				$('#g2').css("color", "black");
+				flag++;
+			} else {
+				$('#g1').css("color", "red");
+				$('#g2').css("color", "red");
+				flag--;
+			}
+
+			if (flag == 6) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 		
+		function fn_save_consumer() {
+			const isValid = validate()
+			if (isValid) {
+				$.ajax({
+					url: 'http://127.0.0.1:8000/trackapp/createConsumer/',
+					type: 'POST',
+					data: {
+						fname: $('#fn').val(),
+						lname: $('#ln').val(),
+						email: $('#em').val(),
+						phone: $('#ph').val(),
+						address: $('#ad').val(),
+						gender: $("input[name='gender']:checked").val()
+					},
+					success: res => console.log(res),
+					error: e => console.log(e)
+				});
+			} else {
+				console.log('not valid')
+			}
+		}
 	</script>
 	
 {% endblock %}
@@ -137,18 +210,18 @@
 			<td>
 				Firstname
 				<br>
-				<input id="e" class="form-control" name="fname" type="email">
+				<input id="fn" class="form-control" name="email" type="email">
 			</td>
 			<td>
 				Lastname
 				<br>
-				<input id="n" class="form-control" type="text" name="lname">
+				<input id="ln" class="form-control" type="text">
 			</td>
 
 			<td>
 				Email
 				<br>
-				<input id="e" class="form-control" name="email" type="email">
+				<input id="em" class="form-control" name="email" type="email">
 			</td>
 		</tr>
 	   
@@ -156,13 +229,13 @@
    			<td>
 				Phone
 				<br>
-				<input class="form-control" name="phone" type="text">
+				<input class="form-control" name="phone" type="text" id="ph">
 			</td>
 
    			<td>
 				Address
 				<br>
-				<input class="form-control" name="location" type="text">
+				<input class="form-control" name="location" type="text" id="ad">
 			</td>
 
             <td>
@@ -170,13 +243,15 @@
 				<br>
 				<div class="form-check-inline">
 					<label class="form-check-label">
-						<input type="radio" class="form-check-input" name="gender">Male
+						<input type="radio" class="form-check-input" value="Male" name="gender">
+						<span id="g1">Male</span>
 					</label>
 				</div>
 				
 				<div class="form-check-inline">
 					<label class="form-check-label">
-						<input type="radio" class="form-check-input" name="gender">Female
+						<input type="radio" class="form-check-input" value="Female" name="gender">
+						<span id="g2">Female</span>
 					</label>
 				</div>
 			</td>
@@ -184,7 +259,7 @@
 		
 		<tr>
         	<td>
-				<button id="btn" onclick="userdata();">
+				<button id="btn" onclick="fn_save_consumer();">
 					<i class="fa fa-save"></i>
 					Save Consumer
 				</button>
