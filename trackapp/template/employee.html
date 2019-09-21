@@ -56,8 +56,8 @@
 		 
 	    #search{
 	    	color: darkgreen;
-
 	    }
+
         #table{
           border: 2px;
 	       background-color: white;
@@ -66,7 +66,7 @@
 		   padding-left: 50px;
 		   height: 500px;
 		   width: 1000px;
-       }
+       	}
 	    #input{
 			text-decoration: none;
 			background-color:white;
@@ -81,37 +81,152 @@
 			text-decoration: none;
 			background-color: skyblue;
 	        }
-	          #h{
+	    #h{
 			text-decoration: none;
 			color: black;
 			font-size: 20px;
-		   }
-	        #btn{
-	        	color:white;
+		}
+		
+		#btn{
+	        color:white;
          	background-color: skyblue;
-           padding: 10px;
-	        }
-	       th{
+        	padding: 10px;
+	    }
+	    
+	    th{
 	       	color: green;
 	       	text-align: left;
+	    }
 
-	       }
-	       select{
-	       	  padding-left: 30px;
-	       	  padding-right: 60px;
-	       }
-	       a{
-	       	text-decoration: none;
-	       }
-	       span
-	       {
-	       	margin-left: 50px;
-	       }
+	    select{
+	       	padding-left: 30px;
+			padding-right: 60px;
+	    }
+
+	    a{
+	      text-decoration: none;
+	    }
 
 
 	       
 	   
-	</style>    
+	</style> 
+	<script>
+		function validate() {
+			let flag = 0;
+
+			if ($('#fn').val().length > 0) {
+				$('#fn').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#fn').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#ln').val().length > 0) {
+				$('#ln').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#ln').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#un').val().length > 0) {
+				$('#un').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#un').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#pw').val().length > 0) {
+				$('#pw').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#pw').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#em').val().length > 0) {
+				$('#em').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#em').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#ph').val().length > 0) {
+				$('#ph').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#ph').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#dd').val().length > 0) {
+				$('#dd').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#dd').css("border-color", "red");
+				flag--;
+			}
+
+			if ($('#loc').val().length > 0) {
+				$('#loc').css("border-color", "#ced4da");
+				flag++;
+			} else {
+				$('#loc').css("border-color", "red");
+				flag--;
+			}
+
+			if ($("input[name='gender']:checked").length > 0) {
+				$('#g1').css("color", "black");
+				$('#g2').css("color", "black");
+				flag++;
+			} else {
+				$('#g1').css("color", "red");
+				$('#g2').css("color", "red");
+				flag--;
+			}
+
+			if ($('#role').val().length > 0) {
+				$('#role').css("border-color", "#ced4da");
+				flag++
+			} else {
+				flag--;
+				$('#role').css("border-color", "red");
+			}
+
+			if (flag == 10) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		function fn_save_employee() {
+			const isValid = validate();
+			if (isValid) {
+				$.ajax({
+					url: 'http://127.0.0.1:8000/trackapp/createEmployee/',
+					type: 'POST',
+					data: {
+						fname: $('#fn').val(),
+						lname: $('#ln').val(),
+						email: $('#em').val(),
+						phone: $('#ph').val(),
+						address: $('#ad').val(),
+						gender: $("input[name='gender']:checked").val()
+					},
+					success: res => console.log(res),
+					error: e => console.log(e)
+				});
+			} else {
+				console.log('not valid')
+			}
+		}
+	</script>
+	   
 {% endblock %}
 
 {% block body %}
@@ -132,49 +247,55 @@
 	<th> EMPLOYEE<hr></th>
 
 	<tr>
-		 <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="FirstName"></td>
-      	  <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="LastName"></td>
+		 <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="FirstName" id="fn"></td>
+      	  <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="LastName" id="ln"></td>
 
-          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Username"></td>
+          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Username" id="un"></td>
+          <td><span style="color:red;"></span><br><input class="form-control" type="password" placeholder="Password" id="pw"></td>
 	</tr>
 
       <tr>
-          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="E-mail"></td>
-          <td><span style="color:red;"></span><br><input class="form-control"  type="text" placeholder="Phone"></td>
+          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="E-mail" id="em"></td>
+          <td><span style="color:red;"></span><br><input class="form-control"  type="text" placeholder="Phone" id="ph"></td>
           <td>
-          	<span style="color:red;"></span><br><input class="form-control"  type="date" placeholder="DOB">
+          	<span style="color:red;"></span><br><input class="form-control"  type="date" placeholder="DOB" id="dd">
           </td>
       </tr>
       <tr>
-          <td><br><input class="form-control" type="text" placeholder="Location"></td>
+          <td><br><input class="form-control" type="text" placeholder="Location" id="loc"></td>
            <td>
 				Gender
 				<br>
 				<div class="form-check-inline">
 					<label class="form-check-label">
-						<input type="radio" class="form-check-input" name="gender">Male
+						<input type="radio" class="form-check-input"  value="male" name="gender">
+						<span id="g1">male</span>
 					</label>
 				</div>
 				
 				<div class="form-check-inline">
 					<label class="form-check-label">
-						<input type="radio" class="form-check-input" name="gender">Female
+						<input type="radio" class="form-check-input" name="gender" value="female">
+						<span id="g2">female</span>
 					</label>
 				</div>
 			</td>
-          <td>Role<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;<br>
-			<select class="form-control" >
-   			        <option value="g"></option>
+        <td>
+          	Role
+          	<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;
+          	<br>
+			<select id="role" class="form-control">
+   			        <option></option>
    			        <option value="m">Male</option>
    			        <option value="f">Female</option>
-   			    </select>
-
+   			</select>
+		</td>
       </tr>
 
       <tr>
          
          
-          <td><button id="btn" onclick="userdata();"><i class="fa fa-save"></i>Save Employee</button></td>
+          <td><button id="btn" onclick="fn_save_employee();"><i class="fa fa-save"></i>Save Employee</button></td>
             </table>		
         </div>
 {% endblock %}
