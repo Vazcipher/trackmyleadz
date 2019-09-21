@@ -161,3 +161,47 @@ def fn_get_enquiry(request):
 		leads = Leads.objects.filter(fk_company_id=company_obj)
 	except Exception as identifier:
 		print(identifier)
+
+
+def fn_create_consumer(request):
+	try:
+		if request.method == 'POST':
+			fname = request.POST['fname']
+			lname = request.POST['lname']
+			email = request.POST['email']
+			phone = request.POST['phone']
+			address = request.POST['address']
+			gender = request.POST['gender']
+
+			user_obj = UserLogin.objects.get(id=request.session['userId'])
+			company_obj = Company.objects.get(id=request.session['companyId'])
+
+			consumer_obj = Consumer(fk_created_user_id=user_obj, fk_company_id=company_obj, first_name=firstname, 
+							last_name=lastname, email=email, phone=phone, address=address, gender=gender)
+			consumer_obj.save()
+
+			if consumer_obj.id > 0:
+				return HttpResponse('new consumer created')
+			return HttpResponse('failed to create consumer')
+	except:
+		pass
+
+def fn_create_employee(request):
+	try:
+		if request.method == 'POST':
+			name = request.POST['name']
+			email = request.POST['email']
+			phone = request.POST['phone']
+			location = request.POST['location']
+			gender = request.POST['gender']
+			role = request.POST['role']
+
+			# user_obj = UserLogin.
+
+
+
+
+	except:
+		pass
+
+

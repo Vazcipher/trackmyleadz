@@ -54,7 +54,7 @@ class Leads(models.Model):
 	fk_updated_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE, default=None, related_name="fk_updated_user_id")
 	fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
 	fk_assigned_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE, related_name="fk_assigned_user_id")
-	fk_consumer_id = models.ForeignKey(Consumer, on_delete=models.CASCADE)
+	fk_consumer_id = models.ForeignKey(Consumer, on_delete=models.CASCADE, default=None)
 	lead_title = models.CharField(max_length=30)
 	created_date = models.DateField(auto_now_add=True)
 	created_time = models.TimeField(auto_now_add=True)
@@ -65,7 +65,7 @@ class LeadDetails(models.Model):
 	fk_lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
 	product = models.CharField(max_length=30)
 	description = models.CharField(max_length=100)
-	lead_source = models.CharField(max_length=20)
+	lead_source = models.CharField(max_length=20, default=None)
 	lead_stage = models.CharField(max_length=15)
 
 
