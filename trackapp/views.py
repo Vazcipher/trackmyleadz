@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Template,loader
 from .models import *
-
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def indexPage(request):
@@ -77,8 +77,11 @@ def consumer(request):
 def employee(request):
 	try:
 		user_obj = UserLogin.objects.get(id=request.session['userId'])
+		company_obj = Company.objects.get(id=request.session['companyId'])
+		role_obj = UserRole.objects.filter(fk_company_id=company_obj)
 		context = {
-			"username": user_obj.username
+			"username": user_obj.username,
+			"roles": role_obj
 		}
 		return render(request, 'employee.html', context)
 	except Exception as identifier:
@@ -183,10 +186,12 @@ def fn_create_consumer(request):
 			if consumer_obj.id > 0:
 				return HttpResponse('new consumer created')
 			return HttpResponse('failed to create consumer')
-	except:
+	except Exception as e:
+		print(e)
 		return HttpResponse('an error occurred')
 
 
+@csrf_exempt
 def fn_create_employee(request):
 	try:
 		if request.method == 'POST':
@@ -202,15 +207,15 @@ def fn_create_employee(request):
 			role = request.POST['role']
 
 			company_obj = Company.objects.get(id=request.session['companyId'])
-			role_obj = UserRole(fk_company_id=company_obj, role_title=role)
+			role_obj = UserRole.objects.get(id=role)
 
 			emp_obj = UserLogin(fk_company_id=company_obj, role=role_obj, username=uname, password=pword)
 
 			emp_obj.save()
 
 			if emp_obj.id > 0:
-				emp_detail_obj = UserDetail(fk_login_id=emp_obj, firstname=fname, 
-								lastname=lname,address=address, dob=dob, email=email, gender=gender)
+				emp_detail_obj = UserDetails(fk_login_id=emp_obj, firstname=fname, mobile=phone,
+								lastname=lname, address=location, dob=dob, email=email, gender=gender)
 				emp_detail_obj.save()
 
 				if emp_detail_obj.id > 0:
@@ -218,5 +223,5 @@ def fn_create_employee(request):
 
 				return HttpResponse("failed to create employee")
 			return HttpResponse("failed to create employee")
-	except:
+	except Exception:
 		return HttpResponse('An error occurred')

@@ -13,6 +13,6 @@ urlpatterns = [
 	path('charts', views.charts),
 	path('createEnquiry', views.fn_create_enquiry),
 	path('getEnquiry', views.fn_get_enquiry),
-	path('createConsumer', views.fn_create_consumer),
-	path('createEmployee', views.fn_create_employee)
+	path('createConsumer/', views.fn_create_consumer),
+	path('createEmployee/', views.fn_create_employee)
 ]
