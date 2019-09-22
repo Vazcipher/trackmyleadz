@@ -1,58 +1,66 @@
 {% extends 'home.html' %}
 
 {% block head %}
-	<title>employee</title>
-	
-	{% load staticfiles %}
-	<link rel="stylesheet" href="{% static 'css/employee.css' %}">
-	<script src="{% static 'js/employee.js' %}"></script>
+<title>employee</title>
+
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/employee.css' %}">
+<script src="{% static 'js/employee.js' %}"></script>
 
 {% endblock %}
 
 {% block body %}
-   
-        <span class="input" id="Employee">Employee</span>
 
-        <br><br><br><br>
+<span class="input" id="Employee">Employee</span>
 
-   		<button id="New" class="btn btn-primary input"><i class="fa fa-magic"></i>&nbsp;&nbsp;New</button>
+<br><br><br><br>
 
-   		<br><br><br><br>
+<button id="New" class="btn btn-primary input"><i class="fa fa-magic"></i>&nbsp;&nbsp;New</button>
 
-   		<button id="View" class="btn btn-primary input"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</button>
+<br><br><br><br>
 
-    
+<button id="View" class="btn btn-primary input"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</button>
+
+
 <div class="container">
-<table id="table" cellpadding="7px">
-	<th> EMPLOYEE<hr></th>
+	<table id="table" cellpadding="7px">
+		<th> EMPLOYEE
+			<hr>
+		</th>
 
-	<tr>
-		 <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="FirstName" id="fn"></td>
-      	  <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="LastName" id="ln"></td>
+		<tr>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="FirstName"
+					id="fn"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="LastName"
+					id="ln"></td>
 
-          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Username" id="un"></td>
-          <td><span style="color:red;"></span><br><input class="form-control" type="password" placeholder="Password" id="pw"></td>
-	</tr>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Username"
+					id="un"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="password" placeholder="Password"
+					id="pw"></td>
+		</tr>
 
-      <tr>
-          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="E-mail" id="em"></td>
-          <td><span style="color:red;"></span><br><input class="form-control"  type="text" placeholder="Phone" id="ph"></td>
-          <td>
-          	<span style="color:red;"></span><br><input class="form-control"  type="date" placeholder="DOB" id="dd">
-          </td>
-      </tr>
-      <tr>
-          <td><br><input class="form-control" type="text" placeholder="Location" id="loc"></td>
-           <td>
+		<tr>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="E-mail"
+					id="em"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Phone" id="ph">
+			</td>
+			<td>
+				<span style="color:red;"></span><br><input class="form-control" type="date" placeholder="DOB" id="dd">
+			</td>
+		</tr>
+		<tr>
+			<td><br><input class="form-control" type="text" placeholder="Location" id="loc"></td>
+			<td>
 				Gender
 				<br>
 				<div class="form-check-inline">
 					<label class="form-check-label">
-						<input type="radio" class="form-check-input"  value="male" name="gender">
+						<input type="radio" class="form-check-input" value="male" name="gender">
 						<span id="g1">male</span>
 					</label>
 				</div>
-				
+
 				<div class="form-check-inline">
 					<label class="form-check-label">
 						<input type="radio" class="form-check-input" name="gender" value="female">
@@ -60,24 +68,23 @@
 					</label>
 				</div>
 			</td>
-        <td>
-          	Role
-          	<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;
-          	<br>
-			<select id="role" class="form-control">
-				<option></option>
-				{% for role in roles %}
+			<td>
+				Role
+				<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;
+				<br>
+				<select id="role" class="form-control">
+					<option></option>
+					{% for role in roles %}
 					<option value="{{role.id}}">{{ role.role_title }}</option>
-				{% endfor %}
-   			</select>
-		</td>
-      </tr>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
 
-      <tr>
-         
-         
-          <td><button id="btn" onclick="fn_save_employee();"><i class="fa fa-save"></i>Save Employee</button></td>
-            </table>		
-        </div>
+		<tr>
+
+
+			<td><button id="btn" onclick="fn_save_employee();"><i class="fa fa-save"></i>Save Employee</button></td>
+	</table>
+</div>
 {% endblock %}
-
