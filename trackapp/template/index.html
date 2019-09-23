@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>login page</title>
 	<script type="text/javascript">
@@ -18,10 +19,11 @@
 		}
 	</script>
 	<style type="text/css">
-		body{
+		body {
 			background-color: skyblue;
 		}
-		form{
+
+		form {
 			background-color: white;
 			margin-top: 100px;
 			margin-left: 500px;
@@ -30,7 +32,8 @@
 			width: 500px;
 			height: 400px;
 		}
-		input{
+
+		input {
 			margin-left: 35px;
 			width: 400px;
 			height: 40px;
@@ -39,41 +42,47 @@
 			border-style: ridge;
 			padding-left: 10px;
 		}
-		h1{
+
+		h1 {
 			margin-left: 170px;
 		}
-		#btn{
+
+		#btn {
 			background-color: rgb(5 148 124);
 		}
-		a{
+
+		a {
 			text-decoration: none;
 			padding-left: 80px;
 		}
-		span{
+
+		span {
 			padding-left: 50px;
 		}
 	</style>
 </head>
+
 <body>
 
-<div>	
-	<form action="/trackapp/" method="POST">
-		{%csrf_token%}
-		<div id="ff">
-			<h1>SIGN IN</h1><br><br>
-			<span  style="color: red" id="un">(*mandatory)</span>
-			<input type="text" name="uname" placeholder="Username" id="nn">
-			<br><br>
-			<span style="color: red" id="pp" >(*mandatory)</span>
-			<input type="password" name="password" placeholder="Password" id="pp">
-			<br><br>
-			<input type="submit" value="Log In" id="btn" id="bb" onclick="userdata();">
-			<br><br>
-			<span>{{msg}}</span>
-			<a href="">Forgot your password?</a>
+	<div>
+		<form action="/trackapp/" method="POST">
+			{%csrf_token%}
+			<div id="ff">
+				<h1>SIGN IN</h1><br><br>
+				<span style="color: red" id="un">(*mandatory)</span>
+				<input type="text" name="uname" placeholder="Username" id="nn">
+				<br><br>
+				<span style="color: red" id="pp">(*mandatory)</span>
+				<input type="password" name="password" placeholder="Password" id="pp">
+				<br><br>
+				<input type="submit" value="Log In" id="btn" id="bb" onclick="userdata();">
+				<br><br>
+				<span>{{msg}}</span>
+				<a href="">Forgot your password?</a>
 			</div>
-	</form>
-</div>
-	
+		</form>
+	</div>
+
 </body>
+
 </html>

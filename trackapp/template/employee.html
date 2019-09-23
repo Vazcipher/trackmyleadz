@@ -1,137 +1,90 @@
 {% extends 'home.html' %}
 
 {% block head %}
-    <title>employee</title>
-    
-    <style type="text/css">
-		.d{
-			background-color: #006666;
-			color: white;
-			padding-left: 50px;
-			padding-right: 100px;
-			padding-bottom: 30px;
-			padding-top: 30px;
-			font-size: 20px;
-		}
-		.e{
-			background-color: white;
-			color: #006666;
-			padding-right: 100px;
-			padding-left: 50px;
-			padding-bottom: 30px;
-			padding-top: 30px;
-			font-size: 20px;
-		}
-		#f{
-			color:black;
-			text-decoration: none;
-			font-style: bold;
-		}
-		#f:hover{
-			color:blue;
-			text-decoration:none;
-		}
-		#b{
-			background-color: #f2f2f2;
-		}
-		#tb{
-			width: 80%;
-		}
-		.list-group-item{
-			color: white;
-			float: right;
-			padding:10px;
-		}
-		 
-	    #search{
-	    	color: darkgreen;
+<title>employee</title>
 
-	    }
-        #table{
-          border:2px;
-          background-color: white;
-          margin-top: -270px;
-          margin-left: 250px;
-          padding-left: 50px;
-          height:500px;
-          width:1000px;
-       }
-	    #input{
-			text-decoration: none;
-			background-color:white;
-			color: blue;
-			font-size: 20px;
-			border: 100px;
-		    margin-left: 50px;
-		    padding-left: 10px;
-		    padding-right: 10px;
-		}
-		#input:hover{
-			text-decoration: none;
-			background-color: skyblue;
-	        }
-	          #h{
-			text-decoration: none;
-			color: black;
-			font-size: 20px;
-		   }
-	        #btn{
-	        	color:white;
-         	background-color: skyblue;
-           padding: 10px;
-	        }
-	       th{
-	       	color: green;
-	       	text-align: left;
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/employee.css' %}">
+<script src="{% static 'js/employee.js' %}"></script>
 
-	       }
-	       select{
-	       	  padding-left: 30px;
-	       	  padding-right: 60px;
-	       }
-	       a{
-	       	text-decoration: none;
-	       }
-
-	       
-	   
-	</style>    
 {% endblock %}
 
 {% block body %}
-    <div>
-        <a  id="input" href="#">Employee</a>
-   		<a  id="input" href="#"><i class="fa fa-magic"></i>New</a>
-   		<a  id="input" href="#"><i class="fa fa-eye"></i>View</a>
-    
+
+<span class="input" id="Employee">Employee</span>
+
+<br><br><br><br>
+
+<button id="New" class="btn btn-primary input"><i class="fa fa-magic"></i>&nbsp;&nbsp;New</button>
+
+<br><br><br><br>
+
+<button id="View" class="btn btn-primary input"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</button>
+
+
 <div class="container">
-<table id="table">
-        <th>EMPLOYEE<hr></th>
-      <tr>
-          <td>Name<span style="color:red;">(*Mandatory)</span><br><input  id="n" type="text"></td>
-          <td>E-mail<span style="color:red;">(*Mandatory)</span><br><input id="e" type="text"></td>
-          <td> Phone<span style="color:red;">(*Mandatory)</span><br><input id="ph" type="text"></td>
-      </tr>
-      <tr>
-          <td>Location<br><input type="text"></td>
-          <td>Gender<span style="color:red;">(*Mandatory)</span><br><select id="g">
-                      <option value="g"></option>
-                      <option value="m">Male</option>
-                      <option value="f">Female</option>
-                  </select></td>
-         
+	<table id="table" cellpadding="7px">
+		<th> EMPLOYEE
+			<hr>
+		</th>
 
-      </tr>
-      <tr>
-          <td>Role<span style="color:red;">(*Mandatory)</span><br>
-               <select id="r">
-                      <option value="r" selected></option>
-                      <option value=""></option>
-                      <option value=""></option>
-                  </select></td>
-         
-          <td><button id="btn" onclick="userdata();"><i class="fa fa-save"></i>Save Employee</button></td>
-            </table>		
-        </div>
+		<tr>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="FirstName"
+					id="fn"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="LastName"
+					id="ln"></td>
+
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Username"
+					id="un"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="password" placeholder="Password"
+					id="pw"></td>
+		</tr>
+
+		<tr>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="E-mail"
+					id="em"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Phone" id="ph">
+			</td>
+			<td>
+				<span style="color:red;"></span><br><input class="form-control" type="date" placeholder="DOB" id="dd">
+			</td>
+		</tr>
+		<tr>
+			<td><br><input class="form-control" type="text" placeholder="Location" id="loc"></td>
+			<td>
+				Gender
+				<br>
+				<div class="form-check-inline">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" value="male" name="gender">
+						<span id="g1">male</span>
+					</label>
+				</div>
+
+				<div class="form-check-inline">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" name="gender" value="female">
+						<span id="g2">female</span>
+					</label>
+				</div>
+			</td>
+			<td>
+				Role
+				<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;
+				<br>
+				<select id="role" class="form-control">
+					<option></option>
+					{% for role in roles %}
+					<option value="{{role.id}}">{{ role.role_title }}</option>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+
+
+			<td><button id="btn" onclick="fn_save_employee();"><i class="fa fa-save"></i>Save Employee</button></td>
+	</table>
+</div>
 {% endblock %}
-

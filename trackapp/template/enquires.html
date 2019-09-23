@@ -1,230 +1,99 @@
 {% extends 'home.html' %}
 
 {% block head %}
-<style type="text/css">
 
-		.d {
-			background-color: #006666;
-			color: white;
-			padding-left: 50px;
-			padding-right: 100px;
-			padding-bottom: 30px;
-			padding-top: 30px;
-			font-size: 20px;
-		}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/enquires.css' %}">
+<script src="{% static 'js/enquires.js' %}"></script>
+<title>enquires</title>
 
-		.e{
-			background-color: white;
-			color: #006666;
-			padding-right: 100px;
-			padding-left: 50px;
-			padding-bottom: 30px;
-			padding-top: 30px;
-			font-size: 20px;
-		}
-
-		#f {
-			color: black;
-			text-decoration: none;
-			font-style: bold;
-		}
-
-		#f:hover {
-			color: blue;
-			text-decoration:none;
-		}
-
-		#b {
-			background-color: #f2f2f2;
-		}
-
-		#tb {
-			width: 80%;
-		}
-
-		.list-group-item {
-			color: white;
-			float: right;
-			padding: 10px;
-		}
-
-		#table {
-	       border: 2px;
-	       background-color: white;
-		   margin-top: -270px;
-		   margin-left: 250px;
-		   padding-left: 50px;
-		   height: 500px;
-		   width: 1000px;
-	    }
-
-	    #view_enq {
-	    	border: 2px;
-	       	background-color: white;
-		   	margin-top: -270px;
-		   	margin-left: 250px;
-		   	padding-left: 50px;
-		   	height: 500px;
-	    }
-
-	    #search {
-	    	color: darkgreen;
-	    }
-
-	    .input {
-		    margin-left: 50px;
-		    padding-left: 10px;
-		    padding-right: 10px;
-			width: 12%;
-		}
-
-		#input1 {
-			text-decoration: none;
-			background-color:white;
-			color: blue;
-			font-size: 20px;
-			border: 100px;
-		    margin-left: 50px;
-		    padding-left: 10px;
-		    padding-right: 10px;
-		}
-
-		#input:hover {
-			text-decoration: none;
-			background-color: skyblue;
-	    }
-	       
-	    th {
-	       	color: green;
-	       	text-align: left;
-	    }
-	    
-		select{
-	       	padding-left: 30px;
-	       	padding-right: 120px;
-	    }
-
-	    a {
-	       	text-decoration: none;
-	    }
-
-        #btn {
-         	color:white;
-         	background-color: skyblue;
-         	padding: 15px;
-        }
-
-        input {
-         	padding-left: 10px;
-         	padding-right: 50px;
-        }
-
-        #h {
-			text-decoration: none;
-			color: black;
-			font-size: 20px;
-		}
-	</style>
-    <title>enquires</title>
-
-    <script>
-    	$(document).ready( () => {
-
-    		$("#table").hide();
-
-    		$("#New").click( () => {
-    			$("#view_enq").hide();
-    			$("#table").show();
-    		});
-
-    		$("#view").click( () => {
-    			$("#view_enq").show();
-    			$("#table").hide();
-    		});
-
-    	});
-    </script>
 {% endblock %}
 
 {% block body %}
 
-    <div class="container">
-		
-		   <br>
-		   	<span class="input" id="Enquiry">
-			   Enquiry
-			</span>
-			<br><br><br>
-			
-			<button id="New" class="btn btn-primary input">
-				<i class="fa fa-eye">&nbsp; New</i>
-			</button>
-			
-			<br><br><br><br>
-			   
-			<button id="view" class="btn btn-primary input">
-				<i class="fa fa-eye">&nbsp; View</i>
-			</button>
-			
-			<br><br><br><br>
+<div class="container">
 
-			<button id="Queue" class="btn btn-primary input">
-				<i class="fa fa-folder-open">&nbsp; My Queue</i>
-			</button>
+	<br>
+	<span class="input" id="Enquiry">
+		Enquiry
+	</span>
+	<br><br><br>
 
- 	<div id="view_enq" class="row">	         
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-    </tbody>
-  </table>
-</div>
+	<button id="New" class="btn btn-primary input">
+		<i class="fa fa-magic">&nbsp; New</i>
+	</button>
+
+	<br><br><br><br>
+
+	<button id="view" class="btn btn-primary input">
+		<i class="fa fa-eye">&nbsp; View</i>
+	</button>
+
+	<br><br><br><br>
+
+	<button id="Queue" class="btn btn-primary input">
+		<i class="fa fa-folder-open">&nbsp; My Queue</i>
+	</button>
+
+	<div id="view_enq" class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Firstname</th>
+					<th>Lastname</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+	</div>
 
 
-   <table id="table" cellpadding="4px">
-   	 <th>CONSUMER<hr></th>
-   	<tr>
-		   <td>Consumer<span style="color:red;">(*Mandatory)</span>&nbsp;&nbsp;&nbsp;<br>
-			<select class="form-control" >
-   			        <option value="g"></option>
-   			        <option value="m">Male</option>
-   			        <option value="f">Female</option>
-   			    </select>
-   		<td>Email<br><input class="form-control" type="text"></td>
-   	    <td>Phone<br><input class="form-control" type="text"></td>
-   	 </tr>
+	<table id="table" cellpadding="4px">
+		<th>CONSUMER
+			<hr>
+		</th>
+		<tr>
+			<td>Consumer<span style="color:red;">(*Mandatory)</span>&nbsp;&nbsp;&nbsp;<br>
+				<select class="form-control">
+					<option value="g"></option>
+					<option value="m">Male</option>
+					<option value="f">Female</option>
+				</select>
+			<td>Email<br><input class="form-control" type="text"></td>
+			<td>Phone<br><input class="form-control" type="text"></td>
+		</tr>
 
-   	<th>LEAD DETAILS<hr></th>
-   	<tr>
-		   <td>
-			   <select class="form-control">
-				   <option selected disabled>Lead Stage</option>
-				   <option value="o">Open</option>
-				   <option value="c">Close</option>
-				   <option value="w">Won</option>
-   				</select>
-   			</td>
+		<th>LEAD DETAILS
+			<hr>
+		</th>
+		<tr>
+			<td>
+				<select class="form-control">
+					<option selected disabled>Lead Stage</option>
+					<option value="o">Open</option>
+					<option value="c">Close</option>
+					<option value="w">Won</option>
+				</select>
+			</td>
 			<td>
 				<select class="form-control">
 					<option selected disabled>Lead Source</option>
-   			    	<option value="g">Website</option>
-   			    	<option value="m">Facebook</option>
-   			    	<option value="f">Reference</option>
-   				</select>
-   			</td>
-	</tr>
-	   
-   	<th>GENERAL<hr></th>
-   	<tr>
-		   <td>
-			<input placeholder="Product" class="form-control" type="text"></td>
+					<option value="g">Website</option>
+					<option value="m">Facebook</option>
+					<option value="f">Reference</option>
+				</select>
+			</td>
+		</tr>
+
+		<th>GENERAL
+			<hr>
+		</th>
+		<tr>
+			<td>
+				<input placeholder="Product" class="form-control" type="text"></td>
 
 			<td>
 				<select class="form-control">
@@ -234,33 +103,33 @@
 					<option value="f"></option>
 				</select>
 			</td>
-	   </tr>
+		</tr>
 
-   <tr>
-	   <td>Description<span style="color:red;">(*Mandatory)</span><br>
-		<textarea class="form-control" id="des"></textarea></td>
-   </tr>
+		<tr>
+			<td>Description<span style="color:red;">(*Mandatory)</span><br>
+				<textarea class="form-control" id="des"></textarea></td>
+		</tr>
 
-   <tr>
-		<td>
-			<div class="form-check">
-				<label class="form-check-label">
-					<input type="checkbox" class="form-check-input" name="sendsms">
-					Send sms
-				</label>
-			</div>
-		</td>
+		<tr>
+			<td>
+				<div class="form-check">
+					<label class="form-check-label">
+						<input type="checkbox" class="form-check-input" name="sendsms">
+						Send sms
+					</label>
+				</div>
+			</td>
 
-		<td>
-			<button id="btn">
-				<i class="fa fa-save"></i>
-				&nbsp;Save Enquiry
-			</button>
-		</td>
-    </tr>
-</table>
-       
+			<td>
+				<button id="btn">
+					<i class="fa fa-save"></i>
+					&nbsp;Save Enquiry
+				</button>
+			</td>
+		</tr>
+	</table>
 
-    </div>
+
+</div>
 
 {% endblock %}
