@@ -180,6 +180,7 @@ def fn_get_enquiry(request):
         print(identifier)
 
 
+@csrf_exempt
 def fn_create_consumer(request):
     try:
         if request.method == 'POST':
@@ -195,7 +196,7 @@ def fn_create_consumer(request):
 
             consumer_obj = Consumer(fk_created_user_id=user_obj,
                                     fk_company_id=company_obj,
-                                    firstname=fname,
+                                    fistname=fname,
                                     lastname=lname,
                                     email=email,
                                     phone=phone,
