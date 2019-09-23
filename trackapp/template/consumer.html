@@ -1,271 +1,107 @@
 {% extends 'home.html' %}
 
 {% block head %}
-	<title>consumer</title>
+<title>consumer</title>
 
-	<style type="text/css">
-	
-		#tb{
-			width: 80%;
-		}
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/consumer.css' %}">
+<script src="{% static 'js/consumer.js' %}"></script>
 
-		.list-group-item{
-			color: white;
-			float: right;
-			padding: 10px;
-		}
-
-		#table{  
-	       border: 2px;
-	       background-color: white;
-		   margin: -100px;
-		   margin-left: 250px;
-		   padding-left: 50px;
-		   height: 300px;
-		   width: 1000px;
-	    }
-		#view_enq {
-	    	border: 2px;
-	       	background-color: white;
-		   	margin-top: -155px;
-		   	margin-left: 250px;
-		   	padding-left: 50px;
-		   	height: 500px;
-			width: 1000px;
-	    }
-	    #search{
-	    	color: darkgreen;
-	    }
-
-	    .input{
-		    margin-left: 50px;
-		    padding-left: 10px;
-		    padding-right: 10px;
-			width: 10%;
-		}
-
-	    #h{
-			text-decoration: none;
-			color: black;
-			font-size: 20px;
-		}
-
-		#btn{
-			color: white;
-         	background-color: skyblue;
-         	padding: 10px;
-        }
-		
-		th{
-			color: green;
-	       	text-align: left;
-		}
-
-	    select{
-			padding-left: 30px;
-	       	padding-right: 60px;
-	    }
-
-	    a{
-			text-decoration: none;
-		}
-
-	</style>
-	<script>
-			$(document).ready( () => {
-	
-				$("#table").hide();
-	
-				$("#New").click( () => {
-					$("#view_enq").hide();
-					$("#table").show();
-				});
-	
-				$("#view").click( () => {
-					$("#view_enq").show();
-					$("#table").hide();
-				});
-	
-			});
-		</script>
-	<script>
-		function validate() {
-			let flag = 0;
-
-			if ($('#fn').val().length > 0) {
-				$('#fn').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#fn').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#ln').val().length > 0) {
-				$('#ln').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#ln').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#em').val().length > 0) {
-				$('#em').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#em').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#ad').val().length > 0) {
-				$('#ad').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#ad').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#ph').val().length > 0) {
-				$('#ph').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#ph').css("border-color", "red");
-				flag--;
-			}
-
-
-			if ($("input[name='gender']:checked").length > 0) {
-				$('#g1').css("color", "black");
-				$('#g2').css("color", "black");
-				flag++;
-			} else {
-				$('#g1').css("color", "red");
-				$('#g2').css("color", "red");
-				flag--;
-			}
-
-			if (flag == 6) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		
-		function fn_save_consumer() {
-			const isValid = validate()
-			if (isValid) {
-				$.ajax({
-					url: 'http://127.0.0.1:8000/trackapp/createConsumer/',
-					type: 'POST',
-					data: {
-						fname: $('#fn').val(),
-						lname: $('#ln').val(),
-						email: $('#em').val(),
-						phone: $('#ph').val(),
-						address: $('#ad').val(),
-						gender: $("input[name='gender']:checked").val()
-					},
-					success: res => console.log(res),
-					error: e => console.log(e)
-				});
-			} else {
-				console.log('not valid')
-			}
-		}
-	</script>
-	
 {% endblock %}
 
 {% block body %}
 
 <br>
-	<span class="input">Consumer</span>
+<span class="input">Consumer</span>
 <br>
 <br>
-	<button id="New" class="input btn btn-primary">
-		<i class="fa fa-magic">&nbsp; New</i>
-	</button>
+<button id="New" class="input btn btn-primary">
+	<i class="fa fa-magic">&nbsp; New</i>
+</button>
 <br>
 <br>
-	<button id="view" class="input btn btn-primary">
-		<i class="fa fa-eye">&nbsp; View</i>
-	</button>
+<button id="view" class="input btn btn-primary">
+	<i class="fa fa-eye">&nbsp; View</i>
+</button>
 
-	<div id="view_enq" class="row">	         
-			<table class="table">
-			  <thead>
-				<tr>
-				  <th>Firstname</th>
-				  <th>Lastname</th>
-				  <th>Email</th>
-				</tr>
-			  </thead>
-			  <tbody>
-				
-			  </tbody>
-			</table>
-		  </div>
-   <table id="table" cellpadding="7px">
-   	  	<th>CONSUMER<hr></th>
-		<tr>
-			<td>
-				Firstname
-				<br>
-				<input id="fn" class="form-control" name="email" type="email">
-			</td>
-			<td>
-				Lastname
-				<br>
-				<input id="ln" class="form-control" type="text">
-			</td>
+<div id="view_enq" class="row">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Firstname</th>
+				<th>Lastname</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
 
-			<td>
-				Email
-				<br>
-				<input id="em" class="form-control" name="email" type="email">
-			</td>
-		</tr>
-	   
-   		<tr>
-   			<td>
-				Phone
-				<br>
-				<input class="form-control" name="phone" type="text" id="ph">
-			</td>
+		</tbody>
+	</table>
+</div>
+<table id="table" cellpadding="7px">
+	<th>CONSUMER
+		<hr>
+	</th>
+	<tr>
+		<td>
+			Firstname
+			<br>
+			<input id="fn" class="form-control" name="email" type="email">
+		</td>
+		<td>
+			Lastname
+			<br>
+			<input id="ln" class="form-control" type="text">
+		</td>
 
-   			<td>
-				Address
-				<br>
-				<input class="form-control" name="location" type="text" id="ad">
-			</td>
+		<td>
+			Email
+			<br>
+			<input id="em" class="form-control" name="email" type="email">
+		</td>
+	</tr>
 
-            <td>
-				Gender
-				<br>
-				<div class="form-check-inline">
-					<label class="form-check-label">
-						<input type="radio" class="form-check-input" value="Male" name="gender">
-						<span id="g1">Male</span>
-					</label>
-				</div>
-				
-				<div class="form-check-inline">
-					<label class="form-check-label">
-						<input type="radio" class="form-check-input" value="Female" name="gender">
-						<span id="g2">Female</span>
-					</label>
-				</div>
-			</td>
-   		</tr>
-		
-		<tr>
-        	<td>
-				<button id="btn" onclick="fn_save_consumer();">
-					<i class="fa fa-save"></i>
-					Save Consumer
-				</button>
-			</td>
-   		</tr>
-   	</table>
-       
+	<tr>
+		<td>
+			Phone
+			<br>
+			<input class="form-control" name="phone" type="text" id="ph">
+		</td>
+
+		<td>
+			Address
+			<br>
+			<input class="form-control" name="location" type="text" id="ad">
+		</td>
+
+		<td>
+			Gender
+			<br>
+			<div class="form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" value="Male" name="gender">
+					<span id="g1">Male</span>
+				</label>
+			</div>
+
+			<div class="form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" value="Female" name="gender">
+					<span id="g2">Female</span>
+				</label>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<button id="btn" onclick="fn_save_consumer();">
+				<i class="fa fa-save"></i>
+				Save Consumer
+			</button>
+		</td>
+	</tr>
+</table>
+
 
 {% endblock %}
