@@ -57,9 +57,10 @@
 		<tr>
 			<td>Consumer<span style="color:red;">(*Mandatory)</span>&nbsp;&nbsp;&nbsp;<br>
 				<select class="form-control" id="consumer">
-					<option value=""></option>
-					<option value="m">Male</option>
-					<option value="f">Female</option>
+					<option value="" selected>Please select a consumer</option>
+					{% for consumer in consumer_obj %}
+					<option value="{{username.id}}"> {{ consumer.fistname }} {{ consumer.lastname }} </option>
+					{% endfor %}
 				</select>
 			<td>Email<br><input class="form-control" type="text" id="email"></td>
 			<td>Phone<br><input class="form-control" type="text" id="phone"></td>
@@ -96,10 +97,10 @@
 
 			<td>
 				<select class="form-control" id="assigned">
-					<option value="" selected>Assigned to</option>
-					<option value="g">test</option>
-					<option value="m"></option>
-					<option value="f"></option>
+					<option selected value="">Assigned to</option>
+					{% for emp in emp_obj %}
+					<option value="{{emp.id}}"> {{ emp.username }} </option>
+					{% endfor %}
 				</select>
 			</td>
 		</tr>

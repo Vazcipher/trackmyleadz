@@ -66,9 +66,11 @@ function validate() {
         $('#des').css("border-color", "red");
     } 
 
-   
-
-    console.log(flag)
+   if (flag == 6) {
+       return true;
+   } else {
+       return false;
+   }
 }
 
 
