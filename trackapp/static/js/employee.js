@@ -1,3 +1,18 @@
+$(document).ready( () => {
+	
+    $("#table").hide();
+
+    $("#New").click( () => {
+        $("#view_emp").hide();
+        $("#table").show();
+    });
+
+    $("#View").click( () => {
+        $("#view_emp").show();
+        $("#table").hide();
+    });
+
+});
 
 function validate() {
     
@@ -125,6 +140,17 @@ function fn_save_employee() {
                     loader: true,  
                     loaderBg: '#9EC600',  
                 });
+                $('#fn').val("");
+                $('#ln').val("");
+                $('#un').val("");
+                $('#pw').val("");
+                $('#em').val("");
+                $('#ph').val("");
+                $('#dd').val("");
+                $('#loc').val("");
+                $("input[name='gender']:checked").val(),
+                $('#role').val("")
+
             },
             error: e => {
                 $.toast({

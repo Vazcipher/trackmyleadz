@@ -57,8 +57,13 @@ def logoutUser(request):
 def enquires(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
+        company_obj = Company.objects.get(id=request.session['companyId'])
+        consumer_obj = Consumer.objects.filter(fk_company_id=company_obj)
+        emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
         context = {
-            "username": user_obj.username
+            "username": user_obj.username,
+            "consumer_obj": consumer_obj,
+            "emp_obj": emp_obj
         }
         return render(request, 'enquires.html', context)
     except Exception:
@@ -99,6 +104,7 @@ def others(request):
         return render(request, 'others.html', context)
     except Exception as identifier:
         print(identifier)
+        return render(request, 'others.html')
 
 
 def reports(request):
@@ -110,6 +116,7 @@ def reports(request):
         return render(request, 'reports.html', context)
     except Exception as identifier:
         print(identifier)
+        return render(request, 'reports.html')
 
 
 def charts(request):
@@ -121,8 +128,10 @@ def charts(request):
         return render(request, 'charts.html', context)
     except Exception as identifier:
         print(identifier)
+        return render(request, 'charts.html')
 
 
+@csrf_exempt
 def fn_create_enquiry(request):
     try:
         if request.method == 'POST':
@@ -131,13 +140,7 @@ def fn_create_enquiry(request):
             lead_source = request.POST['source']
             lead_stage = request.POST['stage']
 
-            first_name = request.POST['firstname']
-            last_name = request.POST['lastname']
             product = request.POST['product']
-            phone_number = request.POST['number']
-            email = request.POST['email']
-            address = request.POST['address']
-            gender = request.POST['gender']
             desc = request.POST['desc']
 
             user_obj = UserLogin.objects.get(id=request.session['userId'])
@@ -145,31 +148,29 @@ def fn_create_enquiry(request):
             ass_user_obj = UserLogin.objects.get(
                 id=request.POST['assigneduser'])
 
+            consumer_obj = Consumer.objects.get(id=request.POST['consumer'])
+
             lead_obj = Leads(fk_created_user_id=user_obj,
                              fk_updated_user_id=user_obj,
                              fk_company_id=company_obj,
                              fk_assigned_user_id=ass_user_obj,
-                             lead_title=lead_title,
-                             lead_source=lead_source, lead_stage=lead_stage)
+                             fk_consumer_id=consumer_obj,
+                             lead_title=lead_title)
             lead_obj.save()
 
             if lead_obj.id > 0:
                 lead_detail_obj = LeadDetails(fk_lead_id=lead_obj,
-                                              first_name=first_name,
-                                              last_name=last_name,
                                               product=product,
-                                              phone_number=phone_number,
-                                              email=email,
-                                              address=address,
-                                              gender=gender,
-                                              description=desc)
+                                              description=desc,
+                                              lead_source=lead_source,
+                                              lead_stage=lead_stage)
                 lead_detail_obj.save()
-
                 return HttpResponse('created')
             return HttpResponse('failed')
 
     except Exception as identifier:
         print(identifier)
+        return HttpResponse('an error occurred')
 
 
 def fn_get_enquiry(request):
