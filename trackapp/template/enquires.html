@@ -56,13 +56,13 @@
 		</th>
 		<tr>
 			<td>Consumer<span style="color:red;">(*Mandatory)</span>&nbsp;&nbsp;&nbsp;<br>
-				<select class="form-control">
-					<option value="g"></option>
+				<select class="form-control" id="consumer">
+					<option value=""></option>
 					<option value="m">Male</option>
 					<option value="f">Female</option>
 				</select>
-			<td>Email<br><input class="form-control" type="text"></td>
-			<td>Phone<br><input class="form-control" type="text"></td>
+			<td>Email<br><input class="form-control" type="text" id="email"></td>
+			<td>Phone<br><input class="form-control" type="text" id="phone"></td>
 		</tr>
 
 		<th>LEAD DETAILS
@@ -70,16 +70,16 @@
 		</th>
 		<tr>
 			<td>
-				<select class="form-control">
-					<option selected disabled>Lead Stage</option>
+				<select class="form-control" id="lead_stage">
+					<option value="" selected>Lead Stage</option>
 					<option value="o">Open</option>
 					<option value="c">Close</option>
 					<option value="w">Won</option>
 				</select>
 			</td>
 			<td>
-				<select class="form-control">
-					<option selected disabled>Lead Source</option>
+				<select class="form-control" id="lead_source">
+					<option value="" selected>Lead Source</option>
 					<option value="g">Website</option>
 					<option value="m">Facebook</option>
 					<option value="f">Reference</option>
@@ -92,11 +92,11 @@
 		</th>
 		<tr>
 			<td>
-				<input placeholder="Product" class="form-control" type="text"></td>
+				<input placeholder="Product" class="form-control" type="text" id="product"></td>
 
 			<td>
-				<select class="form-control">
-					<option selected disabled>Assigned to</option>
+				<select class="form-control" id="assigned">
+					<option value="" selected>Assigned to</option>
 					<option value="g">test</option>
 					<option value="m"></option>
 					<option value="f"></option>
@@ -120,7 +120,7 @@
 			</td>
 
 			<td>
-				<button id="btn">
+				<button id="btn" onclick="fn_save_enquiery();">
 					<i class="fa fa-save"></i>
 					&nbsp;Save Enquiry
 				</button>
