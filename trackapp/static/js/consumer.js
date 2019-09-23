@@ -89,8 +89,43 @@ function fn_save_consumer() {
                 address: $('#ad').val(),
                 gender: $("input[name='gender']:checked").val()
             },
-            success: res => console.log(res),
-            error: e => console.log(e)
+            // success: res => console.log(res),
+            success: res => {
+                $.toast({
+                    text: res,
+                    heading: 'Note', 
+                    icon: 'warning', 
+                    showHideTransition: 'fade', 
+                    allowToastClose: true, 
+                    hideAfter: 3000,
+                    stack: 5, 
+                    position: 'bottom-left',  
+                    textAlign: 'left', 
+                    loader: true,  
+                    loaderBg: '#9EC600',  
+                });
+                $('#fn').val('');
+                $('#ln').val('');
+                $('#em').val('');
+                $('#ph').val('');
+                $('#ad').val('');
+            },
+            // error: e => console.log(e)
+            error: e => {
+                $.toast({
+                    text: e,
+                    heading: 'Note', 
+                    icon: 'warning',
+                    showHideTransition: 'fade', 
+                    allowToastClose: true,
+                    hideAfter: 3000,  
+                    stack: 5, 
+                    position: 'bottom-left',  
+                    textAlign: 'left',  
+                    loader: true,  
+                    loaderBg: '#9EC600',  
+                });
+            }
         });
     } else {
         console.log('not valid')

@@ -20,88 +20,86 @@
 </button>
 <br>
 <br>
-<button id="view" class="input btn btn-primary">
-	<i class="fa fa-eye">&nbsp; View</i>
-</button>
+	<button id="view" class="input btn btn-primary">
+		<i class="fa fa-eye">&nbsp; View</i>
+	</button>
 
-<div id="view_enq" class="row">
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Firstname</th>
-				<th>Lastname</th>
-				<th>Email</th>
-			</tr>
-		</thead>
-		<tbody>
+	<div id="view_enq" class="row">	         
+			<table class="table">
+			  <thead>
+				<tr>
+				  <th>Firstname</th>
+				  <th>Lastname</th>
+				  <th>Email</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				
+			  </tbody>
+			</table>
+		  </div>
+   <table id="table" cellpadding="7px">
+   	  	<th>CONSUMER<hr></th>
+		<tr>
+			<td>
+				Firstname
+				<br>
+				<input id="fn" class="form-control"  type="text">
+			</td>
+			<td>
+				Lastname
+				<br>
+				<input id="ln" class="form-control" type="text">
+			</td>
 
-		</tbody>
-	</table>
-</div>
-<table id="table" cellpadding="7px">
-	<th>CONSUMER
-		<hr>
-	</th>
-	<tr>
-		<td>
-			Firstname
-			<br>
-			<input id="fn" class="form-control" name="email" type="email">
-		</td>
-		<td>
-			Lastname
-			<br>
-			<input id="ln" class="form-control" type="text">
-		</td>
+			<td>
+				Email
+				<br>
+				<input id="em" class="form-control" name="email" type="email">
+			</td>
+		</tr>
+	   
+   		<tr>
+   			<td>
+				Phone
+				<br>
+				<input class="form-control" name="phone" type="text" id="ph">
+			</td>
 
-		<td>
-			Email
-			<br>
-			<input id="em" class="form-control" name="email" type="email">
-		</td>
-	</tr>
+   			<td>
+				Address
+				<br>
+				<input class="form-control" name="location" type="text" id="ad">
+			</td>
 
-	<tr>
-		<td>
-			Phone
-			<br>
-			<input class="form-control" name="phone" type="text" id="ph">
-		</td>
-
-		<td>
-			Address
-			<br>
-			<input class="form-control" name="location" type="text" id="ad">
-		</td>
-
-		<td>
-			Gender
-			<br>
-			<div class="form-check-inline">
-				<label class="form-check-label">
-					<input type="radio" class="form-check-input" value="Male" name="gender">
-					<span id="g1">Male</span>
-				</label>
-			</div>
-
-			<div class="form-check-inline">
-				<label class="form-check-label">
-					<input type="radio" class="form-check-input" value="Female" name="gender">
-					<span id="g2">Female</span>
-				</label>
-			</div>
-		</td>
-	</tr>
-
-	<tr>
-		<td>
-			<button id="btn" onclick="fn_save_consumer();">
-				<i class="fa fa-save"></i>
-				Save Consumer
-			</button>
-		</td>
-	</tr>
-</table>
-
+            <td>
+				Gender
+				<br>
+				<div class="form-check-inline">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" value="Male" name="gender">
+						<span id="g1">Male</span>
+					</label>
+				</div>
+				
+				<div class="form-check-inline">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" value="Female" name="gender">
+						<span id="g2">Female</span>
+					</label>
+				</div>
+			</td>
+   		</tr>
+		
+		<tr>
+        	<td>
+				<button id="btn" onclick="fn_save_consumer();">
+					<i class="fa fa-save"></i>
+					Save Consumer
+				</button>
+			</td>
+   		</tr>
+   	</table>
+       
 
 {% endblock %}
