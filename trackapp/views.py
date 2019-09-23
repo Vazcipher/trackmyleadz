@@ -57,8 +57,13 @@ def logoutUser(request):
 def enquires(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
+        company_obj = Company.objects.get(id=request.session['companyId'])
+        consumer_obj = Consumer.objects.filter(fk_company_id=company_obj)
+        emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
         context = {
-            "username": user_obj.username
+            "username": user_obj.username,
+            "consumer_obj": consumer_obj,
+            "emp_obj": emp_obj
         }
         return render(request, 'enquires.html', context)
     except Exception:
