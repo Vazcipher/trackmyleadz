@@ -59,7 +59,7 @@
 				<select class="form-control" id="consumer">
 					<option value="" selected>Please select a consumer</option>
 					{% for consumer in consumer_obj %}
-					<option value="{{username.id}}"> {{ consumer.fistname }} {{ consumer.lastname }} </option>
+					<option value="{{consumer.id}}"> {{ consumer.fistname }} {{ consumer.lastname }} </option>
 					{% endfor %}
 				</select>
 			<td>Email<br><input class="form-control" type="text" id="email"></td>
