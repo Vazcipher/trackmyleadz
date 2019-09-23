@@ -1,311 +1,66 @@
 {% extends 'home.html' %}
 
 {% block head %}
-    <title>employee</title>
-    
-    <style type="text/css">
-		#New{
-			background-color: blue;
-			color: white;
-			padding-left: 10px;
-			padding-right: 60px;
-			padding-bottom: 7px;
-			padding-top: 6px;
-			font-size: 15px;
-			margin-left: 50px;
-		}
-		#View{
-			background-color: blue;
-			color: white;
-			padding-left: 10px;
-			padding-right: 60px;
-			padding-bottom: 7px;
-			padding-top: 6px;
-			font-size: 15px;
-			margin-left: 50px;
-		}
-		.e{
-			background-color: white;
-			color: #006666;
-			padding-right: 100px;
-			padding-left: 50px;
-			padding-bottom: 30px;
-			padding-top: 30px;
-			font-size: 20px;
-		}
-		#f{
-			color:black;
-			text-decoration: none;
-			font-style: bold;
-		}
-		#f:hover{
-			color:blue;
-			text-decoration:none;
-		}
-		#b{
-			background-color: #f2f2f2;
-		}
-		#tb{
-			width: 80%;
-		}
-		.list-group-item{
-			color: white;
-			float: right;
-			padding:10px;
-		}
-		 
-	    #search{
-	    	color: darkgreen;
-	    }
+<title>employee</title>
 
-        #table{
-          border: 2px;
-	       background-color: white;
-		   margin-top: -200px;
-		   margin-left: 150px;
-		   padding-left: 50px;
-		   height: 500px;
-		   width: 1000px;
-       	}
-	    #input{
-			text-decoration: none;
-			background-color:white;
-			color: blue;
-			font-size: 20px;
-			border: 100px;
-		    margin-left: 40px;
-		    padding-left: 10px;
-		    padding-right: 10px;
-		}
-		#input:hover{
-			text-decoration: none;
-			background-color: skyblue;
-	        }
-	    #h{
-			text-decoration: none;
-			color: black;
-			font-size: 20px;
-		}
-		
-		#btn{
-	        color:white;
-         	background-color: skyblue;
-        	padding: 10px;
-	    }
-	    
-	    th{
-	       	color: green;
-	       	text-align: left;
-	    }
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/employee.css' %}">
+<script src="{% static 'js/employee.js' %}"></script>
 
-	    select{
-	       	padding-left: 30px;
-			padding-right: 60px;
-	    }
-
-	    a{
-	      text-decoration: none;
-	    }
-
-
-	       
-	   
-	</style> 
-	<script>
-		function validate() {
-			let flag = 0;
-
-			if ($('#fn').val().length > 0) {
-				$('#fn').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#fn').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#ln').val().length > 0) {
-				$('#ln').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#ln').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#un').val().length > 0) {
-				$('#un').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#un').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#pw').val().length > 0) {
-				$('#pw').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#pw').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#em').val().length > 0) {
-				$('#em').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#em').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#ph').val().length > 0) {
-				$('#ph').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#ph').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#dd').val().length > 0) {
-				$('#dd').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#dd').css("border-color", "red");
-				flag--;
-			}
-
-			if ($('#loc').val().length > 0) {
-				$('#loc').css("border-color", "#ced4da");
-				flag++;
-			} else {
-				$('#loc').css("border-color", "red");
-				flag--;
-			}
-
-			if ($("input[name='gender']:checked").length > 0) {
-				$('#g1').css("color", "black");
-				$('#g2').css("color", "black");
-				flag++;
-			} else {
-				$('#g1').css("color", "red");
-				$('#g2').css("color", "red");
-				flag--;
-			}
-
-			if ($('#role').val().length > 0) {
-				$('#role').css("border-color", "#ced4da");
-				flag++
-			} else {
-				flag--;
-				$('#role').css("border-color", "red");
-			}
-
-			if (flag == 10) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		
-		function fn_save_employee() {
-			const isValid = validate();
-			if (isValid) {
-				$.ajax({
-					url: 'http://127.0.0.1:8000/trackapp/createEmployee/',
-					type: 'POST',
-					data: {
-						fname: $('#fn').val(),
-						lname: $('#ln').val(),
-						uname: $('#un').val(),
-						password: $('#pw').val(),
-						email: $('#em').val(),
-						phone: $('#ph').val(),
-						dob: $('#dd').val(),
-						location: $('#loc').val(),
-						gender: $("input[name='gender']:checked").val(),
-						role: $('#role').val()
-					},
-					success: res => {
-						$.toast({
-							text: res,
-							heading: 'Note', // Optional heading to be shown on the toast
-							icon: 'warning', // Type of toast icon
-							showHideTransition: 'fade', // fade, slide or plain
-							allowToastClose: true, // Boolean value true or false
-							hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-							stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-							position: 'bottom-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-							textAlign: 'left',  // Text alignment i.e. left, right or center
-							loader: true,  // Whether to show loader or not. True by default
-							loaderBg: '#9EC600',  // Background color of the toast loader
-						});
-					},
-					error: e => {
-						$.toast({
-							text: res,
-							heading: 'Note', // Optional heading to be shown on the toast
-							icon: 'warning', // Type of toast icon
-							showHideTransition: 'fade', // fade, slide or plain
-							allowToastClose: true, // Boolean value true or false
-							hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-							stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-							position: 'bottom-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-							textAlign: 'left',  // Text alignment i.e. left, right or center
-							loader: true,  // Whether to show loader or not. True by default
-							loaderBg: '#9EC600',  // Background color of the toast loader
-						});
-					}
-				});
-			} else {
-				console.log('not valid')
-			}
-		}
-
-	</script>
-	   
 {% endblock %}
 
 {% block body %}
-   
-        <span class="input" id="Employee">Employee</span>
 
-        <br><br><br><br>
+<span class="input" id="Employee">Employee</span>
 
-   		<button id="New" class="btn btn-primary input"><i class="fa fa-magic"></i>&nbsp;&nbsp;New</button>
+<br><br><br><br>
 
-   		<br><br><br><br>
+<button id="New" class="btn btn-primary input"><i class="fa fa-magic"></i>&nbsp;&nbsp;New</button>
 
-   		<button id="View" class="btn btn-primary input"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</button>
+<br><br><br><br>
 
-    
+<button id="View" class="btn btn-primary input"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</button>
+
+
 <div class="container">
-<table id="table" cellpadding="7px">
-	<th> EMPLOYEE<hr></th>
+	<table id="table" cellpadding="7px">
+		<th> EMPLOYEE
+			<hr>
+		</th>
 
-	<tr>
-		 <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="FirstName" id="fn"></td>
-      	  <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="LastName" id="ln"></td>
+		<tr>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="FirstName"
+					id="fn"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="LastName"
+					id="ln"></td>
 
-          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Username" id="un"></td>
-          <td><span style="color:red;"></span><br><input class="form-control" type="password" placeholder="Password" id="pw"></td>
-	</tr>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Username"
+					id="un"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="password" placeholder="Password"
+					id="pw"></td>
+		</tr>
 
-      <tr>
-          <td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="E-mail" id="em"></td>
-          <td><span style="color:red;"></span><br><input class="form-control"  type="text" placeholder="Phone" id="ph"></td>
-          <td>
-          	<span style="color:red;"></span><br><input class="form-control"  type="date" placeholder="DOB" id="dd">
-          </td>
-      </tr>
-      <tr>
-          <td><br><input class="form-control" type="text" placeholder="Location" id="loc"></td>
-           <td>
+		<tr>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="E-mail"
+					id="em"></td>
+			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Phone" id="ph">
+			</td>
+			<td>
+				<span style="color:red;"></span><br><input class="form-control" type="date" placeholder="DOB" id="dd">
+			</td>
+		</tr>
+		<tr>
+			<td><br><input class="form-control" type="text" placeholder="Location" id="loc"></td>
+			<td>
 				Gender
 				<br>
 				<div class="form-check-inline">
 					<label class="form-check-label">
-						<input type="radio" class="form-check-input"  value="male" name="gender">
+						<input type="radio" class="form-check-input" value="male" name="gender">
 						<span id="g1">male</span>
 					</label>
 				</div>
-				
+
 				<div class="form-check-inline">
 					<label class="form-check-label">
 						<input type="radio" class="form-check-input" name="gender" value="female">
@@ -313,24 +68,23 @@
 					</label>
 				</div>
 			</td>
-        <td>
-          	Role
-          	<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;
-          	<br>
-			<select id="role" class="form-control">
-				<option></option>
-				{% for role in roles %}
+			<td>
+				Role
+				<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;
+				<br>
+				<select id="role" class="form-control">
+					<option></option>
+					{% for role in roles %}
 					<option value="{{role.id}}">{{ role.role_title }}</option>
-				{% endfor %}
-   			</select>
-		</td>
-      </tr>
+					{% endfor %}
+				</select>
+			</td>
+		</tr>
 
-      <tr>
-         
-         
-          <td><button id="btn" onclick="fn_save_employee();"><i class="fa fa-save"></i>Save Employee</button></td>
-            </table>		
-        </div>
+		<tr>
+
+
+			<td><button id="btn" onclick="fn_save_employee();"><i class="fa fa-save"></i>Save Employee</button></td>
+	</table>
+</div>
 {% endblock %}
-
