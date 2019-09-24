@@ -69,10 +69,39 @@ function fn_save_product() {
                 pro_desc: $('#pr_desc').val()
             },
             success: res => {
-                console.log(res);
+                $.toast({
+                    text: res,
+                    heading: 'Note',
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
+                $('#code').val('');
+                $('#pr_name').val('');
+                $('#pr_cost').val('');
+                $('#pr_desc').val('');
+                
             },
-            error: err => {
-                console.log(err);
+            error: e => {
+                $.toast({
+                    text: e,
+                    heading: 'Note',
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
             }
         })
     }
