@@ -8,7 +8,7 @@ urlpatterns = [
     path('enquires', views.enquires),
     path('consumer', views.consumer),
     path('employee', views.employee),
-    path('others', views.others),
+    path('others', views.product),
     path('reports', views.reports),
     path('charts', views.charts),
     path('createEnquiry/', views.fn_create_enquiry),

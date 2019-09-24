@@ -95,16 +95,16 @@ def employee(request):
         return HttpResponse('an error occurred')
 
 
-def others(request):
+def product(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
         context = {
             "username": user_obj.username
         }
-        return render(request, 'others.html', context)
+        return render(request, 'product.html', context)
     except Exception as identifier:
         print(identifier)
-        return render(request, 'others.html')
+        return render(request, 'product.html')
 
 
 def reports(request):
@@ -174,7 +174,7 @@ def fn_create_enquiry(request):
 
 def fn_get_enquiry(request):
     try:
-        company_obj = Company(id=request.session['companyId'])
+        company_obj = Company.objects.get(id=request.session['companyId'])
         leads = Leads.objects.filter(fk_company_id=company_obj)
     except Exception as identifier:
         print(identifier)
