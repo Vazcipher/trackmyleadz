@@ -262,6 +262,6 @@ def fn_create_product(request):
             code = request.POST['pro_code']
             name = request.POST['pro_name']
             cost = request.POST['pro_cost']
-            description = request.POST['pro_desc']
+            desc = request.POST['pro_desc']
     except Exception:
         return HttpResponse('An error occurred')

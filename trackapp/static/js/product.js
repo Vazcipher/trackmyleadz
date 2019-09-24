@@ -14,7 +14,7 @@ function validate() {
         $('#pr_name').css("border-color", "#ced4da");
     } else {
         flag--;
-        $('$pr_name').css("border-color", "red");
+        $('#pr_name').css("border-color", "red");
     }
 
     if($('#pr_desc').val().length > 0) {
@@ -40,4 +40,24 @@ function validate() {
     }
 }
 
-
+function fn_save_product() {
+    const isValid = validate();
+    if (isValid) {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/trackapp/createProduct/',
+            type: 'POST',
+            data: {
+                pro_code: $('#code').val(),
+                pro_name: $('#pr_name').val(),
+                pro_cost: $('#pr_cost').val(),
+                pro_desc: $('#pr_desc').val()
+            },
+            success: res => {
+                console.log(res);
+            },
+            error: err => {
+                console.log(err);
+            }
+        })
+    }
+}
