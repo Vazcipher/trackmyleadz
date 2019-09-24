@@ -33,7 +33,7 @@ function validate() {
         $('#pr_name').css("border-color", "red");
     }
 
-    if($('#pr_desc').val().length > 0) {
+    if ($('#pr_desc').val().length > 0) {
         flag++;
         $('#pr_desc').css("border-color", "#ced4da");
     } else {
@@ -41,7 +41,7 @@ function validate() {
         $('#pr_desc').css("border-color", "red");
     }
 
-    if($('#pr_cost').val().length > 0) {
+    if ($('#pr_cost').val().length > 0) {
         flag++;
         $('#pr_cost').css("border-color", "#ced4da");
     } else {
