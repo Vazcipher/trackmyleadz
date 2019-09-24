@@ -1,0 +1,47 @@
+#tb {
+    width: 80%;
+}
+
+.list-group-item {
+    color: white;
+    float: right;
+    padding: 10px;
+}
+
+#table {
+    border: 2px;
+    background-color: white;
+    margin: -100px;
+    margin-left: 250px;
+    padding-left: 50px;
+    height: 300px;
+    width: 1000px;
+}
+
+#search {
+    color: darkgreen;
+}
+
+.input {
+    margin-left: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 10%;
+}
+
+#h {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+#btn {
+    color: white;
+    background-color: skyblue;
+    padding: 10px;
+}
+
+th {
+    color: green;
+    text-align: left;
+}
