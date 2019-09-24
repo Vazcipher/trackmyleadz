@@ -62,13 +62,14 @@ def enquires(request):
         consumer_obj = Consumer.objects.filter(fk_company_id=company_obj)
         emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
         product_obj = Product.objects.filter(fk_company_id=company_obj)
-        # lead_obj = LeadDetails.objects.filter(fk_lead_id.fk_company_id=company_obj)
+        lead_obj = LeadDetails.objects.filter(
+            fk_lead_id__fk_company_id=company_obj)
         context = {
             "username": user_obj.username,
             "consumer_obj": consumer_obj,
             "emp_obj": emp_obj,
             "pro_obj": product_obj,
-            # "leads": lead_obj
+            "leads": lead_obj
         }
         return render(request, 'enquires.html', context)
     except Exception:
@@ -142,10 +143,10 @@ def fn_create_enquiry(request):
         if request.method == 'POST':
 
             lead_source = request.POST['lead_source']
-            lead_stage = request.POST['lead_source']
+            lead_stage = request.POST['lead_stage']
 
             product = request.POST['product']
-            desc = request.POST['lead_source']
+            desc = request.POST['description']
 
             user_obj = UserLogin.objects.get(id=request.session['userId'])
             company_obj = Company(id=request.session['companyId'])
@@ -163,8 +164,9 @@ def fn_create_enquiry(request):
             lead_obj.save()
 
             if lead_obj.id > 0:
+                product_obj = Product.objects.get(id=product)
                 lead_detail_obj = LeadDetails(fk_lead_id=lead_obj,
-                                              product=product,
+                                              fk_product_id=product_obj,
                                               description=desc,
                                               lead_source=lead_source,
                                               lead_stage=lead_stage)
