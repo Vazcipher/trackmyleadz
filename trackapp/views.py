@@ -253,3 +253,15 @@ def fn_create_employee(request):
             return HttpResponse("failed to create employee")
     except Exception:
         return HttpResponse('An error occurred')
+
+
+@csrf_exempt
+def fn_create_product(request):
+    try:
+        if request.method == 'POST':
+            code = request.POST['pro_code']
+            name = request.POST['pro_name']
+            cost = request.POST['pro_cost']
+            description = request.POST['pro_desc']
+    except Exception:
+        return HttpResponse('An error occurred')
