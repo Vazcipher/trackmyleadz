@@ -58,14 +58,17 @@ def enquires(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
         company_obj = Company.objects.get(id=request.session['companyId'])
+
         consumer_obj = Consumer.objects.filter(fk_company_id=company_obj)
         emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
         product_obj = Product.objects.filter(fk_company_id=company_obj)
+        # lead_obj = LeadDetails.objects.filter(fk_lead_id.fk_company_id=company_obj)
         context = {
             "username": user_obj.username,
             "consumer_obj": consumer_obj,
             "emp_obj": emp_obj,
-            "pro_obj": product_obj
+            "pro_obj": product_obj,
+            # "leads": lead_obj
         }
         return render(request, 'enquires.html', context)
     except Exception:
@@ -172,14 +175,6 @@ def fn_create_enquiry(request):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occurred')
-
-
-def fn_get_enquiry(request):
-    try:
-        company_obj = Company.objects.get(id=request.session['companyId'])
-        leads = Leads.objects.filter(fk_company_id=company_obj)
-    except Exception as identifier:
-        print(identifier)
 
 
 @csrf_exempt

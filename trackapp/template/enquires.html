@@ -39,12 +39,15 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Firstname</th>
+					<th>lead title</th>
 					<th>Lastname</th>
 					<th>Email</th>
 				</tr>
 			</thead>
 			<tbody>
+				{% for lead in leads %}
+				<td> {{lead.lead_title}} </td>
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>
