@@ -1,3 +1,19 @@
+$(document).ready(() => {
+
+    $("#view_product").hide();
+
+    $("#New").click(() => {
+        $("#table").show();
+        $("#view_product").hide();
+    });
+
+    $("#view").click(() => {
+        $("#view_product").show();
+        $("#table").hide();
+    });
+
+});
+
 function validate() {
     let flag = 0;
 
