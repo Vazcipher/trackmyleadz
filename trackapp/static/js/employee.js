@@ -1,13 +1,13 @@
-$(document).ready( () => {
-	
+$(document).ready(() => {
+
     $("#table").hide();
 
-    $("#New").click( () => {
+    $("#New").click(() => {
         $("#view_emp").hide();
         $("#table").show();
     });
 
-    $("#View").click( () => {
+    $("#View").click(() => {
         $("#view_emp").show();
         $("#table").hide();
     });
@@ -15,7 +15,7 @@ $(document).ready( () => {
 });
 
 function validate() {
-    
+
     let flag = 0;
 
     if ($('#fn').val().length > 0) {
@@ -130,15 +130,15 @@ function fn_save_employee() {
                 $.toast({
                     text: res,
                     heading: 'Note',
-                    icon: 'success', 
-                    showHideTransition: 'fade', 
-                    allowToastClose: true, 
-                    hideAfter: 3000, 
-                    stack: 5, 
-                    position: 'top-right', 
-                    textAlign: 'left',  
-                    loader: true,  
-                    loaderBg: '#9EC600',  
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
                 });
                 $('#fn').val("");
                 $('#ln').val("");
@@ -148,23 +148,23 @@ function fn_save_employee() {
                 $('#ph').val("");
                 $('#dd').val("");
                 $('#loc').val("");
-                $("input[name='gender']:checked").val(),
+                $("input[name='gender']").prop('checked', false);
                 $('#role').val("")
 
             },
             error: e => {
                 $.toast({
                     text: e,
-                    heading: 'Note', 
-                    icon: 'error', 
-                    showHideTransition: 'fade', 
-                    allowToastClose: true, 
-                    hideAfter: 3000, 
+                    heading: 'Note',
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
                     stack: 5,
-                    position: 'top-right', 
-                    textAlign: 'left',  
-                    loader: true,  
-                    loaderBg: '#9EC600', 
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
                 });
             }
         });

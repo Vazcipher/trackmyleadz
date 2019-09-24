@@ -1,13 +1,13 @@
-$(document).ready( () => {
+$(document).ready(() => {
 
     $("#table").hide();
 
-    $("#New").click( () => {
+    $("#New").click(() => {
         $("#view_enq").hide();
         $("#table").show();
     });
 
-    $("#view").click( () => {
+    $("#view").click(() => {
         $("#view_enq").show();
         $("#table").hide();
     });
@@ -17,7 +17,7 @@ $(document).ready( () => {
 
 function validate() {
     let flag = 0;
-   
+
     if ($('#consumer').val().length > 0) {
         flag++;
         $('#consumer').css("border-color", "#ced4da");
@@ -29,48 +29,48 @@ function validate() {
     if ($('#lead_stage').val().length > 0) {
         flag++;
         $('#lead_stage').css("border-color", "#ced4da");
-    } else{
+    } else {
         flag--;
         $('#lead_stage').css("border-color", "red");
     }
-    
+
     if ($('#lead_source').val().length > 0) {
         flag++;
         $('#lead_source').css("border-color", "#ced4da");
-    } else{
+    } else {
         flag--;
         $('#lead_source').css("border-color", "red");
-    } 
-    
+    }
+
     if ($('#product').val().length > 0) {
         flag++;
         $('#product').css("border-color", "#ced4da");
-    } else{
+    } else {
         flag--;
         $('#product').css("border-color", "red");
-    } 
+    }
 
     if ($('#assigned').val().length > 0) {
         flag++;
         $('#assigned').css("border-color", "#ced4da");
-    } else{
+    } else {
         flag--;
         $('#assigned').css("border-color", "red");
     }
-    
+
     if ($('#des').val().length > 0) {
         flag++;
         $('#des').css("border-color", "#ced4da");
-    } else{
+    } else {
         flag--;
         $('#des').css("border-color", "red");
-    } 
+    }
 
-   if (flag == 6) {
-       return true;
-   } else {
-       return false;
-   }
+    if (flag == 6) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
@@ -90,44 +90,44 @@ function fn_save_enquiery() {
                 product: $('#product').val(),
                 assigned: $('#assigned').val(),
                 description: $('#des').val()
-                
+
             },
             success: res => {
                 $.toast({
                     text: res,
                     heading: 'Note',
-                    icon: 'success', 
-                    showHideTransition: 'fade', 
-                    allowToastClose: true, 
-                    hideAfter: 3000, 
-                    stack: 5, 
-                    position: 'top-right', 
-                    textAlign: 'left',  
-                    loader: true,  
-                    loaderBg: '#9EC600',  
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
                 });
-                $('#consumer').val(''),
-                $('#email').val(''),
-                $('#phone').val(''),
-                $('#lead_stage').val(''),
-                $('#lead_source').val(''),
-                $('#product').val(''),
-                $('#assigned').val(''),
-                $('#des').val()
+                $('#consumer').val('');
+                $('#email').val('');
+                $('#phone').val('');
+                $('#lead_stage').val('');
+                $('#lead_source').val('');
+                $('#product').val('');
+                $('#assigned').val('');
+                $('#des').val('');
             },
             error: e => {
                 $.toast({
                     text: e,
-                    heading: 'Note', 
-                    icon: 'error', 
-                    showHideTransition: 'fade', 
-                    allowToastClose: true, 
-                    hideAfter: 3000, 
+                    heading: 'Note',
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
                     stack: 5,
-                    position: 'top-right', 
-                    textAlign: 'left',  
-                    loader: true,  
-                    loaderBg: '#9EC600', 
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
                 });
             }
         });
