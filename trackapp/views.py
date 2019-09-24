@@ -263,5 +263,14 @@ def fn_create_product(request):
             name = request.POST['pro_name']
             cost = request.POST['pro_cost']
             desc = request.POST['pro_desc']
+
+            created_user_obj = UserLogin.objects.get(id=request.session['userId'])
+            company_obj = Company.objects.get(id=request.session['companyId'])
+
+            product_obj = Product(fk_created_user_id=created_user_obj, fk_company_id=company_obj,product_code=code,product_name=name,product_cost=cost,product_desc=desc)
+            product_obj.save()
+            if product_obj.id > 0:
+                return HttpResponse('new product created')
+            return HttpResponse('failed to create product')
     except Exception:
         return HttpResponse('An error occurred')
