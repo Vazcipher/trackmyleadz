@@ -93,7 +93,12 @@
 		</th>
 		<tr>
 			<td>
-				<input placeholder="Product" class="form-control" type="text" id="product"></td>
+				<select id="product" class="form-control">
+					<option selected value="">Select your product</option>
+					{% for product in pro_obj %}
+					<option value="{{product.id}}"> {{ product.product_name }} </option>
+					{% endfor %}
+				</select>
 
 			<td>
 				<select class="form-control" id="assigned">

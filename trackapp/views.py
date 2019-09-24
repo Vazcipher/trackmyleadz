@@ -60,10 +60,12 @@ def enquires(request):
         company_obj = Company.objects.get(id=request.session['companyId'])
         consumer_obj = Consumer.objects.filter(fk_company_id=company_obj)
         emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
+        product_obj = Product.objects.filter(fk_company_id=company_obj)
         context = {
             "username": user_obj.username,
             "consumer_obj": consumer_obj,
-            "emp_obj": emp_obj
+            "emp_obj": emp_obj,
+            "pro_obj": product_obj
         }
         return render(request, 'enquires.html', context)
     except Exception:
@@ -264,13 +266,18 @@ def fn_create_product(request):
             cost = request.POST['pro_cost']
             desc = request.POST['pro_desc']
 
-            created_user_obj = UserLogin.objects.get(id=request.session['userId'])
+            created_user_obj = UserLogin.objects.get(
+                id=request.session['userId'])
             company_obj = Company.objects.get(id=request.session['companyId'])
-
-            product_obj = Product(fk_created_user_id=created_user_obj, fk_company_id=company_obj,product_code=code,product_name=name,product_cost=cost,product_desc=desc)
-            product_obj.save()
-            if product_obj.id > 0:
-                return HttpResponse('new product created')
-            return HttpResponse('failed to create product')
+            pro_code_exists = Product.objects.filter(
+                product_code=code).exists()
+            if not pro_code_exists:
+                product_obj = Product(fk_created_user_id=created_user_obj, fk_company_id=company_obj,
+                                      product_code=code, product_name=name, product_cost=cost, product_desc=desc)
+                product_obj.save()
+                if product_obj.id > 0:
+                    return HttpResponse('new product created')
+                return HttpResponse('failed to create product')
+            return HttpResponse('product exists')
     except Exception:
         return HttpResponse('An error occurred')

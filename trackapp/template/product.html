@@ -10,73 +10,75 @@
 {% block body %}
 
 <div class="container">
-    
+
     <br>
-<span class="input">Product</span>
-<br>
-<br>
-<br>
-<button id="New" class="input btn btn-primary">
-	<i class="fa fa-magic">&nbsp; New</i>
-</button>
-<br>
-<br>
-	<button id="view" class="input btn btn-primary">
-		<i class="fa fa-eye">&nbsp; View</i>
-	</button>
+    <span class="input">Product</span>
+    <br>
+    <br>
+    <br>
+    <button id="New" class="input btn btn-primary">
+        <i class="fa fa-magic">&nbsp; New</i>
+    </button>
+    <br>
+    <br>
+    <button id="view" class="input btn btn-primary">
+        <i class="fa fa-eye">&nbsp; View</i>
+    </button>
 
-	<div id="view_product" class="row">	         
-			<table class="table">
-			  <thead>
-				<tr>
-				  <th>Product code</th>
-				  <th>Product name</th>
-				  <th>Productcost</th>
-				</tr>
-			  </thead>
-			  <tbody>
-				
-			  </tbody>
-			</table>
-		  </div>
-   <table id="table" cellpadding="7px">
-   	  	<th>PRODUCT<hr></th>
-		<tr>
-			<td>
-				Product Code
-				<br>
-				<input id="code" class="form-control"  type="text">
-			</td>
-			<td>
-			Product Name
-				<br>
-				<input id="pr_name" class="form-control" type="text">
-			</td>
+    <div id="view_product" class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product code</th>
+                    <th>Product name</th>
+                    <th>Productcost</th>
+                </tr>
+            </thead>
+            <tbody>
 
-			<td>
-				Product cost
-				<br>
-				<input id="pr_cost" class="form-control"  type="cost">
-			</td>
-		</tr>
-	   
-   		<tr>
-   			<td>
-				Description
-				<br>
-				<input class="form-control" name="phone" type="text" id="pr_desc">
-			</td>
+            </tbody>
+        </table>
+    </div>
+    <table id="table" cellpadding="7px">
+        <th>PRODUCT
+            <hr>
+        </th>
+        <tr>
+            <td>
+                Product Code
+                <br>
+                <input id="code" class="form-control" type="text">
+            </td>
+            <td>
+                Product Name
+                <br>
+                <input id="pr_name" class="form-control" type="text">
+            </td>
 
-   			
-		<tr>
-        	<td>
-				<button id="btn" onclick="fn_save_product();">
-					<i class="fa fa-save"></i>
-					Save product
-				</button>
-			</td>
-   		</tr>
-   	</table>
+            <td>
+                Product cost
+                <br>
+                <input id="pr_cost" class="form-control" type="cost">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Description
+                <br>
+                <input class="form-control" name="phone" type="text" id="pr_desc">
+            </td>
+
+
+        <tr>
+            <td>
+                <button id="btn" onclick="fn_save_product();">
+                    <i class="fa fa-save"></i>
+                    Save product
+                </button>
+            </td>
+        </tr>
+    </table>
 
 </div>
 
