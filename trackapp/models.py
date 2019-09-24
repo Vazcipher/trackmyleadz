@@ -82,3 +82,13 @@ class Notification(models.Model):
 	fk_reciver_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
 	notification_title = models.CharField(max_length=25)
 	created_date = models.DateField(auto_now_add=True)
+
+
+class Product(models.Model):
+	fk_created_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
+	fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
+	product_code = models.CharField(max_length=20)
+	product_name = models.CharField(max_length=50)
+	product_desc = models.TextField()
+	created_date = models.DateField(auto_now_add=True)
+	updated_date = models.DateField(null=True, blank=True)
