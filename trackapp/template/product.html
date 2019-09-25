@@ -29,13 +29,27 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Sl.No</th>
                     <th>Product code</th>
                     <th>Product name</th>
                     <th>Product cost</th>
                 </tr>
             </thead>
             <tbody>
-
+                {% for product in pro_obj %}
+                <tr>
+                    <td> {{ product.id }} </td>
+					<td> {{ product.product_code }} </td>
+					<td> {{ product.product_name }} </td>
+					<td> {{ product.product_cost }} </td>
+					<td>
+						<button class="btn btn-outline-primary">
+							<i class="fa fa-caret-down"></i>
+							menu
+						</button>
+					</td>
+				</tr>
+				{% endfor %}
             </tbody>
         </table>
     </div>
