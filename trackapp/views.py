@@ -285,3 +285,13 @@ def fn_create_product(request):
             return HttpResponse('product exists')
     except Exception:
         return HttpResponse('An error occurred')
+
+
+def fn_delete_product(request):
+    try:
+        if request.method == 'POST':
+            product_id = request.POST['pro_id']
+            pro_obj = Product.objects.get(id=product_id).delete()
+            return HttpResponse('product deleted')
+    except Exception as e:
+        print("Error")

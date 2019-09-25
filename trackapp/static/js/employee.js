@@ -13,7 +13,6 @@ $(document).ready(() => {
     });
 
 });
-
 function validate() {
 
     let flag = 0;

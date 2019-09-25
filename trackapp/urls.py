@@ -14,5 +14,6 @@ urlpatterns = [
     path('createEnquiry/', views.fn_create_enquiry),
     path('createConsumer/', views.fn_create_consumer),
     path('createEmployee/', views.fn_create_employee),
-    path('createProduct/', views.fn_create_product)
+    path('createProduct/', views.fn_create_product),
+    path('delete_product/',views.fn_delete_product)
 ]

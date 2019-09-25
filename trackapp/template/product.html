@@ -43,10 +43,20 @@
 					<td> {{ product.product_name }} </td>
 					<td> {{ product.product_cost }} </td>
 					<td>
-						<button class="btn btn-outline-primary">
+                    <div class="btn-group">
+						<button class="btn btn-outline-primary" data-toggle="dropdown">
 							<i class="fa fa-caret-down"></i>
 							menu
-						</button>
+                        </button>
+                        <div class="dropdown-menu">
+
+                                <a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit Product</a>
+                                <button class="dropdown-item" onclick="fn_delete_product('{{ product.id }}')">
+                                    <i class="fa fa-trash"></i>&nbsp;Delete Product
+                                </button>
+                                <a class="dropdown-item" href="view"><i class="fa fa-eye"></i>&nbsp;View Product</a>
+                            </div>
+                    </div>
 					</td>
 				</tr>
 				{% endfor %}
