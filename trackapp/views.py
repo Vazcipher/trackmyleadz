@@ -104,8 +104,13 @@ def employee(request):
 def product(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
+        company_obj = Company.objects.get(id=request.session['companyId'])
+
+        product_obj = Product.objects.filter(fk_company_id=company_obj)
+
         context = {
-            "username": user_obj.username
+            "username": user_obj.username,
+            "pro_obj": product_obj
         }
         return render(request, 'product.html', context)
     except Exception as identifier:
