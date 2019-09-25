@@ -55,10 +55,18 @@
 					<td> {{ lead.lead_stage }} </td>
 					<td> {{ lead.lead_source }} </td>
 					<td>
-						<button class="btn btn-outline-primary">
+						<div class="btn-group">
+						<button class="btn btn-outline-primary" data-toggle="dropdown">
 							<i class="fa fa-caret-down"></i>
 							menu
 						</button>
+						<div class="dropdown-menu">
+
+							<a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit</a>
+							<a class="dropdown-item" href="delete"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+							<a class="dropdown-item" href="follow"><i class="fas fa-comments"></i>&nbsp;Followup</a>
+						</div>
+						</div>
 					</td>
 				</tr>
 				{% endfor %}

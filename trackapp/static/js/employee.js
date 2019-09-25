@@ -1,34 +1,18 @@
-<<<<<<< HEAD
-$(document).ready( () => {
-    
-    $("#table").hide();
-
-    $("#New").click( () => {
-=======
 $(document).ready(() => {
 
     $("#table").hide();
 
     $("#New").click(() => {
->>>>>>> 0f6d5e287f138fea26773539fc8a7c84fd74a2a9
         $("#view_emp").hide();
         $("#table").show();
     });
 
-<<<<<<< HEAD
-    $("#View").click( () => {
-=======
     $("#View").click(() => {
->>>>>>> 0f6d5e287f138fea26773539fc8a7c84fd74a2a9
         $("#view_emp").show();
         $("#table").hide();
     });
 
 });
-<<<<<<< HEAD
-=======
-
->>>>>>> 0f6d5e287f138fea26773539fc8a7c84fd74a2a9
 function validate() {
 
     let flag = 0;

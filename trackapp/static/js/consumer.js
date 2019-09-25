@@ -3,12 +3,12 @@ $(document).ready(() => {
     $("#table").hide();
 
     $("#New").click(() => {
-        $("#view_enq").hide();
+        $("#view_cons").hide();
         $("#table").show();
     });
 
     $("#view").click(() => {
-        $("#view_enq").show();
+        $("#view_cons").show();
         $("#table").hide();
     });
 

@@ -13,7 +13,7 @@
     border: 2px;
     background-color: white;
     margin-top: -155px;
-    margin-left: 250px;
+    margin-left: 100px;
     padding-left: 50px;
     height: 500px;
     width: 1000px;
@@ -29,15 +29,7 @@
     font-size: 15px;
     margin-left: 50px;
 }
-#view_emp {
-    border: 2px;
-    background-color: white;
-    margin-top: -200px;
-    margin-left: 100px;
-    padding-left: 50px;
-    height: 500px;
-    width: 1000px;
-}
+
 
 .e {
     background-color: white;
