@@ -39,12 +39,29 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Firstname</th>
-					<th>Lastname</th>
-					<th>Email</th>
+					<th>Sl.No</th>
+					<th>lead title</th>
+					<th>product</th>
+					<th>lead stage</th>
+					<th>lead source</th>
 				</tr>
 			</thead>
 			<tbody>
+				{% for lead in leads %}
+				<tr>
+					<td> {{ lead.id }} </td>
+					<td> {{ lead.fk_lead_id.lead_title }} </td>
+					<td> {{ lead.fk_product_id.product_name }} </td>
+					<td> {{ lead.lead_stage }} </td>
+					<td> {{ lead.lead_source }} </td>
+					<td>
+						<button class="btn btn-outline-primary">
+							<i class="fa fa-caret-down"></i>
+							menu
+						</button>
+					</td>
+				</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>
@@ -73,17 +90,17 @@
 			<td>
 				<select class="form-control" id="lead_stage">
 					<option value="" selected>Lead Stage</option>
-					<option value="o">Open</option>
-					<option value="c">Close</option>
-					<option value="w">Won</option>
+					<option value="Open">Open</option>
+					<option value="Close">Close</option>
+					<option value="Won">Won</option>
 				</select>
 			</td>
 			<td>
 				<select class="form-control" id="lead_source">
 					<option value="" selected>Lead Source</option>
-					<option value="g">Website</option>
-					<option value="m">Facebook</option>
-					<option value="f">Reference</option>
+					<option value="Website">Website</option>
+					<option value="Facebook">Facebook</option>
+					<option value="Reference">Reference</option>
 				</select>
 			</td>
 		</tr>
