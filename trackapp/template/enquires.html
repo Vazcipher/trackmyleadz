@@ -39,13 +39,29 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Firstname</th>
-					<th>Lastname</th>
-					<th>Email</th>
+					<th>Sl.No</th>
+					<th>lead title</th>
+					<th>product</th>
+					<th>lead stage</th>
+					<th>lead source</th>
 				</tr>
 			</thead>
 			<tbody>
-
+				{% for lead in leads %}
+				<tr>
+					<td> {{ lead.id }} </td>
+					<td> {{ lead.fk_lead_id.lead_title }} </td>
+					<td> {{ lead.fk_product_id.product_name }} </td>
+					<td> {{ lead.lead_stage }} </td>
+					<td> {{ lead.lead_source }} </td>
+					<td>
+						<button class="btn btn-outline-primary">
+							<i class="fa fa-caret-down"></i>
+							menu
+						</button>
+					</td>
+				</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>
@@ -57,13 +73,14 @@
 		</th>
 		<tr>
 			<td>Consumer<span style="color:red;">(*Mandatory)</span>&nbsp;&nbsp;&nbsp;<br>
-				<select class="form-control">
-					<option value="g"></option>
-					<option value="m">Male</option>
-					<option value="f">Female</option>
+				<select class="form-control" id="consumer">
+					<option value="" selected>Please select a consumer</option>
+					{% for consumer in consumer_obj %}
+					<option value="{{consumer.id}}"> {{ consumer.fistname }} {{ consumer.lastname }} </option>
+					{% endfor %}
 				</select>
-			<td>Email<br><input class="form-control" type="text"></td>
-			<td>Phone<br><input class="form-control" type="text"></td>
+			<td>Email<br><input class="form-control" type="text" id="email"></td>
+			<td>Phone<br><input class="form-control" type="text" id="phone"></td>
 		</tr>
 
 		<th>LEAD DETAILS
@@ -71,19 +88,19 @@
 		</th>
 		<tr>
 			<td>
-				<select class="form-control">
-					<option selected disabled>Lead Stage</option>
-					<option value="o">Open</option>
-					<option value="c">Close</option>
-					<option value="w">Won</option>
+				<select class="form-control" id="lead_stage">
+					<option value="" selected>Lead Stage</option>
+					<option value="Open">Open</option>
+					<option value="Close">Close</option>
+					<option value="Won">Won</option>
 				</select>
 			</td>
 			<td>
-				<select class="form-control">
-					<option selected disabled>Lead Source</option>
-					<option value="g">Website</option>
-					<option value="m">Facebook</option>
-					<option value="f">Reference</option>
+				<select class="form-control" id="lead_source">
+					<option value="" selected>Lead Source</option>
+					<option value="Website">Website</option>
+					<option value="Facebook">Facebook</option>
+					<option value="Reference">Reference</option>
 				</select>
 			</td>
 		</tr>
@@ -93,14 +110,19 @@
 		</th>
 		<tr>
 			<td>
-				<input placeholder="Product" class="form-control" type="text"></td>
+				<select id="product" class="form-control">
+					<option selected value="">Select your product</option>
+					{% for product in pro_obj %}
+					<option value="{{product.id}}"> {{ product.product_name }} </option>
+					{% endfor %}
+				</select>
 
 			<td>
-				<select class="form-control">
-					<option selected disabled>Assigned to</option>
-					<option value="g">test</option>
-					<option value="m"></option>
-					<option value="f"></option>
+				<select class="form-control" id="assigned">
+					<option selected value="">Assigned to</option>
+					{% for emp in emp_obj %}
+					<option value="{{emp.id}}"> {{ emp.username }} </option>
+					{% endfor %}
 				</select>
 			</td>
 		</tr>
@@ -121,7 +143,7 @@
 			</td>
 
 			<td>
-				<button id="btn">
+				<button id="btn" onclick="fn_save_enquiery();">
 					<i class="fa fa-save"></i>
 					&nbsp;Save Enquiry
 				</button>

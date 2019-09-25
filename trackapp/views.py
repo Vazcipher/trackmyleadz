@@ -57,8 +57,19 @@ def logoutUser(request):
 def enquires(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
+        company_obj = Company.objects.get(id=request.session['companyId'])
+
+        consumer_obj = Consumer.objects.filter(fk_company_id=company_obj)
+        emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
+        product_obj = Product.objects.filter(fk_company_id=company_obj)
+        lead_obj = LeadDetails.objects.filter(
+            fk_lead_id__fk_company_id=company_obj)
         context = {
-            "username": user_obj.username
+            "username": user_obj.username,
+            "consumer_obj": consumer_obj,
+            "emp_obj": emp_obj,
+            "pro_obj": product_obj,
+            "leads": lead_obj
         }
         return render(request, 'enquires.html', context)
     except Exception:
@@ -90,15 +101,16 @@ def employee(request):
         return HttpResponse('an error occurred')
 
 
-def others(request):
+def product(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
         context = {
             "username": user_obj.username
         }
-        return render(request, 'others.html', context)
+        return render(request, 'product.html', context)
     except Exception as identifier:
         print(identifier)
+        return render(request, 'product.html')
 
 
 def reports(request):
@@ -110,6 +122,7 @@ def reports(request):
         return render(request, 'reports.html', context)
     except Exception as identifier:
         print(identifier)
+        return render(request, 'reports.html')
 
 
 def charts(request):
@@ -121,65 +134,52 @@ def charts(request):
         return render(request, 'charts.html', context)
     except Exception as identifier:
         print(identifier)
+        return render(request, 'charts.html')
 
 
+@csrf_exempt
 def fn_create_enquiry(request):
     try:
         if request.method == 'POST':
 
-            lead_title = request.POST['title']
-            lead_source = request.POST['source']
-            lead_stage = request.POST['stage']
+            lead_source = request.POST['lead_source']
+            lead_stage = request.POST['lead_stage']
 
-            first_name = request.POST['firstname']
-            last_name = request.POST['lastname']
             product = request.POST['product']
-            phone_number = request.POST['number']
-            email = request.POST['email']
-            address = request.POST['address']
-            gender = request.POST['gender']
-            desc = request.POST['desc']
+            desc = request.POST['description']
 
             user_obj = UserLogin.objects.get(id=request.session['userId'])
             company_obj = Company(id=request.session['companyId'])
             ass_user_obj = UserLogin.objects.get(
-                id=request.POST['assigneduser'])
+                id=request.POST['assigned'])
 
+            consumer_obj = Consumer.objects.get(id=request.POST['consumer'])
+            consumer_name = consumer_obj.fistname + consumer_obj.lastname
             lead_obj = Leads(fk_created_user_id=user_obj,
                              fk_updated_user_id=user_obj,
                              fk_company_id=company_obj,
                              fk_assigned_user_id=ass_user_obj,
-                             lead_title=lead_title,
-                             lead_source=lead_source, lead_stage=lead_stage)
+                             fk_consumer_id=consumer_obj,
+                             lead_title=consumer_name)
             lead_obj.save()
 
             if lead_obj.id > 0:
+                product_obj = Product.objects.get(id=product)
                 lead_detail_obj = LeadDetails(fk_lead_id=lead_obj,
-                                              first_name=first_name,
-                                              last_name=last_name,
-                                              product=product,
-                                              phone_number=phone_number,
-                                              email=email,
-                                              address=address,
-                                              gender=gender,
-                                              description=desc)
+                                              fk_product_id=product_obj,
+                                              description=desc,
+                                              lead_source=lead_source,
+                                              lead_stage=lead_stage)
                 lead_detail_obj.save()
-
-                return HttpResponse('created')
+                return HttpResponse('New enquiry created')
             return HttpResponse('failed')
 
     except Exception as identifier:
         print(identifier)
+        return HttpResponse('an error occurred')
 
 
-def fn_get_enquiry(request):
-    try:
-        company_obj = Company(id=request.session['companyId'])
-        leads = Leads.objects.filter(fk_company_id=company_obj)
-    except Exception as identifier:
-        print(identifier)
-
-
+@csrf_exempt
 def fn_create_consumer(request):
     try:
         if request.method == 'POST':
@@ -195,7 +195,7 @@ def fn_create_consumer(request):
 
             consumer_obj = Consumer(fk_created_user_id=user_obj,
                                     fk_company_id=company_obj,
-                                    firstname=fname,
+                                    fistname=fname,
                                     lastname=lname,
                                     email=email,
                                     phone=phone,
@@ -250,5 +250,31 @@ def fn_create_employee(request):
 
                 return HttpResponse("failed to create employee")
             return HttpResponse("failed to create employee")
+    except Exception:
+        return HttpResponse('An error occurred')
+
+
+@csrf_exempt
+def fn_create_product(request):
+    try:
+        if request.method == 'POST':
+            code = request.POST['pro_code']
+            name = request.POST['pro_name']
+            cost = request.POST['pro_cost']
+            desc = request.POST['pro_desc']
+
+            created_user_obj = UserLogin.objects.get(
+                id=request.session['userId'])
+            company_obj = Company.objects.get(id=request.session['companyId'])
+            pro_code_exists = Product.objects.filter(
+                product_code=code).exists()
+            if not pro_code_exists:
+                product_obj = Product(fk_created_user_id=created_user_obj, fk_company_id=company_obj,
+                                      product_code=code, product_name=name, product_cost=cost, product_desc=desc)
+                product_obj.save()
+                if product_obj.id > 0:
+                    return HttpResponse('new product created')
+                return HttpResponse('failed to create product')
+            return HttpResponse('product exists')
     except Exception:
         return HttpResponse('An error occurred')
