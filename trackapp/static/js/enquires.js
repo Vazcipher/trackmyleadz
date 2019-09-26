@@ -99,7 +99,7 @@ function fn_save_enquiery() {
                     icon: 'success',
                     showHideTransition: 'fade',
                     allowToastClose: true,
-                    hideAfter: 3000,
+                    hideAfter: 1500,
                     stack: 5,
                     position: 'top-right',
                     textAlign: 'left',
