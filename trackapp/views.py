@@ -300,17 +300,20 @@ def fn_delete_product(request):
     try:
         if request.method == 'POST':
             product_id = request.POST['pro_id']
-            pro_obj = Product.objects.get(id=product_id).delete()
+            Product.objects.get(id=product_id).delete()
             return HttpResponse('Product successfully deleted')
-    except Exception as e:
-        print("Error")
+    except Exception:
+        return HttpResponse('an error occurred')
 
+
+@csrf_exempt
 def fn_delete_enquiry(request):
     try:
-        if request.method == 'POST' :
-            lead_id=request.POST['lead_id']
-            lead_obj=Leads.objects.get(id=lead_id).delete()
+        if request.method == 'POST':
+            lead_id = request.POST['lead_id']
+            lead_obj = Leads.objects.get(id=lead_id)
+            LeadDetails.objects.get(fk_lead_id=lead_obj).delete()
+            Leads.objects.get(id=lead_id).delete()
             return HttpResponse('enquiry deleted')
-    except Exception as e :
-        print ("Error")
-
+    except Exception:
+        return HttpResponse('an error occurred')
