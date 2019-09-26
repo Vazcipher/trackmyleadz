@@ -14,12 +14,18 @@
     margin: -100px;
     margin-left: 250px;
     padding-left: 50px;
-    height: 300px;
+    height: 500px;
     width: 1000px;
 }
-
-
-
+#view_cons
+{
+    border: 2px;
+    background-color: white;
+    margin-top: -155px;
+    margin-left: 250px;
+    padding-left: 80px;
+    height: 500px;
+}
 #search {
     color: darkgreen;
 }
