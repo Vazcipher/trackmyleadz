@@ -79,8 +79,12 @@ def enquires(request):
 def consumer(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
+        company_obj = Company.objects.get(id=request.session['companyId'])
+
+        cons_obj = Consumer.objects.filter(fk_company_id=company_obj)
         context = {
-            "username": user_obj.username
+            "username": user_obj.username,
+            "consmr_obj": cons_obj
         }
         return render(request, 'consumer.html', context)
     except Exception:
@@ -299,4 +303,14 @@ def fn_delete_product(request):
             pro_obj = Product.objects.get(id=product_id).delete()
             return HttpResponse('Product successfully deleted')
     except Exception as e:
-        return HttpResponse('Product already deleted')
+        print("Error")
+
+def fn_delete_enquiry(request):
+    try:
+        if request.method == 'POST' :
+            lead_id=request.POST['lead_id']
+            lead_obj=Leads.objects.get(id=lead_id).delete()
+            return HttpResponse('enquiry deleted')
+    except Exception as e :
+        print ("Error")
+
