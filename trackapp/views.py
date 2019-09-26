@@ -79,8 +79,12 @@ def enquires(request):
 def consumer(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
+        company_obj = Company.objects.get(id=request.session['companyId'])
+
+        cons_obj = Consumer.objects.filter(fk_company_id=company_obj)
         context = {
-            "username": user_obj.username
+            "username": user_obj.username,
+            "consmr_obj": cons_obj
         }
         return render(request, 'consumer.html', context)
     except Exception:
@@ -92,9 +96,11 @@ def employee(request):
         user_obj = UserLogin.objects.get(id=request.session['userId'])
         company_obj = Company.objects.get(id=request.session['companyId'])
         role_obj = UserRole.objects.filter(fk_company_id=company_obj)
+        userdet_obj = UserDetails.objects.filter(fk_login_id__fk_company_id=company_obj)
         context = {
             "username": user_obj.username,
-            "roles": role_obj
+            "roles": role_obj,
+            "userdetail":userdet_obj
         }
         return render(request, 'employee.html', context)
     except Exception:
