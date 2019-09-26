@@ -135,3 +135,45 @@ function fn_save_enquiery() {
         console.log('not valid')
     }
 }
+function delete_enquiry(lead_id)
+{
+    $.ajax({
+        url: 'http://127.0.0.1:8000/trackapp/delete_enquiry/',
+        type : 'POST',
+        data: {
+            lead_id: lead_id
+        },
+        success : del => { 
+         $.toast({
+            text: del,
+            heading: 'Note',
+            icon: 'success',
+            showHideTransition: 'fade',
+            allowToastClose: true,
+            hideAfter: 3000,
+            stack: 5,
+            position: 'top-right',
+            textAlign: 'left',
+            loader: true,
+            loaderBg: '#9EC600'
+         });
+        },
+        error : e => {
+            $.toast({
+                text: e,
+                heading: 'Note',
+                icon: 'error',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: 5,
+                position: 'top-right',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+            });
+        }
+
+        });
+
+}

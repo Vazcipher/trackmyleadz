@@ -293,3 +293,13 @@ def fn_delete_product(request):
             return HttpResponse('product deleted')
     except Exception as e:
         print("Error")
+
+def fn_delete_enquiry(request):
+    try:
+        if request.method == 'POST' :
+            lead_id=request.POST['lead_id']
+            lead_obj=Leads.objects.get(id=lead_id).delete()
+            return HttpResponse('enquiry deleted')
+    except Exception as e :
+        print ("Error")
+

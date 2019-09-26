@@ -63,7 +63,9 @@
 						<div class="dropdown-menu">
 
 							<a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit</a>
-							<a class="dropdown-item" href="delete"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+							<button class="dropdown-item" onclick="fn_delete_enquiry('{{ lead.id }}')">
+								<i class="fa fa-trash"></i>&nbsp;Delete 
+							</button>
 							<a class="dropdown-item" href="follow"><i class="fas fa-comments"></i>&nbsp;Followup</a>
 						</div>
 						</div>
