@@ -75,7 +75,7 @@ function fn_save_product() {
                     icon: 'success',
                     showHideTransition: 'fade',
                     allowToastClose: true,
-                    hideAfter: 3000,
+                    hideAfter: 1500,
                     stack: 5,
                     position: 'top-right',
                     textAlign: 'left',
@@ -86,7 +86,9 @@ function fn_save_product() {
                 $('#pr_name').val('');
                 $('#pr_cost').val('');
                 $('#pr_desc').val('');
-                
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
             },
             error: e => {
                 $.toast({
@@ -107,30 +109,30 @@ function fn_save_product() {
     }
 }
 
-function delete_product(pro_id) {
+function fn_delete_product(pro_id) {
     $.ajax({
         url: 'http://127.0.0.1:8000/trackapp/delete_product/',
-        type : 'POST',
+        type: 'POST',
         data: {
             pro_id: pro_id
         },
-        success : del => { 
-         $.toast({
-            text: del,
-            heading: 'Note',
-            icon: 'success',
-            showHideTransition: 'fade',
-            allowToastClose: true,
-            hideAfter: 3000,
-            stack: 5,
-            position: 'top-right',
-            textAlign: 'left',
-            loader: true,
-            loaderBg: '#9EC600'
-         });
+        success: del => {
+            $.toast({
+                text: del,
+                heading: 'Note',
+                icon: 'success',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 2000,
+                stack: 5,
+                position: 'top-right',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600'
+            });
         },
-    
-         error : e => {
+
+        error: e => {
             $.toast({
                 text: e,
                 heading: 'Note',
@@ -146,5 +148,5 @@ function delete_product(pro_id) {
             });
         }
 
-        });
+    });
 }

@@ -13,6 +13,7 @@ $(document).ready(() => {
     });
 
 });
+
 function validate() {
 
     let flag = 0;
@@ -132,7 +133,7 @@ function fn_save_employee() {
                     icon: 'success',
                     showHideTransition: 'fade',
                     allowToastClose: true,
-                    hideAfter: 3000,
+                    hideAfter: 2000,
                     stack: 5,
                     position: 'top-right',
                     textAlign: 'left',

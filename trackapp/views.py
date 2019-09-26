@@ -96,11 +96,12 @@ def employee(request):
         user_obj = UserLogin.objects.get(id=request.session['userId'])
         company_obj = Company.objects.get(id=request.session['companyId'])
         role_obj = UserRole.objects.filter(fk_company_id=company_obj)
-        userdet_obj = UserDetails.objects.filter(fk_login_id__fk_company_id=company_obj)
+        userdet_obj = UserDetails.objects.filter(
+            fk_login_id__fk_company_id=company_obj)
         context = {
             "username": user_obj.username,
             "roles": role_obj,
-            "userdetail":userdet_obj
+            "userdetail": userdet_obj
         }
         return render(request, 'employee.html', context)
     except Exception:
@@ -236,31 +237,34 @@ def fn_create_employee(request):
             location = request.POST['location']
             gender = request.POST['gender']
             role = request.POST['role']
+            check_emp_exist = UserLogin.objects.filter(username=uname).exists()
+            if not check_emp_exist:
+                company_obj = Company.objects.get(
+                    id=request.session['companyId'])
+                role_obj = UserRole.objects.get(id=role)
 
-            company_obj = Company.objects.get(id=request.session['companyId'])
-            role_obj = UserRole.objects.get(id=role)
+                emp_obj = UserLogin(fk_company_id=company_obj,
+                                    role=role_obj, username=uname, password=pword)
 
-            emp_obj = UserLogin(fk_company_id=company_obj,
-                                role=role_obj, username=uname, password=pword)
+                emp_obj.save()
 
-            emp_obj.save()
+                if emp_obj.id > 0:
+                    emp_detail_obj = UserDetails(fk_login_id=emp_obj,
+                                                 firstname=fname,
+                                                 mobile=phone,
+                                                 lastname=lname,
+                                                 address=location,
+                                                 dob=dob,
+                                                 email=email,
+                                                 gender=gender)
+                    emp_detail_obj.save()
 
-            if emp_obj.id > 0:
-                emp_detail_obj = UserDetails(fk_login_id=emp_obj,
-                                             firstname=fname,
-                                             mobile=phone,
-                                             lastname=lname,
-                                             address=location,
-                                             dob=dob,
-                                             email=email,
-                                             gender=gender)
-                emp_detail_obj.save()
+                    if emp_detail_obj.id > 0:
+                        return HttpResponse("new employee created")
 
-                if emp_detail_obj.id > 0:
-                    return HttpResponse("new employee created")
-
+                    return HttpResponse("failed to create employee")
                 return HttpResponse("failed to create employee")
-            return HttpResponse("failed to create employee")
+            return HttpResponse('Username already exisit')
     except Exception:
         return HttpResponse('An error occurred')
 
@@ -291,11 +295,22 @@ def fn_create_product(request):
         return HttpResponse('An error occurred')
 
 
+@csrf_exempt
 def fn_delete_product(request):
     try:
         if request.method == 'POST':
             product_id = request.POST['pro_id']
             pro_obj = Product.objects.get(id=product_id).delete()
-            return HttpResponse('product deleted')
+            return HttpResponse('Product successfully deleted')
     except Exception as e:
         print("Error")
+
+def fn_delete_enquiry(request):
+    try:
+        if request.method == 'POST' :
+            lead_id=request.POST['lead_id']
+            lead_obj=Leads.objects.get(id=lead_id).delete()
+            return HttpResponse('enquiry deleted')
+    except Exception as e :
+        print ("Error")
+
