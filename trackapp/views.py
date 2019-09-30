@@ -317,3 +317,4 @@ def fn_delete_enquiry(request):
             return HttpResponse('enquiry deleted')
     except Exception:
         return HttpResponse('an error occurred')
+
