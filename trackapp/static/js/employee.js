@@ -1,3 +1,21 @@
+$(document).ready( () => {
+    
+    $("#table").hide();
+
+    $("#New").click( () => {
+        $("#view_emp").hide();
+        $("#table").show();
+    });
+
+    $("#View").click( () => {
+        $("#view_emp").show();
+        $("#table").hide();
+    });
+
+});
+
+
+
 function validate() {
     
     let flag = 0;
