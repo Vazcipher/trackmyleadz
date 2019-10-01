@@ -1,0 +1,92 @@
+{% extends 'home.html' %}
+
+{% block head %}
+
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/followup.css' %}">
+<script src="{% static 'js/followup.js' %}"></script>
+<title>followup</title>
+
+
+
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+	<br>
+	<span class="input" id="Enquiry">
+		Enquiry
+	</span>
+	<br><br><br>
+
+	<button id="New" class="btn btn-primary input">
+		<i class="fa fa-magic">&nbsp; New</i>
+	</button>
+
+	<br><br><br><br>
+
+	<button id="view" class="btn btn-primary input">
+		<i class="fa fa-eye">&nbsp; View</i>
+	</button>
+
+    <br><br><br><br>
+   <div id="Collapse" class="row">
+            <table id="table1">
+                 <tr><td> <a href="#" id="link2">-Collapse</a></td></tr>
+                 <tr><td> <h1>TITLE</h1><hr></td></tr>
+                 <tr>
+                     <td>DESCRIPTION<span style="color:red;">(*Mandatory)</span><br><textarea id="plan"></textarea></td>
+                 </tr>
+   
+                <tr>
+                     <td><div class="btn-group"><button class="btn btn-danger"><i class="fa fa-close"></i>&nbsp;Cancel</button>
+                    <button class="btn btn-primary" onclick="fn_followup();"><i class="fa fa-save"></i>&nbsp;Save</button></div></td>
+                </tr>
+            
+            </table>
+        </div>
+      <div id="add" class="row">
+            <table id="table">
+               
+                <tr><td> <a href="#" id="link">+ Add Follow Ups</a></td></tr>
+                   
+                <tr><br>
+                    <td>created by
+                        <tr><td><i class="fa fa-user"></i></td></tr>
+                     <td colspan="4"><div class="btn-group"><button type="button" class="btn btn-success" >
+								<i class="fa fa-calendar-check-o"></i>
+                        </button>
+                        	<button type="button" class="btn btn-danger">
+								<i class="fa fa-trash"></i>
+                        </button></div>
+                            
+						<tr>	<td  colspan="4"><label id="note">	<i class="fa fa-circle-thin" style="color:red;">Note done</i>
+                          </label>  </td></tr>
+                        </tr>
+                <br><br>
+                <tr><td><h1>CONTACT</h1><hr></td></tr>
+                <tr>
+                        
+                        <td>Name: tst </td>
+                        <td>Phone:t373 </td>
+                        <td>Date: ttrt </td>
+                        <td>Time: ffdy</td>
+                </tr>
+                <br><br><br>
+                <tr><td><h1>REMARK</h1><hr></td></tr>
+                <tr><td>Plan:xgvfg</td></tr>
+                <tr><td><a href="#">+ Add plan</a></td></tr>
+                <tr><td><a href="#">+ Add Outcome</a></td></tr>
+                
+            </table>
+            
+    
+        </div>
+    
+</div>
+
+{{ lead_obj.fk_lead_id.lead_title }}
+
+{% endblock %}

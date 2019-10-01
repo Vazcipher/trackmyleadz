@@ -1,0 +1,145 @@
+.d {
+    background-color: #006666;
+    color: white;
+    padding-left: 50px;
+    padding-right: 100px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    font-size: 20px;
+}
+
+.e {
+    background-color: white;
+    color: #006666;
+    padding-right: 100px;
+    padding-left: 50px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    font-size: 20px;
+}
+
+#f {
+    color: black;
+    text-decoration: none;
+    font-style: bold;
+}
+
+#f:hover {
+    color: blue;
+    text-decoration: none;
+}
+
+#b {
+    background-color: #f2f2f2;
+}
+
+#tb {
+    width: 80%;
+}
+
+.list-group-item {
+    color: white;
+    float: right;
+    padding: 10px;
+}
+
+#table {
+    border: 2px;
+    background-color: white;
+    margin-top: -200px;
+    margin-left: 300px;
+    padding-left: 50px;
+
+    height: 100%;
+    width: 100%;
+}
+#table1 {
+    border: 2px;
+    background-color: white;
+    margin-top: 1000px;
+    margin-left: 300px;
+    padding-left: 50px;
+    height: 100%;
+    width: 100%;
+}
+.btn-group
+{
+  float:right;  
+}
+#note
+{
+  float:right;  
+}
+
+
+
+#search {
+    color: darkgreen;
+}
+
+.input {
+    margin-left: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 12%;
+}
+
+#input1 {
+    text-decoration: none;
+    background-color: white;
+    color: blue;
+    font-size: 20px;
+    border: 100px;
+    margin-left: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#input:hover {
+    text-decoration: none;
+    background-color: skyblue;
+}
+
+h1 {
+    color: green;
+    text-align: left;
+    padding-left:10px;
+    font-size: 15px;
+
+}
+
+select {
+    padding-left: 30px;
+    padding-right: 120px;
+}
+
+#link {
+    text-decoration: none;
+    color: green;
+}
+#link2 {
+    text-decoration: none;
+    color: green;
+}
+
+
+
+
+
+
+input {
+    padding-left: 10px;
+    padding-right: 50px;
+}
+
+#h {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+#plan{
+    padding-left:600px;
+
+
+}

@@ -202,22 +202,26 @@ def fn_create_consumer(request):
             address = request.POST['address']
             gender = request.POST['gender']
 
-            user_obj = UserLogin.objects.get(id=request.session['userId'])
-            company_obj = Company.objects.get(id=request.session['companyId'])
+            check_consumer = Consumer.objects.filter(email=email).exists()
+            if not check_consumer:
+                user_obj = UserLogin.objects.get(id=request.session['userId'])
+                company_obj = Company.objects.get(
+                    id=request.session['companyId'])
 
-            consumer_obj = Consumer(fk_created_user_id=user_obj,
-                                    fk_company_id=company_obj,
-                                    fistname=fname,
-                                    lastname=lname,
-                                    email=email,
-                                    phone=phone,
-                                    address=address,
-                                    gender=gender)
-            consumer_obj.save()
+                consumer_obj = Consumer(fk_created_user_id=user_obj,
+                                        fk_company_id=company_obj,
+                                        fistname=fname,
+                                        lastname=lname,
+                                        email=email,
+                                        phone=phone,
+                                        address=address,
+                                        gender=gender)
+                consumer_obj.save()
 
-            if consumer_obj.id > 0:
-                return HttpResponse('new consumer created')
-            return HttpResponse('failed to create consumer')
+                if consumer_obj.id > 0:
+                    return HttpResponse('new consumer created')
+                return HttpResponse('failed to create consumer')
+            return HttpResponse('consumer already exist')
     except Exception as e:
         print(e)
         return HttpResponse('an error occurred')
@@ -260,6 +264,14 @@ def fn_create_employee(request):
                     emp_detail_obj.save()
 
                     if emp_detail_obj.id > 0:
+                        current_user_obj = UserLogin.objects.get(
+                            id=request.session['userId'])
+                        notification_title = '{} added new employee {}'.format(
+                            current_user_obj.username, emp_obj.username)
+                        print(notification_title)
+                        notification_obj = Notification(
+                            fk_company_id=company_obj, notification_title=notification_title, content_object=emp_detail_obj)
+                        notification_obj.save()
                         return HttpResponse("new employee created")
 
                     return HttpResponse("failed to create employee")
@@ -318,3 +330,18 @@ def fn_delete_enquiry(request):
     except Exception:
         return HttpResponse('an error occurred')
 
+
+def fn_follow_up(request):
+    try:
+        user_obj = UserLogin.objects.get(id=request.session['userId'])
+        lead_detail_obj = LeadDetails.objects.get(
+            fk_lead_id__id=request.GET['id'])
+        context = {
+            "username": user_obj.username,
+            "lead_obj": lead_detail_obj
+        }
+        print(lead_detail_obj)
+        return render(request, 'followup.html', context)
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occurred')
