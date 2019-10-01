@@ -1,0 +1,17 @@
+{% extends 'home.html' %}
+
+{% block head %}
+
+{% load staticfiles %}
+
+<title>followup</title>
+
+{% endblock %}
+
+{% block body %}
+
+<h1>follow up</h1>
+<hr>
+{{ lead_obj.fk_lead_id.lead_title }}
+
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 # Create your models here.
 
 
@@ -69,7 +70,7 @@ class Leads(models.Model):
     fk_assigned_user_id = models.ForeignKey(
         UserLogin, on_delete=models.CASCADE, related_name="fk_assigned_user_id")
     fk_consumer_id = models.ForeignKey(
-        Consumer, on_delete=models.CASCADE, default=None)
+        Consumer, on_delete=models.CASCADE)
     lead_title = models.CharField(max_length=30)
     created_date = models.DateField(auto_now_add=True)
     created_time = models.TimeField(auto_now_add=True)
@@ -79,9 +80,9 @@ class Leads(models.Model):
 class LeadDetails(models.Model):
     fk_lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
     fk_product_id = models.ForeignKey(
-        Product, on_delete=models.CASCADE, default=None)
+        Product, on_delete=models.CASCADE)
     description = models.CharField(max_length=100)
-    lead_source = models.CharField(max_length=20, default=None)
+    lead_source = models.CharField(max_length=20)
     lead_stage = models.CharField(max_length=15)
 
 
@@ -95,6 +96,11 @@ class FollowUp(models.Model):
 
 
 class Notification(models.Model):
-    fk_reciver_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
-    notification_title = models.CharField(max_length=25)
+    fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
+    notification_title = models.CharField(max_length=50)
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, default=None)
+    object_id = models.PositiveIntegerField(default=None)
+    content_object = GenericForeignKey('content_type', 'object_id')
     created_date = models.DateField(auto_now_add=True)
+    created_time = models.TimeField(auto_now_add=True)
