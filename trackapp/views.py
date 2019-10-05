@@ -336,12 +336,45 @@ def fn_follow_up(request):
         user_obj = UserLogin.objects.get(id=request.session['userId'])
         lead_detail_obj = LeadDetails.objects.get(
             fk_lead_id__id=request.GET['id'])
+        follow_ups = FollowUp.objects.filter(fk_lead_id=lead_detail_obj.fk_lead_id)
         context = {
             "username": user_obj.username,
-            "lead_obj": lead_detail_obj
+            "lead_obj": lead_detail_obj,
+            "followups": follow_ups
         }
-        print(lead_detail_obj)
         return render(request, 'followup.html', context)
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occurred')
+
+
+@csrf_exempt
+def fn_save_follow_up(req):
+    try:
+        if req.method == 'POST':
+            lead_id = req.POST['lead_id']
+            followup_title = req.POST['title']
+            followup_desc = req.POST['desc']
+
+            lead_obj = Leads.objects.get(id=lead_id)
+            user_obj = UserLogin.objects.get(id=req.session['userId'])
+            company_obj = Company.objects.get(id=req.session['companyId'])
+
+            followup_obj = FollowUp(fk_lead_id=lead_obj, fk_created_user_id=user_obj,
+                                    fk_company_id=company_obj, followup_title=followup_title,
+                                    followup_description=followup_desc)
+            followup_obj.save()
+            if followup_obj.id > 0:
+                return HttpResponse('New followup added')
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('An error occurred')
+
+
+@csrf_exempt
+def fn_get_notifications(request):
+    try:
+        company_obj = Company.objects.get(id=request.session['companyId'])
+        notifications = Notification.objects.filter(fk_company_id=company_obj)
+    except Exception as identifier:
+        print(identifier)
