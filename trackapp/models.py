@@ -92,6 +92,7 @@ class FollowUp(models.Model):
     fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
     followup_title = models.CharField(max_length=20)
     followup_description = models.CharField(max_length=100)
+    completed_status = models.BooleanField(default=False)
     created_date = models.DateField(auto_now_add=True)
     created_time = models.TimeField(auto_now_add=True)
 

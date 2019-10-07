@@ -19,5 +19,8 @@ urlpatterns = [
     path('delete_enquiry/', views.fn_delete_enquiry),
     path('followup', views.fn_follow_up),
     path('getNotification', views.fn_get_notifications),
-    path('savefollowup/', views.fn_save_follow_up)
+    path('savefollowup/', views.fn_save_follow_up),
+    path('removeFollowup/', views.fn_delete_followup),
+    path('finishFollowup/', views.fn_finish_followup),
+    path('changePassword/', views.fn_change_password)
 ]
