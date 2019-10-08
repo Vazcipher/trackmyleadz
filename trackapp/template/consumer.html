@@ -12,121 +12,126 @@
 {% block body %}
 
 <br>
-<span class="input">Consumer</span>
+<div class="row">
+	<span class="input">Consumer</span>
+</div>
 <br>
 <br>
 <br>
+
 <button id="New" class="input btn btn-primary">
 	<i class="fa fa-magic">&nbsp; New</i>
 </button>
 <br>
 <br>
-	<button id="view" class="input btn btn-primary">
-		<i class="fa fa-eye">&nbsp; View</i>
-	</button>
+<button id="view" class="input btn btn-primary">
+	<i class="fa fa-eye">&nbsp; View</i>
+</button>
 
-		<div id="view_cons" class="row">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>SL.No</th>
-					<th>Firstname</th>
-					<th>Lastname</th>
-					<th>Email</th>
-				</tr>
-			</thead>
-			<tbody>
-					{% for consumer in consmr_obj %}
-					<tr>
-						<td> {{ consumer.id }} </td>
-						<td> {{ consumer.fistname }} </td>
-						<td> {{ consumer.lastname }} </td>
-						<td> {{ consumer.email }} </td>
-						<td>
-						<div class="btn-group">
-							<button class="btn btn-outline-primary" data-toggle="dropdown">
-								<i class="fa fa-caret-down"></i>
-								menu
+<div id="view_cons">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>SL.No</th>
+				<th>Firstname</th>
+				<th>Lastname</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for consumer in consmr_obj %}
+			<tr>
+				<td> {{ consumer.id }} </td>
+				<td> {{ consumer.fistname }} </td>
+				<td> {{ consumer.lastname }} </td>
+				<td> {{ consumer.email }} </td>
+				<td>
+					<div class="btn-group">
+						<button class="btn btn-outline-primary" data-toggle="dropdown">
+							<i class="fa fa-caret-down"></i>
+							menu
+						</button>
+						<div class="dropdown-menu">
+
+							<a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit Product</a>
+							<button class="dropdown-item" onclick="fn_delete_product('{{ product.id }}')">
+								<i class="fa fa-trash"></i>&nbsp;Delete Product
 							</button>
-							<div class="dropdown-menu">
-	
-									<a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit Product</a>
-									<button class="dropdown-item" onclick="fn_delete_product('{{ product.id }}')">
-										<i class="fa fa-trash"></i>&nbsp;Delete Product
-									</button>
-									<a class="dropdown-item" href="view"><i class="fa fa-eye"></i>&nbsp;View Product</a>
-								</div>
+							<a class="dropdown-item" href="view"><i class="fa fa-eye"></i>&nbsp;View Product</a>
 						</div>
-						</td>
-					</tr>
-					{% endfor %}
-	
-			</tbody>
-		</table>
-	</div>
-		
-   <table id="table" cellpadding="7px">
-   	  	<th>CONSUMER<hr></th>
-		<tr>
-			<td>
-				Firstname
-				<br>
-				<input id="fn" class="form-control"  type="text">
-			</td>
-			<td>
-				Lastname
-				<br>
-				<input id="ln" class="form-control" type="text">
-			</td>
+					</div>
+				</td>
+			</tr>
+			{% endfor %}
 
-			<td>
-				Email
-				<br>
-				<input id="em" class="form-control" name="email" type="email">
-			</td>
-		</tr>
-	   
-   		<tr>
-   			<td>
-				Phone
-				<br>
-				<input class="form-control" name="phone" type="text" id="ph">
-			</td>
+		</tbody>
+	</table>
+</div>
 
-   			<td>
-				Address
-				<br>
-				<input class="form-control" name="location" type="text" id="ad">
-			</td>
+<table id="table" cellpadding="7px">
+	<th>CONSUMER
+		<hr>
+	</th>
+	<tr>
+		<td>
+			Firstname
+			<br>
+			<input id="fn" class="form-control" type="text">
+		</td>
+		<td>
+			Lastname
+			<br>
+			<input id="ln" class="form-control" type="text">
+		</td>
 
-            <td>
-				Gender
-				<br>
-				<div class="form-check-inline">
-					<label class="form-check-label">
-						<input type="radio" class="form-check-input" value="Male" name="gender">
-						<span id="g1">Male</span>
-					</label>
-				</div>
-				
-				<div class="form-check-inline">
-					<label class="form-check-label">
-						<input type="radio" class="form-check-input" value="Female" name="gender">
-						<span id="g2">Female</span>
-					</label>
-				</div>
-			</td>
-   		</tr>
-		
-		<tr>
-        	<td>
-				<button id="btn" onclick="fn_save_consumer();">
-					<i class="fa fa-save"></i>
-					Save Consumer
-				</button>
-			</td>
-   		</tr>
-   	</table>
-    
+		<td>
+			Email
+			<br>
+			<input id="em" class="form-control" name="email" type="email">
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			Phone
+			<br>
+			<input class="form-control" name="phone" type="text" id="ph">
+		</td>
+
+		<td>
+			Address
+			<br>
+			<input class="form-control" name="location" type="text" id="ad">
+		</td>
+
+		<td>
+			Gender
+			<br>
+			<div class="form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" value="Male" name="gender">
+					<span id="g1">Male</span>
+				</label>
+			</div>
+
+			<div class="form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" value="Female" name="gender">
+					<span id="g2">Female</span>
+				</label>
+			</div>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<button id="btn" onclick="fn_save_consumer();">
+				<i class="fa fa-save"></i>
+				Save Consumer
+			</button>
+		</td>
+	</tr>
+</table>
+
 
 {% endblock %}

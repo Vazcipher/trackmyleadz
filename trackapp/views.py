@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
 
@@ -183,7 +183,13 @@ def fn_create_enquiry(request):
                                               lead_source=lead_source,
                                               lead_stage=lead_stage)
                 lead_detail_obj.save()
-                return HttpResponse('New enquiry created')
+                if lead_detail_obj.id > 0:
+                    notification_title = '{} created new enquire on {}'.format(
+                        user_obj.username, consumer_obj.fistname)
+                    notification_obj = Notification(
+                        fk_company_id=company_obj, notification_title=notification_title, content_object=lead_detail_obj)
+                    notification_obj.save()
+                    return HttpResponse('New enquiry created')
             return HttpResponse('failed')
 
     except Exception as identifier:
@@ -202,22 +208,31 @@ def fn_create_consumer(request):
             address = request.POST['address']
             gender = request.POST['gender']
 
-            user_obj = UserLogin.objects.get(id=request.session['userId'])
-            company_obj = Company.objects.get(id=request.session['companyId'])
+            check_consumer = Consumer.objects.filter(email=email).exists()
+            if not check_consumer:
+                user_obj = UserLogin.objects.get(id=request.session['userId'])
+                company_obj = Company.objects.get(
+                    id=request.session['companyId'])
 
-            consumer_obj = Consumer(fk_created_user_id=user_obj,
-                                    fk_company_id=company_obj,
-                                    fistname=fname,
-                                    lastname=lname,
-                                    email=email,
-                                    phone=phone,
-                                    address=address,
-                                    gender=gender)
-            consumer_obj.save()
+                consumer_obj = Consumer(fk_created_user_id=user_obj,
+                                        fk_company_id=company_obj,
+                                        fistname=fname,
+                                        lastname=lname,
+                                        email=email,
+                                        phone=phone,
+                                        address=address,
+                                        gender=gender)
+                consumer_obj.save()
 
-            if consumer_obj.id > 0:
-                return HttpResponse('new consumer created')
-            return HttpResponse('failed to create consumer')
+                if consumer_obj.id > 0:
+                    notification_title = "{} created new consumer {}".format(
+                        user_obj.username, consumer_obj.fistname)
+                    notification_obj = Notification(
+                        fk_company_id=company_obj, notification_title=notification_title, content_object=consumer_obj)
+                    notification_obj.save()
+                    return HttpResponse('new consumer created')
+                return HttpResponse('failed to create consumer')
+            return HttpResponse('consumer already exist')
     except Exception as e:
         print(e)
         return HttpResponse('an error occurred')
@@ -260,6 +275,14 @@ def fn_create_employee(request):
                     emp_detail_obj.save()
 
                     if emp_detail_obj.id > 0:
+                        current_user_obj = UserLogin.objects.get(
+                            id=request.session['userId'])
+                        notification_title = '{} added new employee {}'.format(
+                            current_user_obj.username, emp_obj.username)
+                        print(notification_title)
+                        notification_obj = Notification(
+                            fk_company_id=company_obj, notification_title=notification_title, content_object=emp_detail_obj)
+                        notification_obj.save()
                         return HttpResponse("new employee created")
 
                     return HttpResponse("failed to create employee")
@@ -299,8 +322,7 @@ def fn_create_product(request):
 def fn_delete_product(request):
     try:
         if request.method == 'POST':
-            product_id = request.POST['pro_id']
-            Product.objects.get(id=product_id).delete()
+            Product.objects.get(id=request.POST['pro_id']).delete()
             return HttpResponse('Product successfully deleted')
     except Exception:
         return HttpResponse('an error occurred')
@@ -317,3 +339,94 @@ def fn_delete_enquiry(request):
             return HttpResponse('enquiry deleted')
     except Exception:
         return HttpResponse('an error occurred')
+
+
+def fn_follow_up(request):
+    try:
+        user_obj = UserLogin.objects.get(id=request.session['userId'])
+        lead_detail_obj = LeadDetails.objects.get(
+            fk_lead_id__id=request.GET['id'])
+        follow_ups = FollowUp.objects.filter(
+            fk_lead_id=lead_detail_obj.fk_lead_id)
+        context = {
+            "username": user_obj.username,
+            "lead_obj": lead_detail_obj,
+            "followups": follow_ups
+        }
+        return render(request, 'followup.html', context)
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occurred')
+
+
+@csrf_exempt
+def fn_save_follow_up(req):
+    try:
+        if req.method == 'POST':
+            lead_id = req.POST['lead_id']
+            followup_title = req.POST['title']
+            followup_desc = req.POST['desc']
+
+            lead_obj = Leads.objects.get(id=lead_id)
+            user_obj = UserLogin.objects.get(id=req.session['userId'])
+            company_obj = Company.objects.get(id=req.session['companyId'])
+
+            followup_obj = FollowUp(fk_lead_id=lead_obj, fk_created_user_id=user_obj,
+                                    fk_company_id=company_obj, followup_title=followup_title,
+                                    followup_description=followup_desc)
+            followup_obj.save()
+            if followup_obj.id > 0:
+                return HttpResponse('New followup added')
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('An error occurred')
+
+
+@csrf_exempt
+def fn_delete_followup(req):
+    try:
+        if req.method == 'POST':
+            FollowUp.objects.get(id=req.POST['followup_id']).delete()
+            return HttpResponse('followup removed')
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occured')
+
+
+@csrf_exempt
+def fn_finish_followup(req):
+    try:
+        if req.method == 'POST':
+            FollowUp.objects.filter(id=req.POST['followup_id']).update(
+                completed_status=True)
+            return HttpResponse('Followup completed')
+    except expression as identifier:
+        print(identifier)
+        return HttpResponse('an error occurred')
+
+
+@csrf_exempt
+def fn_get_notifications(request):
+    try:
+        company_obj = Company.objects.get(id=request.session['companyId'])
+        notifications = Notification.objects.filter(
+            fk_company_id=company_obj).values()
+        return JsonResponse({"notifications": list(notifications)})
+    except Exception as identifier:
+        print(identifier)
+        return JsonResponse({"res": "error"})
+
+
+@csrf_exempt
+def fn_change_password(req):
+    try:
+        if req.method == 'POST':
+            user_obj = UserLogin.objects.get(id=req.session['userId'])
+            if user_obj.password == req.POST['oldpass']:
+                UserLogin.objects.filter(id=req.session['userId']).update(
+                    password=req.POST['newpass'])
+                return HttpResponse('Successfully changed password')
+            return HttpResponse('old password does not match')
+    except expression as identifier:
+        print(identifier)
+        return HttpResponse('an error occured')

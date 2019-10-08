@@ -66,7 +66,9 @@
 								<button class="dropdown-item" onclick="fn_delete_enquiry('{{ lead.fk_lead_id.id }}')">
 									<i class="fa fa-trash"></i>&nbsp;Delete
 								</button>
-								<a class="dropdown-item" href="follow"><i class="fas fa-comments"></i>&nbsp;Followup</a>
+								<a class="dropdown-item"
+									href="http://127.0.0.1:8000/trackapp/followup?id={{lead.fk_lead_id.id}}"><i
+										class="fa fa-comments"></i>&nbsp;Followup</a>
 							</div>
 						</div>
 					</td>
