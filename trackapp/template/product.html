@@ -1,0 +1,109 @@
+{% extends 'home.html' %}
+
+{% block head %}
+<title>product</title>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <br>
+    <span class="input">Product</span>
+    <br>
+    <br>
+    <br>
+    <button id="New" class="input btn btn-primary">
+        <i class="fa fa-magic">&nbsp; New</i>
+    </button>
+    <br>
+    <br>
+    <button id="view" class="input btn btn-primary">
+        <i class="fa fa-eye">&nbsp; View</i>
+    </button>
+
+    <div id="view_product" class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Product code</th>
+                    <th>Product name</th>
+                    <th>Product cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in pro_obj %}
+                <tr>
+                    <td> {{ product.id }} </td>
+					<td> {{ product.product_code }} </td>
+					<td> {{ product.product_name }} </td>
+					<td> {{ product.product_cost }} </td>
+					<td>
+                    <div class="btn-group">
+						<button class="btn btn-outline-primary" data-toggle="dropdown">
+							<i class="fa fa-caret-down"></i>
+							menu
+                        </button>
+                        <div class="dropdown-menu">
+
+                                <a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit Product</a>
+                                <button class="dropdown-item" onclick="fn_delete_product('{{ product.id }}')">
+                                    <i class="fa fa-trash"></i>&nbsp;Delete Product
+                                </button>
+                                <a class="dropdown-item" href="view"><i class="fa fa-eye"></i>&nbsp;View Product</a>
+                            </div>
+                    </div>
+					</td>
+				</tr>
+				{% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <table id="table" cellpadding="7px">
+        <th>PRODUCT
+            <hr>
+        </th>
+        <tr>
+            <td>
+                Product Code
+                <br>
+                <input id="code" class="form-control" type="text">
+            </td>
+            <td>
+                Product Name
+                <br>
+                <input id="pr_name" class="form-control" type="text">
+            </td>
+
+            <td>
+                Product cost
+                <br>
+                <input id="pr_cost" class="form-control" type="cost">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Description
+                <br>
+                <input class="form-control" name="phone" type="text" id="pr_desc">
+            </td>
+
+
+        <tr>
+            <td>
+                <button id="btn" onclick="fn_save_product();">
+                    <i class="fa fa-save"></i>
+                    Save product
+                </button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+{% endblock %}

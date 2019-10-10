@@ -14,18 +14,21 @@
     margin: -100px;
     margin-left: 250px;
     padding-left: 50px;
-    height: 500px;
+    height: 300px;
     width: 1000px;
 }
-#view_cons
-{
+
+#view_product {
     border: 2px;
     background-color: white;
     margin-top: -155px;
     margin-left: 250px;
-    padding-left: 80px;
+    padding-left: 50px;
     height: 500px;
+    width: 1000px;
 }
+
+
 #search {
     color: darkgreen;
 }
@@ -52,13 +55,4 @@
 th {
     color: green;
     text-align: left;
-}
-
-select {
-    padding-left: 30px;
-    padding-right: 60px;
-}
-
-a {
-    text-decoration: none;
 }

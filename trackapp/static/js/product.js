@@ -1,96 +1,72 @@
 $(document).ready(() => {
 
-    $("#table").hide();
+    $("#view_product").hide();
 
     $("#New").click(() => {
-        $("#view_enq").hide();
         $("#table").show();
+        $("#view_product").hide();
     });
 
     $("#view").click(() => {
-        $("#view_enq").show();
+        $("#view_product").show();
         $("#table").hide();
     });
 
 });
 
-
 function validate() {
     let flag = 0;
 
-    if ($('#consumer').val().length > 0) {
+    if ($('#code').val().length > 0) {
         flag++;
-        $('#consumer').css("border-color", "#ced4da");
+        $('#code').css("border-color", "#ced4da");
     } else {
         flag--;
-        $('#consumer').css("border-color", "red");
+        $('#code').css("border-color", "red");
     }
 
-    if ($('#lead_stage').val().length > 0) {
+    if ($('#pr_name').val().length > 0) {
         flag++;
-        $('#lead_stage').css("border-color", "#ced4da");
+        $('#pr_name').css("border-color", "#ced4da");
     } else {
         flag--;
-        $('#lead_stage').css("border-color", "red");
+        $('#pr_name').css("border-color", "red");
     }
 
-    if ($('#lead_source').val().length > 0) {
+    if ($('#pr_desc').val().length > 0) {
         flag++;
-        $('#lead_source').css("border-color", "#ced4da");
+        $('#pr_desc').css("border-color", "#ced4da");
     } else {
         flag--;
-        $('#lead_source').css("border-color", "red");
+        $('#pr_desc').css("border-color", "red");
     }
 
-    if ($('#product').val().length > 0) {
+    if ($('#pr_cost').val().length > 0) {
         flag++;
-        $('#product').css("border-color", "#ced4da");
+        $('#pr_cost').css("border-color", "#ced4da");
     } else {
         flag--;
-        $('#product').css("border-color", "red");
+        $('#pr_cost').css("border-color", "red");
     }
 
-    if ($('#assigned').val().length > 0) {
-        flag++;
-        $('#assigned').css("border-color", "#ced4da");
-    } else {
-        flag--;
-        $('#assigned').css("border-color", "red");
-    }
-
-    if ($('#des').val().length > 0) {
-        flag++;
-        $('#des').css("border-color", "#ced4da");
-    } else {
-        flag--;
-        $('#des').css("border-color", "red");
-    }
-
-    if (flag == 6) {
+    if (flag == 4) {
         return true;
     } else {
         return false;
     }
 }
 
-
-function fn_save_enquiery() {
-    const isValid = validate()
-    console.log(isValid);
+function fn_save_product() {
+    const isValid = validate();
     if (isValid) {
         $.ajax({
-            url: 'http://127.0.0.1:8000/trackapp/createEnquiry/',
+            url: 'http://127.0.0.1:8000/trackapp/createProduct/',
             type: 'POST',
             data: {
-                consumer: $('#consumer').val(),
-                email: $('#email').val(),
-                phone: $('#phone').val(),
-                lead_stage: $('#lead_stage').val(),
-                lead_source: $('#lead_source').val(),
-                product: $('#product').val(),
-                assigned: $('#assigned').val(),
-                description: $('#des').val()
-
+                pro_code: $('#code').val(),
+                pro_name: $('#pr_name').val(),
+                pro_cost: $('#pr_cost').val(),
+                pro_desc: $('#pr_desc').val()
             },
             success: res => {
                 $.toast({
@@ -106,14 +82,13 @@ function fn_save_enquiery() {
                     loader: true,
                     loaderBg: '#9EC600',
                 });
-                $('#consumer').val('');
-                $('#email').val('');
-                $('#phone').val('');
-                $('#lead_stage').val('');
-                $('#lead_source').val('');
-                $('#product').val('');
-                $('#assigned').val('');
-                $('#des').val('');
+                $('#code').val('');
+                $('#pr_name').val('');
+                $('#pr_cost').val('');
+                $('#pr_desc').val('');
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
             },
             error: e => {
                 $.toast({
@@ -130,18 +105,16 @@ function fn_save_enquiery() {
                     loaderBg: '#9EC600',
                 });
             }
-        });
-    } else {
-        console.log('not valid')
+        })
     }
 }
 
-function fn_delete_enquiry(lead_id) {
+function fn_delete_product(pro_id) {
     $.ajax({
-        url: 'http://127.0.0.1:8000/trackapp/delete_enquiry/',
+        url: 'http://127.0.0.1:8000/trackapp/delete_product/',
         type: 'POST',
         data: {
-            lead_id: lead_id
+            pro_id: pro_id
         },
         success: del => {
             $.toast({
@@ -158,6 +131,7 @@ function fn_delete_enquiry(lead_id) {
                 loaderBg: '#9EC600'
             });
         },
+
         error: e => {
             $.toast({
                 text: e,
@@ -175,5 +149,4 @@ function fn_delete_enquiry(lead_id) {
         }
 
     });
-
 }

@@ -15,6 +15,7 @@
 <span class="input">Consumer</span>
 <br>
 <br>
+<br>
 <button id="New" class="input btn btn-primary">
 	<i class="fa fa-magic">&nbsp; New</i>
 </button>
@@ -24,20 +25,46 @@
 	<i class="fa fa-eye">&nbsp; View</i>
 </button>
 
-<div id="view_enq" class="row">
+<div id="view_cons" class="row">
 	<table class="table">
 		<thead>
 			<tr>
+				<th>SL.No</th>
 				<th>Firstname</th>
 				<th>Lastname</th>
 				<th>Email</th>
 			</tr>
 		</thead>
 		<tbody>
+			{% for consumer in consmr_obj %}
+			<tr>
+				<td> {{ consumer.id }} </td>
+				<td> {{ consumer.fistname }} </td>
+				<td> {{ consumer.lastname }} </td>
+				<td> {{ consumer.email }} </td>
+				<td>
+					<div class="btn-group">
+						<button class="btn btn-outline-primary" data-toggle="dropdown">
+							<i class="fa fa-caret-down"></i>
+							menu
+						</button>
+						<div class="dropdown-menu">
+
+							<a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit Product</a>
+							<button class="dropdown-item" onclick="fn_delete_product('{{ product.id }}')">
+								<i class="fa fa-trash"></i>&nbsp;Delete Product
+							</button>
+							<a class="dropdown-item" href="view"><i class="fa fa-eye"></i>&nbsp;View Product</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+			{% endfor %}
 
 		</tbody>
 	</table>
 </div>
+
 <table id="table" cellpadding="7px">
 	<th>CONSUMER
 		<hr>
@@ -46,7 +73,7 @@
 		<td>
 			Firstname
 			<br>
-			<input id="fn" class="form-control" name="email" type="email">
+			<input id="fn" class="form-control" type="text">
 		</td>
 		<td>
 			Lastname

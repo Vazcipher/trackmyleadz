@@ -1,14 +1,14 @@
-$(document).ready( () => {
-	
+$(document).ready(() => {
+
     $("#table").hide();
 
-    $("#New").click( () => {
-        $("#view_enq").hide();
+    $("#New").click(() => {
+        $("#view_cons").hide();
         $("#table").show();
     });
 
-    $("#view").click( () => {
-        $("#view_enq").show();
+    $("#view").click(() => {
+        $("#view_cons").show();
         $("#table").hide();
     });
 
@@ -89,8 +89,41 @@ function fn_save_consumer() {
                 address: $('#ad').val(),
                 gender: $("input[name='gender']:checked").val()
             },
-            success: res => console.log(res),
-            error: e => console.log(e)
+            success: res => {
+                $.toast({
+                    text: res,
+                    heading: 'Note',
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
+                $('#fn').val('');
+                $('#ln').val('');
+                $('#em').val('');
+                $('#ph').val('');
+                $('#ad').val('');
+            },
+            error: e => {
+                $.toast({
+                    text: e,
+                    heading: 'Note',
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
+            }
         });
     } else {
         console.log('not valid')

@@ -1,0 +1,54 @@
+{% extends 'home.html' %}
+
+{% block head %}
+
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/followup.css' %}">
+<script src="{% static 'js/followup.js' %}"></script>
+<title>followup</title>
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+	<br>
+	<span class="input" id="Enquiry">
+		Enquiry
+	</span>
+	<br><br><br>
+
+	<button id="New" class="btn btn-primary input">
+		<i class="fa fa-magic">&nbsp; New</i>
+	</button>
+
+	<br><br><br><br>
+
+	<button id="view" class="btn btn-primary input">
+		<i class="fa fa-eye">&nbsp; View</i>
+	</button>
+
+    <br><br><br><br>
+    <div id="t" class="row">
+             <table id="table1" >
+                        <div id="Collapse" class="row">
+                         <tr><td> <a href="#" id="link2">-Collapse</a></td></tr>
+                         <th>TITLE</th><hr>
+                         <tr>
+                             <td>DESCRIPTION<span style="color:red;">(*Mandatory)</span><br><textarea id="plan"></textarea></td>
+                         </tr>
+           
+                        <tr>
+                             <td><button id="btn"><i class="fa fa-close"></i>&nbsp;Cancel</button></td>
+                            <td><button id="btn1"  onclick="userdata();"><i class="fa fa-save"></i>&nbsp;Save followup</button></td>
+                        </tr>
+                        </div>
+                    
+                    </table>
+                    </div>
+                
+<h1>follow up</h1>
+<hr>
+{{ lead_obj.fk_lead_id.lead_title }}
+
+{% endblock %}

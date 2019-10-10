@@ -1,23 +1,21 @@
-$(document).ready( () => {
-    
+$(document).ready(() => {
+
     $("#table").hide();
 
-    $("#New").click( () => {
+    $("#New").click(() => {
         $("#view_emp").hide();
         $("#table").show();
     });
 
-    $("#View").click( () => {
+    $("#View").click(() => {
         $("#view_emp").show();
         $("#table").hide();
     });
 
 });
 
-
-
 function validate() {
-    
+
     let flag = 0;
 
     if ($('#fn').val().length > 0) {
@@ -131,31 +129,42 @@ function fn_save_employee() {
             success: res => {
                 $.toast({
                     text: res,
-                    heading: 'Note', // Optional heading to be shown on the toast
-                    icon: 'warning', // Type of toast icon
-                    showHideTransition: 'fade', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'bottom-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left',  // Text alignment i.e. left, right or center
-                    loader: true,  // Whether to show loader or not. True by default
-                    loaderBg: '#9EC600',  // Background color of the toast loader
+                    heading: 'Note',
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 2000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
                 });
+                $('#fn').val("");
+                $('#ln').val("");
+                $('#un').val("");
+                $('#pw').val("");
+                $('#em').val("");
+                $('#ph').val("");
+                $('#dd').val("");
+                $('#loc').val("");
+                $("input[name='gender']").prop('checked', false);
+                $('#role').val("")
+
             },
             error: e => {
                 $.toast({
-                    text: res,
-                    heading: 'Note', // Optional heading to be shown on the toast
-                    icon: 'warning', // Type of toast icon
-                    showHideTransition: 'fade', // fade, slide or plain
-                    allowToastClose: true, // Boolean value true or false
-                    hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-                    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-                    position: 'bottom-left', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-                    textAlign: 'left',  // Text alignment i.e. left, right or center
-                    loader: true,  // Whether to show loader or not. True by default
-                    loaderBg: '#9EC600',  // Background color of the toast loader
+                    text: e,
+                    heading: 'Note',
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
                 });
             }
         });
