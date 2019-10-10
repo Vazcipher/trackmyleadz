@@ -89,8 +89,10 @@ class LeadDetails(models.Model):
 class FollowUp(models.Model):
     fk_lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
     fk_created_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
+    fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
     followup_title = models.CharField(max_length=20)
     followup_description = models.CharField(max_length=100)
+    completed_status = models.BooleanField(default=False)
     created_date = models.DateField(auto_now_add=True)
     created_time = models.TimeField(auto_now_add=True)
 
