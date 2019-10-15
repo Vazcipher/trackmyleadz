@@ -1,0 +1,120 @@
+{% extends 'home.html' %}
+
+{% block head %}
+
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/edit.css' %}">
+<script src="{% static 'js/edit.js' %}"></script>
+<title>edit</title>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+	
+
+	<!-- <button id="New" class="btn btn-primary input">
+		<i class="fa fa-magic">&nbsp; New</i>
+	</button> -->
+
+	<br><br><br><br><br><br>
+
+	<!-- <button id="view" class="btn btn-primary input">
+		<i class="fa fa-eye">&nbsp; View</i>
+	</button> -->
+
+	<br><br><br><br>
+
+	<!-- <button id="Queue" class="btn btn-primary input">
+		<i class="fa fa-folder-open">&nbsp; My Queue</i>
+	</button> -->
+
+	<!-- <div id="view_enq" class="row">
+		
+	</div> -->
+
+
+	<table id="table" cellpadding="4px">
+		<th>CONSUMER
+				
+			<hr>
+		</th>
+		
+		<tr>
+			<td>Consumer<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;<br>
+				<input class="form-control" type="text" id="consumer">
+					
+					{% for consumer in consumer_obj %}
+					
+					 {{ consumer.fistname }} {{ consumer.lastname }} 
+					{% endfor %}
+				</td>
+		
+
+			<td>Email<br><input class="form-control" type="text" id="email">{% for consumer in consumer_obj %} {{ consumer.email }}{% endfor %}</td>
+			<td>Phone<br><input class="form-control" type="text" id="phone">{% for consumer in consumer_obj %} {{ consumer.phone }}{% endfor %}</td>
+		</tr>
+
+		<th>LEAD DETAILS
+			<hr>
+		</th>
+		<tr>
+			<td>
+					<input class="form-control" type="text" id="leadstage" >{% for lead in lead %} {{ lead.lead_stage }}{% endfor %}
+			</td>
+			<td>
+					<input class="form-control" type="text" id="leadsource">{% for lead in lead %} {{ lead.lead_source }}{% endfor %}
+			</td>
+		</tr>
+
+		<th>GENERAL
+			<hr>
+		</th>
+		<tr>
+			<td>
+					<input class="form-control" type="text" id="product">
+					{% for product in pro_obj %}
+					<option value="{{product.id}}"> {{ product.product_name }} 
+					{% endfor %}
+				
+
+			<td>
+					<input class="form-control" type="text" id="assigned">
+				
+					{% for emp in emp_obj %}
+					<option value="{{emp.id}}"> {{ emp.username }}
+					{% endfor %}
+				
+			</td>
+		</tr>
+
+		<tr>
+			<td>Description<span style="color:red;"></span><br>
+				<textarea class="form-control" id="des"></textarea></td>
+		</tr>
+
+		<tr>
+			<td>
+				<div class="form-check">
+					<label class="form-check-label">
+						<input type="checkbox" class="form-check-input" name="sendsms">
+						Send sms
+					</label>
+				</div>
+			</td>
+
+			<td>
+				<button id="btn" onclick="fn_save_enquiery();">
+					<i class="fa fa-save"></i>
+					&nbsp;Save Enquiry
+				</button>
+			</td>
+		</tr>
+	</table>
+
+
+</div>
+
+{% endblock %}

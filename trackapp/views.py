@@ -427,6 +427,18 @@ def fn_change_password(req):
                     password=req.POST['newpass'])
                 return HttpResponse('Successfully changed password')
             return HttpResponse('old password does not match')
-    except expression as identifier:
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occured')
+
+
+def fn_edit_enquiry(req):
+    try:
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        context = {
+            "username": user_obj.username,
+        }
+        return render(req, 'edit.html', context)
+    except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
