@@ -435,8 +435,16 @@ def fn_change_password(req):
 def fn_edit_enquiry(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
+        lead_obj = LeadDetails.objects.get(fk_lead_id=req.GET['id'])
+        company_obj = Company.objects.get(id=req.session['companyId'])
+        product_obj = Product.objects.filter(fk_company_id=company_obj)
+        emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
+
         context = {
             "username": user_obj.username,
+            "lead_obj": lead_obj,
+            "products": product_obj,
+            "employees": emp_obj
         }
         return render(req, 'edit.html', context)
     except Exception as identifier:

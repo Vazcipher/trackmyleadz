@@ -114,6 +114,9 @@ function fn_save_enquiery() {
                 $('#product').val('');
                 $('#assigned').val('');
                 $('#des').val('');
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
             },
             error: e => {
                 $.toast({
@@ -150,13 +153,16 @@ function fn_delete_enquiry(lead_id) {
                 icon: 'success',
                 showHideTransition: 'fade',
                 allowToastClose: true,
-                hideAfter: 2000,
+                hideAfter: 1500,
                 stack: 5,
                 position: 'top-right',
                 textAlign: 'left',
                 loader: true,
                 loaderBg: '#9EC600'
             });
+            setTimeout(() => {
+                location.reload(true);
+            }, 1500)
         },
         error: e => {
             $.toast({
