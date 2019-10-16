@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
-
+import datetime
 # Create your views here.
 
 
@@ -435,11 +435,21 @@ def fn_change_password(req):
 def fn_edit_enquiry(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
-        lead_obj = LeadDetails.objects.get(fk_lead_id=req.GET['id'])
         company_obj = Company.objects.get(id=req.session['companyId'])
         product_obj = Product.objects.filter(fk_company_id=company_obj)
         emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
-
+        if req.method == 'POST':
+            product_obj = Product.objects.get(id=req.POST['product'])
+            LeadDetails.objects.filter(fk_lead_id__id=req.POST['lead_id']).update(
+                fk_product_id=product_obj, description=req.POST['desc'], lead_source=req.POST['lead_source'], lead_stage=req.POST['lead_stage'])
+            emp_obj = UserLogin.objects.get(id=req.POST['employee'])
+            Leads.objects.filter(id=req.POST['lead_id']).update(
+                fk_assigned_user_id=emp_obj, updated_date=datetime.datetime.now().date())
+            lead_obj = Leads.objects.get(id=req.POST['lead_id'])
+            Consumer.objects.filter(id=lead_obj.fk_consumer_id.id).update(
+                email=req.POST['email'], phone=req.POST['phone'])
+            return HttpResponse('Enquiry updated')
+        lead_obj = LeadDetails.objects.get(fk_lead_id=req.GET['id'])
         context = {
             "username": user_obj.username,
             "lead_obj": lead_obj,
