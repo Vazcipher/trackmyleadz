@@ -131,22 +131,32 @@ def reports(request):
         context = {
             "username": user_obj.username
         }
+        if request.method == 'POST':
+            report_kind = request.POST['report']
+            from_date = request.POST['from']
+            to_date = request.POST['to']
+            company_obj = Company.objects.get(id=request.session['companyId'])
+            if report_kind == 'e':
+                leads = LeadDetails.objects.filter(
+                    fk_lead_id__fk_company_id=company_obj, fk_lead_id__created_date__range=(from_date, to_date))
+                products = Product.objects.filter(fk_company_id=company_obj)
+                report_list = []
+                for pro_obj in products:
+                    count = 0
+                    report_obj = {}
+                    for lead_obj in leads:
+                        if pro_obj == lead_obj.fk_product_id:
+                            count = count + 1
+                            report_obj = {
+                                "pro_name": pro_obj.product_name,
+                                "pro_count": count
+                            }
+                    report_list.append(report_obj)
+                context['reports'] = report_list
         return render(request, 'reports.html', context)
     except Exception as identifier:
         print(identifier)
         return render(request, 'reports.html')
-
-
-def charts(request):
-    try:
-        user_obj = UserLogin.objects.get(id=request.session['userId'])
-        context = {
-            "username": user_obj.username
-        }
-        return render(request, 'charts.html', context)
-    except Exception as identifier:
-        print(identifier)
-        return render(request, 'charts.html')
 
 
 @csrf_exempt
@@ -279,7 +289,6 @@ def fn_create_employee(request):
                             id=request.session['userId'])
                         notification_title = '{} added new employee {}'.format(
                             current_user_obj.username, emp_obj.username)
-                        print(notification_title)
                         notification_obj = Notification(
                             fk_company_id=company_obj, notification_title=notification_title, content_object=emp_detail_obj)
                         notification_obj.save()
@@ -410,7 +419,7 @@ def fn_get_notifications(request):
     try:
         company_obj = Company.objects.get(id=request.session['companyId'])
         notifications = Notification.objects.filter(
-            fk_company_id=company_obj).values()
+            fk_company_id=company_obj)[3:7].values()
         return JsonResponse({"notifications": list(notifications)})
     except Exception as identifier:
         print(identifier)
