@@ -77,12 +77,21 @@ class Leads(models.Model):
     updated_date = models.DateField(null=True, blank=True)
 
 
+class LeadSource(models.Model):
+    fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
+    fk_created_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE)
+    source_title = models.CharField(max_length=50)
+    source_desc = models.TextField()
+    created_date = models.DateField(auto_now_add=True)
+
+
 class LeadDetails(models.Model):
     fk_lead_id = models.ForeignKey(Leads, on_delete=models.CASCADE)
     fk_product_id = models.ForeignKey(
         Product, on_delete=models.CASCADE)
     description = models.CharField(max_length=100)
-    lead_source = models.CharField(max_length=20)
+    fk_lead_source = models.ForeignKey(
+        LeadSource, on_delete=models.CASCADE, default=None)
     lead_stage = models.CharField(max_length=15)
 
 

@@ -38,6 +38,7 @@ def home(request):
         return redirect('/trackapp')
     except Exception as identifier:
         print(identifier)
+        return redirect('/trackapp')
 
 
 def logoutUser(request):
@@ -64,12 +65,14 @@ def enquires(request):
         product_obj = Product.objects.filter(fk_company_id=company_obj)
         lead_obj = LeadDetails.objects.filter(
             fk_lead_id__fk_company_id=company_obj)
+        lead_sources = LeadSource.objects.filter(fk_company_id=company_obj)
         context = {
             "username": user_obj.username,
             "consumer_obj": consumer_obj,
             "emp_obj": emp_obj,
             "pro_obj": product_obj,
-            "leads": lead_obj
+            "leads": lead_obj,
+            "lead_sources": lead_sources
         }
         return render(request, 'enquires.html', context)
     except Exception:
@@ -143,7 +146,6 @@ def reports(request):
                 report_list = []
                 for pro_obj in products:
                     count = 0
-                    report_obj = {}
                     for lead_obj in leads:
                         if pro_obj == lead_obj.fk_product_id:
                             count = count + 1
@@ -151,7 +153,7 @@ def reports(request):
                                 "pro_name": pro_obj.product_name,
                                 "pro_count": count
                             }
-                    report_list.append(report_obj)
+                            report_list.append(report_obj)
                 context['reports'] = report_list
         return render(request, 'reports.html', context)
     except Exception as identifier:
@@ -160,11 +162,32 @@ def reports(request):
 
 
 @csrf_exempt
+def fn_create_lead_source(request):
+    try:
+        if request.method == 'POST':
+            user_obj = UserLogin.objects.get(id=request.session['userId'])
+            company_obj = Company.objects.get(id=request.session['companyId'])
+            source_obj = LeadSource(fk_company_id=company_obj,
+                                    fk_created_user_id=user_obj, source_title=request.POST['title'], source_desc=request.POST['desc'])
+            source_obj.save()
+            if source_obj.id > 0:
+                notification_title = '{} created new lead source'.format(
+                    user_obj.username)
+                notification_obj = Notification(
+                    fk_company_id=company_obj, notification_title=notification_title, content_object=source_obj)
+                notification_obj.save()
+                return JsonResponse({"status": True, "id": source_obj.id, "title": source_obj.source_title})
+            return JsonResponse({"status": False})
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('An error occured')
+
+
+@csrf_exempt
 def fn_create_enquiry(request):
     try:
         if request.method == 'POST':
 
-            lead_source = request.POST['lead_source']
             lead_stage = request.POST['lead_stage']
 
             product = request.POST['product']
@@ -174,7 +197,8 @@ def fn_create_enquiry(request):
             company_obj = Company(id=request.session['companyId'])
             ass_user_obj = UserLogin.objects.get(
                 id=request.POST['assigned'])
-
+            lead_source_obj = LeadSource.objects.get(
+                id=request.POST['lead_source'])
             consumer_obj = Consumer.objects.get(id=request.POST['consumer'])
             consumer_name = consumer_obj.fistname + consumer_obj.lastname
             lead_obj = Leads(fk_created_user_id=user_obj,
@@ -190,7 +214,7 @@ def fn_create_enquiry(request):
                 lead_detail_obj = LeadDetails(fk_lead_id=lead_obj,
                                               fk_product_id=product_obj,
                                               description=desc,
-                                              lead_source=lead_source,
+                                              fk_lead_source=lead_source_obj,
                                               lead_stage=lead_stage)
                 lead_detail_obj.save()
                 if lead_detail_obj.id > 0:

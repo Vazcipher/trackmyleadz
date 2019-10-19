@@ -36,19 +36,28 @@
                 </tr>
             </thead>
             <tbody>
+
+                {% if pro_obj.count == 0 %}
+                <tr>
+                    <td colspan="5">
+                        <div class="alert alert-info">You don't have any product</div>
+                    </td>
+                </tr>
+                {% endif %}
+
                 {% for product in pro_obj %}
                 <tr>
                     <td> {{ product.id }} </td>
-					<td> {{ product.product_code }} </td>
-					<td> {{ product.product_name }} </td>
-					<td> {{ product.product_cost }} </td>
-					<td>
-                    <div class="btn-group">
-						<button class="btn btn-outline-primary" data-toggle="dropdown">
-							<i class="fa fa-caret-down"></i>
-							menu
-                        </button>
-                        <div class="dropdown-menu">
+                    <td> {{ product.product_code }} </td>
+                    <td> {{ product.product_name }} </td>
+                    <td> {{ product.product_cost }} </td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary" data-toggle="dropdown">
+                                <i class="fa fa-caret-down"></i>
+                                menu
+                            </button>
+                            <div class="dropdown-menu">
 
                                 <a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit Product</a>
                                 <button class="dropdown-item" onclick="fn_delete_product('{{ product.id }}')">
@@ -56,10 +65,10 @@
                                 </button>
                                 <a class="dropdown-item" href="view"><i class="fa fa-eye"></i>&nbsp;View Product</a>
                             </div>
-                    </div>
-					</td>
-				</tr>
-				{% endfor %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
