@@ -139,21 +139,33 @@ def reports(request):
             from_date = request.POST['from']
             to_date = request.POST['to']
             company_obj = Company.objects.get(id=request.session['companyId'])
+            leads = LeadDetails.objects.filter(
+                fk_lead_id__fk_company_id=company_obj, fk_lead_id__created_date__range=(from_date, to_date))
             if report_kind == 'e':
-                leads = LeadDetails.objects.filter(
-                    fk_lead_id__fk_company_id=company_obj, fk_lead_id__created_date__range=(from_date, to_date))
-                products = Product.objects.filter(fk_company_id=company_obj)
+                products = Product.objects.filter(fk_company_id=company_obj).values('product_name')
                 report_list = []
-                for pro_obj in products:
-                    count = 0
+                for product_obj in products:
+                    product_obj['pro_name'] = product_obj['product_name']
+                    product_obj['pro_count'] = 0
+                    report_list.append(product_obj)
+                for report in report_list:
                     for lead_obj in leads:
-                        if pro_obj == lead_obj.fk_product_id:
-                            count = count + 1
-                            report_obj = {
-                                "pro_name": pro_obj.product_name,
-                                "pro_count": count
-                            }
-                            report_list.append(report_obj)
+                        if report['product_name'] == lead_obj.fk_product_id.product_name:
+                            print('founct')
+                            report['pro_count'] = report['pro_count'] + 1
+                context['reports'] = report_list
+            if report_kind == 's':
+                lead_sources = LeadSource.objects.filter(
+                    fk_company_id=company_obj).values('source_title')
+                report_list = []
+                for source_obj in lead_sources:
+                    source_obj['pro_name'] = source_obj['source_title']
+                    source_obj['pro_count'] = 0
+                    report_list.append(source_obj)
+                for report in report_list:
+                    for lead_obj in leads:
+                        if report['source_title'] == lead_obj.fk_lead_source.source_title:
+                            report['pro_count'] = report['pro_count'] + 1
                 context['reports'] = report_list
         return render(request, 'reports.html', context)
     except Exception as identifier:
@@ -443,7 +455,7 @@ def fn_get_notifications(request):
     try:
         company_obj = Company.objects.get(id=request.session['companyId'])
         notifications = Notification.objects.filter(
-            fk_company_id=company_obj)[3:7].values()
+            fk_company_id=company_obj).order_by('-id')[:3].values()
         return JsonResponse({"notifications": list(notifications)})
     except Exception as identifier:
         print(identifier)
