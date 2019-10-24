@@ -1,0 +1,75 @@
+{% extends 'home.html' %}
+
+{% block head %}
+
+{% load staticfiles %}
+<script src="{% static 'js/editconsumer.js' %}"></script>
+<title>edit consumer</title>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+	<div class="row mt-3">
+		<h3>Edit consumer</h3>
+	</div>
+
+	<div class="row">
+
+		<div class="card mt-2" style="width: 100%;">
+			<div class="card-body">
+				<table id="table" class="table table-borderless" cellpadding="4px">
+
+					<th>CONSUMER</th>
+					<tr>
+						<td>Firstname<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;<br>
+							<input readonly class="form-control" type="text" id="fistname"
+								value="{{consumer_id.fistname}} ">
+                        </td>
+                        <td>Lastname<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;<br>
+							<input readonly class="form-control" type="text" id="lastname"
+								value="{{consumer_id.lastname}}">
+						</td>
+						<td>Email<br><input class="form-control" value="{{consumer_id.email}}"
+								type="text" id="email">{% for consumer in consumer_obj %}
+							{{ consumer.email }}{% endfor %}</td>
+						<td>Phone<br><input class="form-control" value="{{consumer_id.phone}}"
+								type="text" id="phone">{% for consumer in consumer_obj %}
+                            {{ consumer.phone }}{% endfor %}</td>
+                        <td>Address<br><input class="form-control" value="{{consumer_id.address}}"
+								type="text" id="address">{% for consumer in consumer_obj %}
+                            {{ consumer.phone }}{% endfor %}</td>
+                        <td>Gender<br>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" value="{{consumer_id.male}}" name="gender">
+                                    <span id="g1">male</span>
+                                </label>
+                            </div>
+            
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="gender" value="{{consumer_id.female}}">
+                                    <span id="g2">female</span>
+                                </label>
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td>
+							<button id="btn" onclick="fn_edit_consumer('{{ consumer_obj.consumer_id.id }}', '{{ csrf_token }}');" class="btn btn-primary">
+								<i class="fa fa-save"></i>
+								&nbsp;Save consumer
+							</button>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

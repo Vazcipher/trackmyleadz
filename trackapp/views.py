@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
-
+import datetime
 # Create your views here.
 
 
@@ -38,6 +38,7 @@ def home(request):
         return redirect('/trackapp')
     except Exception as identifier:
         print(identifier)
+        return redirect('/trackapp')
 
 
 def logoutUser(request):
@@ -64,12 +65,14 @@ def enquires(request):
         product_obj = Product.objects.filter(fk_company_id=company_obj)
         lead_obj = LeadDetails.objects.filter(
             fk_lead_id__fk_company_id=company_obj)
+        lead_sources = LeadSource.objects.filter(fk_company_id=company_obj)
         context = {
             "username": user_obj.username,
             "consumer_obj": consumer_obj,
             "emp_obj": emp_obj,
             "pro_obj": product_obj,
-            "leads": lead_obj
+            "leads": lead_obj,
+            "lead_sources": lead_sources
         }
         return render(request, 'enquires.html', context)
     except Exception:
@@ -131,22 +134,65 @@ def reports(request):
         context = {
             "username": user_obj.username
         }
+        if request.method == 'POST':
+            report_kind = request.POST['report']
+            from_date = request.POST['from']
+            to_date = request.POST['to']
+            company_obj = Company.objects.get(id=request.session['companyId'])
+            leads = LeadDetails.objects.filter(
+                fk_lead_id__fk_company_id=company_obj, fk_lead_id__created_date__range=(from_date, to_date))
+            if report_kind == 'e':
+                products = Product.objects.filter(fk_company_id=company_obj).values('product_name')
+                report_list = []
+                for product_obj in products:
+                    product_obj['pro_name'] = product_obj['product_name']
+                    product_obj['pro_count'] = 0
+                    report_list.append(product_obj)
+                for report in report_list:
+                    for lead_obj in leads:
+                        if report['product_name'] == lead_obj.fk_product_id.product_name:
+                            print('founct')
+                            report['pro_count'] = report['pro_count'] + 1
+                context['reports'] = report_list
+            if report_kind == 's':
+                lead_sources = LeadSource.objects.filter(
+                    fk_company_id=company_obj).values('source_title')
+                report_list = []
+                for source_obj in lead_sources:
+                    source_obj['pro_name'] = source_obj['source_title']
+                    source_obj['pro_count'] = 0
+                    report_list.append(source_obj)
+                for report in report_list:
+                    for lead_obj in leads:
+                        if report['source_title'] == lead_obj.fk_lead_source.source_title:
+                            report['pro_count'] = report['pro_count'] + 1
+                context['reports'] = report_list
         return render(request, 'reports.html', context)
     except Exception as identifier:
         print(identifier)
         return render(request, 'reports.html')
 
 
-def charts(request):
+@csrf_exempt
+def fn_create_lead_source(request):
     try:
-        user_obj = UserLogin.objects.get(id=request.session['userId'])
-        context = {
-            "username": user_obj.username
-        }
-        return render(request, 'charts.html', context)
+        if request.method == 'POST':
+            user_obj = UserLogin.objects.get(id=request.session['userId'])
+            company_obj = Company.objects.get(id=request.session['companyId'])
+            source_obj = LeadSource(fk_company_id=company_obj,
+                                    fk_created_user_id=user_obj, source_title=request.POST['title'], source_desc=request.POST['desc'])
+            source_obj.save()
+            if source_obj.id > 0:
+                notification_title = '{} created new lead source'.format(
+                    user_obj.username)
+                notification_obj = Notification(
+                    fk_company_id=company_obj, notification_title=notification_title, content_object=source_obj)
+                notification_obj.save()
+                return JsonResponse({"status": True, "id": source_obj.id, "title": source_obj.source_title})
+            return JsonResponse({"status": False})
     except Exception as identifier:
         print(identifier)
-        return render(request, 'charts.html')
+        return HttpResponse('An error occured')
 
 
 @csrf_exempt
@@ -154,7 +200,6 @@ def fn_create_enquiry(request):
     try:
         if request.method == 'POST':
 
-            lead_source = request.POST['lead_source']
             lead_stage = request.POST['lead_stage']
 
             product = request.POST['product']
@@ -164,7 +209,8 @@ def fn_create_enquiry(request):
             company_obj = Company(id=request.session['companyId'])
             ass_user_obj = UserLogin.objects.get(
                 id=request.POST['assigned'])
-
+            lead_source_obj = LeadSource.objects.get(
+                id=request.POST['lead_source'])
             consumer_obj = Consumer.objects.get(id=request.POST['consumer'])
             consumer_name = consumer_obj.fistname + consumer_obj.lastname
             lead_obj = Leads(fk_created_user_id=user_obj,
@@ -180,7 +226,7 @@ def fn_create_enquiry(request):
                 lead_detail_obj = LeadDetails(fk_lead_id=lead_obj,
                                               fk_product_id=product_obj,
                                               description=desc,
-                                              lead_source=lead_source,
+                                              fk_lead_source=lead_source_obj,
                                               lead_stage=lead_stage)
                 lead_detail_obj.save()
                 if lead_detail_obj.id > 0:
@@ -279,7 +325,6 @@ def fn_create_employee(request):
                             id=request.session['userId'])
                         notification_title = '{} added new employee {}'.format(
                             current_user_obj.username, emp_obj.username)
-                        print(notification_title)
                         notification_obj = Notification(
                             fk_company_id=company_obj, notification_title=notification_title, content_object=emp_detail_obj)
                         notification_obj.save()
@@ -410,7 +455,7 @@ def fn_get_notifications(request):
     try:
         company_obj = Company.objects.get(id=request.session['companyId'])
         notifications = Notification.objects.filter(
-            fk_company_id=company_obj).values()
+            fk_company_id=company_obj).order_by('-id')[:3].values()
         return JsonResponse({"notifications": list(notifications)})
     except Exception as identifier:
         print(identifier)
@@ -427,6 +472,36 @@ def fn_change_password(req):
                     password=req.POST['newpass'])
                 return HttpResponse('Successfully changed password')
             return HttpResponse('old password does not match')
-    except expression as identifier:
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occured')
+
+
+def fn_edit_enquiry(req):
+    try:
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        company_obj = Company.objects.get(id=req.session['companyId'])
+        product_obj = Product.objects.filter(fk_company_id=company_obj)
+        emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
+        if req.method == 'POST':
+            product_obj = Product.objects.get(id=req.POST['product'])
+            LeadDetails.objects.filter(fk_lead_id__id=req.POST['lead_id']).update(
+                fk_product_id=product_obj, description=req.POST['desc'], lead_source=req.POST['lead_source'], lead_stage=req.POST['lead_stage'])
+            emp_obj = UserLogin.objects.get(id=req.POST['employee'])
+            Leads.objects.filter(id=req.POST['lead_id']).update(
+                fk_assigned_user_id=emp_obj, updated_date=datetime.datetime.now().date())
+            lead_obj = Leads.objects.get(id=req.POST['lead_id'])
+            Consumer.objects.filter(id=lead_obj.fk_consumer_id.id).update(
+                email=req.POST['email'], phone=req.POST['phone'])
+            return HttpResponse('Enquiry updated')
+        lead_obj = LeadDetails.objects.get(fk_lead_id=req.GET['id'])
+        context = {
+            "username": user_obj.username,
+            "lead_obj": lead_obj,
+            "products": product_obj,
+            "employees": emp_obj
+        }
+        return render(req, 'edit.html', context)
+    except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
