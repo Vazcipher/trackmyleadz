@@ -39,6 +39,15 @@
 			</tr>
 		</thead>
 		<tbody>
+
+			{% if consmr_obj.count == 0 %}
+			<tr>
+				<td colspan="5">
+					<div class="alert alert-info">You don't have any consumer</div>
+				</td>
+			</tr>
+			{% endif %}
+
 			{% for consumer in consmr_obj %}
 			<tr>
 				<td> {{ consumer.id }} </td>
@@ -53,11 +62,13 @@
 						</button>
 						<div class="dropdown-menu">
 
-							<a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit Product</a>
+							<a class="dropdown-item" href="edit"><i class="fa fa-magic"></i>&nbsp;Edit consumer</a>
 							<button class="dropdown-item" onclick="fn_delete_product('{{ product.id }}')">
-								<i class="fa fa-trash"></i>&nbsp;Delete Product
+								<i class="fa fa-trash"></i>&nbsp;Delete consumer
 							</button>
-							<a class="dropdown-item" href="view"><i class="fa fa-eye"></i>&nbsp;View Product</a>
+							<a class="dropdown-item"
+							 href="http://127.0.0.1:8000/trackapp/viewconsumer?id={{consumer.id}}">
+							 <i class="fa fa-eye"></i>&nbsp;View consumer</a>
 						</div>
 					</div>
 				</td>
