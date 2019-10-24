@@ -7,48 +7,140 @@
 <script src="{% static 'js/followup.js' %}"></script>
 <title>followup</title>
 
+
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container mt-3">
 
-	<br>
-	<span class="input" id="Enquiry">
-		Enquiry
-	</span>
-	<br><br><br>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <h3>Follow up</h3>
+        </div>
+    </div>
 
-	<button id="New" class="btn btn-primary input">
-		<i class="fa fa-magic">&nbsp; New</i>
-	</button>
+    <div class="row mt-4">
 
-	<br><br><br><br>
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <button id="collapse-btn" class="btn btn-light" data-toggle="collapse" data-target="#demo">
+                        + Add follow ups
+                    </button>
+                </div>
+                <div class="collapse" id="demo">
+                    <div class="card-body">
 
-	<button id="view" class="btn btn-primary input">
-		<i class="fa fa-eye">&nbsp; View</i>
-	</button>
-
-    <br><br><br><br>
-    <div id="t" class="row">
-             <table id="table1" >
-                        <div id="Collapse" class="row">
-                         <tr><td> <a href="#" id="link2">-Collapse</a></td></tr>
-                         <th>TITLE</th><hr>
-                         <tr>
-                             <td>DESCRIPTION<span style="color:red;">(*Mandatory)</span><br><textarea id="plan"></textarea></td>
-                         </tr>
-           
-                        <tr>
-                             <td><button id="btn"><i class="fa fa-close"></i>&nbsp;Cancel</button></td>
-                            <td><button id="btn1"  onclick="userdata();"><i class="fa fa-save"></i>&nbsp;Save followup</button></td>
-                        </tr>
+                        <div class="row">
+                            <div class="form-group col-lg-4">
+                                <label for="name">Name:</label>
+                                <input readonly type="text" class="form-control"
+                                    value="{{ lead_obj.fk_lead_id.lead_title }}" id="name">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="email">Email:</label>
+                                <input readonly type="email" class="form-control"
+                                    value="{{ lead_obj.fk_lead_id.fk_consumer_id.email }}" id="email">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="phone">phone:</label>
+                                <input readonly type="text" class="form-control"
+                                    value="{{ lead_obj.fk_lead_id.fk_consumer_id.phone }}" id="phone">
+                            </div>
                         </div>
-                    
-                    </table>
+
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label for="Plan">Plan</label>
+                                <textarea class="form-control" rows="5" id="Plan"></textarea>
+                            </div>
+                        </div>
+
                     </div>
-                
-<h1>follow up</h1>
-<hr>
-{{ lead_obj.fk_lead_id.lead_title }}
+                    <div class="card-footer">
+                        <button onclick="fn_save_followup('{{lead_obj.fk_lead_id.id}}');"
+                            class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    Follow ups
+                </div>
+                <div class="card-body">
+
+                    {% with followups_len=followups|length %}
+                    {% if followups_len == 0 %}
+                    <div class="alert alert-info">
+                        No follow ups yet
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% for followup in followups %}
+                    <div class="card m-2">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span style="color: rgb(155, 155, 155);">
+                                        Created by
+                                    </span>
+                                    <div>
+                                        <i class="fa fa-address-card"></i>
+                                        <span style="color: green; font-weight: bold;">
+                                            {{ followup.fk_created_user_id.username }}
+                                        </span>
+                                        <div style="font-size: 10px;">at {{ followup.created_time }} on
+                                            {{ followup.created_date }}</div>
+                                    </div>
+                                </div>
+                                {% if not followup.completed_status %}
+                                <div class="col-md-0 ml-md-auto">
+                                    <button class="btn btn-danger" onclick="fn_delete_followup('{{ followup.id }}')">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-0 ml-1">
+                                    <button class="btn btn-success" onclick="fn_finish_followup('{{ followup.id }}')">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </div>
+                                {% else %}
+                                <div class="col-md-1 ml-md-auto" style="color: green;">
+                                    done <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 style="color: rgb(102, 173, 255);">Plan</h4>
+                                            <hr>
+                                            {{ followup.followup_description }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 
 {% endblock %}
