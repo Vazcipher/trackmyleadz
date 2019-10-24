@@ -23,6 +23,19 @@ setInterval(() => {
         $('#notification').append(
             "<a class='dropdown-item' href='#'>" + notifications[x].notification_title + "</a>"
         )
+        $.toast({
+            text: notifications[x].notification_title,
+            heading: 'Notification',
+            icon: 'info',
+            showHideTransition: 'fade',
+            allowToastClose: true,
+            hideAfter: 3000,
+            stack: 5,
+            position: 'bottom-left',
+            textAlign: 'left',
+            loader: false,
+            loaderBg: '#9EC600',
+        });
         x++;
     }
 }, 2000);
