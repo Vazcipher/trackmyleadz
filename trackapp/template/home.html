@@ -184,7 +184,89 @@
 
 	{% block body %}
 	<div class="container">
-		testing
+
+		<div class="row mt-3">
+			<h3>Dashboard</h3>
+		</div>
+
+		<div class="row mt-1">
+			<div class="col-lg-12 col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<h5>Your profile</h5>
+					</div>
+					<div class="card-body">
+
+						{% if user_obj == 0 %}
+
+						<div class="alert alert-info">
+							Your profile is not setup
+							<span class="small float-right mt-2"><a href="#">click here to setup profile</a></span>
+						</div>
+
+						{% else %}
+
+						<div class="row">
+
+							<div class="col-md-4 col-lg-4">
+								<label style="color: rgb(107, 107, 107);">Firstname</label>
+								<input readonly type="text" class="form-control" value="{{ user_obj.firstname }}">
+							</div>
+
+							<div class="col-md-4 col-lg-4">
+								<label style="color: rgb(107, 107, 107);">Lastname</label>
+								<input readonly type="text" class="form-control" value="{{ user_obj.lastname }}">
+							</div>
+
+							<div class="col-md-4 col-lg-4">
+								<label style="color: rgb(107, 107, 107);">Username</label>
+								<input readonly type="text" class="form-control"
+									value="{{ user_obj.fk_login_id.username }}">
+							</div>
+
+						</div>
+
+						<div class="row mt-3">
+							<div class="col-lg-12 col-md-12">
+								<div class="card col-lg-12 col-md-12">
+									<div class="card-body">
+
+										<div class="row">
+											<div class="col-lg-3 col-md-3 col-sm-12">
+												<i class="fa fa-user-circle"></i>
+												<span>{{ user_obj.fk_login_id.role.role_title }}</span>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-lg-3 col-md-3">
+												<span class="small">Edit profile</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<div class="mt-2 col-lg-12 col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<h5>Pending task</h5>
+					</div>
+					<div class="card-body">
+						test
+					</div>
+				</div>
+			</div>
+
+		</div>
+
 	</div>
 	{% endblock %}
 
