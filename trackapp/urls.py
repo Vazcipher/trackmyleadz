@@ -10,7 +10,6 @@ urlpatterns = [
     path('employee', views.employee),
     path('others', views.product),
     path('reports', views.reports),
-    path('charts', views.charts),
     path('createEnquiry/', views.fn_create_enquiry),
     path('createConsumer/', views.fn_create_consumer),
     path('createEmployee/', views.fn_create_employee),
@@ -23,5 +22,6 @@ urlpatterns = [
     path('removeFollowup/', views.fn_delete_followup),
     path('finishFollowup/', views.fn_finish_followup),
     path('changePassword/', views.fn_change_password),
-    path('editenquiry/', views.fn_edit_enquiry)
+    path('editenquiry/', views.fn_edit_enquiry),
+    path('createLeadSource/', views.fn_create_lead_source)
 ]

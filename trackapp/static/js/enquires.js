@@ -183,3 +183,64 @@ function fn_delete_enquiry(lead_id) {
     });
 
 }
+
+function fn_save_lead_source() {
+    $.ajax({
+        url: 'http://127.0.0.1:8000/trackapp/createLeadSource/',
+        type: 'POST',
+        data: {
+            title: $('#source_title').val(),
+            desc: $('#source_desc').val()
+        },
+        success: res => {
+            if (res.status) {
+                $('#addLeadSource').modal('hide');
+                $.toast({
+                    text: 'New lead source added',
+                    heading: 'Note',
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 1500,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600'
+                });
+                $('#lead_source').append(
+                    "<option value=" + res.id + ">" + res.title + "</option>"
+                )
+            } else {
+                $.toast({
+                    text: 'Failed to add new lead source',
+                    heading: 'Note',
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
+            }
+        },
+        error: e => {
+            $.toast({
+                text: e,
+                heading: 'Note',
+                icon: 'error',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: 5,
+                position: 'top-right',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+            });
+        }
+    })
+}

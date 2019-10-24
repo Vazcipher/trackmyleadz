@@ -53,7 +53,6 @@ function fn_save_password() {
                     loader: true,
                     loaderBg: '#9EC600',
                 });
-                
             },
             error: e => {
                 $.toast({
