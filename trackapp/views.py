@@ -510,3 +510,33 @@ def fn_edit_enquiry(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
+
+
+def fn_view_consumer(req):
+    try:
+        consumer_id = req.GET['id']
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        context = {
+            "username": user_obj.username
+        }    
+        return render(req, 'view_consumer.html', context)
+    except Exception as identifier:
+        print(identifier)
+
+
+def fn_edit_consumer(req):
+    try:
+        user_obj = UserLogin.objects.get(id=request.session['userId'])
+        company_obj = Company.objects.get(id=request.session['companyId'])
+        cons_obj = Consumer.objects.filter(fk_company_id=company_obj)
+        if req.method == 'POST':
+            consumer.object.filter(id=req.POST['consumer_id']).update(fistname=req.POST['fistname'],lastname=req.POST['lastname'],email=req.POST['email'],phone=req.POST['phone'],address=req.POST['address'],gender=req.POST['gender'])
+            return HttpResponse('consumer updated')
+        consumer_obj=Consumer.object.get(consumer_id=req.GET['id'])
+        context ={
+            "consumer_obj" : consumer_obj
+        }
+        return render(req,'editconsumer.html',context)
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occured')

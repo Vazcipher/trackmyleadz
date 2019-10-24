@@ -11,20 +11,20 @@
 
 {% block body %}
 
+<div class="container">
+
+<br>
+
 <span class="input" id="Employee">Employee</span>
 
 <br><br><br>
 
-<button id="New" class="btn btn-primary input"><i class="fa fa-magic"></i>&nbsp;&nbsp;New</button>
+<button id="New" class="btn btn-primary input"><i class="fa fa-magic"></i>&nbsp;New</button>
 
 <br><br><br><br>
 
-<button id="View" class="btn btn-primary input"><i class="fa fa-eye"></i>&nbsp;&nbsp;View</button>
+<button id="View" class="btn btn-primary input"><i class="fa fa-eye"></i>&nbsp;View</button>
 
-
-
-
-<div class="container">
 	<div id="view_emp" class="row">
 		<table class="table">
 			<thead>
@@ -54,7 +54,6 @@
 					<td> {{ user.lastname }} </td>
 					<td> {{ user.fk_login_id.username }} </td>
 					<td> {{ user.email }}</td>
-
 					<td>
 						<div class="btn-group">
 							<button class="btn btn-outline-primary" data-toggle="dropdown">
@@ -62,7 +61,6 @@
 								menu
 							</button>
 							<div class="dropdown-menu">
-
 								<a class="dropdown-item" href="#"><i class="fa fa-edit"> Edit</i></a>
 								<a class="dropdown-item" href="#"><i class="fa fa-user-times"> Delete</i></a>
 								<a class="dropdown-item" href="#"><i class="fa fa-binoculars"> View</i></a>
@@ -83,8 +81,8 @@
 			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="FirstName"
 					id="fn"></td>
 			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="LastName"
-					id="ln"></td>
-
+				id="ln"></td>
+				
 			<td><span style="color:red;"></span><br><input class="form-control" type="text" placeholder="Username"
 					id="un"></td>
 			<td><span style="color:red;"></span><br><input class="form-control" type="password" placeholder="Password"
