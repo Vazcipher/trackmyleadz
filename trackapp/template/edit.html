@@ -1,0 +1,121 @@
+{% extends 'home.html' %}
+
+{% block head %}
+
+{% load staticfiles %}
+<script src="{% static 'js/edit.js' %}"></script>
+<title>edit</title>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+	<div class="row mt-3">
+		<h3>Edit Enquiry</h3>
+	</div>
+
+	<div class="row">
+
+		<div class="card mt-2" style="width: 100%;">
+			<div class="card-body">
+				<table id="table" class="table table-borderless" cellpadding="4px">
+
+					<th>CONSUMER</th>
+					<tr>
+						<td>Consumer<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;<br>
+							<input readonly class="form-control" type="text" id="consumer"
+								value="{{lead_obj.fk_lead_id.fk_consumer_id.fistname}} {{lead_obj.fk_lead_id.fk_consumer_id.lastname}}">
+						</td>
+						<td>Email<br><input class="form-control" value="{{lead_obj.fk_lead_id.fk_consumer_id.email}}"
+								type="text" id="email">{% for consumer in consumer_obj %}
+							{{ consumer.email }}{% endfor %}</td>
+						<td>Phone<br><input class="form-control" value="{{lead_obj.fk_lead_id.fk_consumer_id.phone}}"
+								type="text" id="phone">{% for consumer in consumer_obj %}
+							{{ consumer.phone }}{% endfor %}</td>
+					</tr>
+
+					<th>LEAD DETAILS
+						<hr>
+					</th>
+					<tr>
+						<td>
+							lead stage
+							<select class="form-control" id="lead_stage">
+								<option {% if lead_obj.lead_stage == 'Open' %} selected {% endif %} value="Open">Open
+								</option>
+								<option {% if lead_obj.lead_stage == 'Close' %} selected {% endif %} value="Close">Close
+								</option>
+								<option {% if lead_obj.lead_stage == 'Won' %} selected {% endif %} value="Won">Won
+								</option>
+							</select>
+						</td>
+						<td>
+							lead source
+							<select class="form-control" id="lead_source">
+								<option {% if lead_obj.lead_source == 'Website' %} selected {% endif %} value="Website">
+									Website</option>
+								<option {% if lead_obj.lead_source == 'Facebook' %} selected {% endif %}
+									value="Facebook">Facebook</option>
+								<option {% if lead_obj.lead_source == 'Reference' %} selected {% endif %}
+									value="Reference">Reference</option>
+							</select>
+						</td>
+					</tr>
+
+					<th>GENERAL
+						<hr>
+					</th>
+					<tr>
+						<td>
+							product
+							<select class="form-control">
+								{% for product in products %}
+								<option {% if lead_obj.fk_product_id.id == product.id %} selected {% endif %}
+									value="{{product.id}}">{{product.product_name}}</option>
+								{% endfor %}
+							</select>
+						<td>
+							employee
+							<select class="form-control">
+								{% for emp in employees %}
+								<option {% if lead_obj.fk_lead_id.fk_created_user_id.id == emp.id %} selected
+									{% endif %} value="{{emp.id}}">{{ emp.username }}</option>
+								{% endfor %}
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td>Description<span style="color:red;"></span><br>
+							<textarea class="form-control" id="des">{{ lead_obj.description }}</textarea>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<div class="form-check">
+								<label class="form-check-label">
+									<input type="checkbox" class="form-check-input" name="sendsms">
+									Send sms
+								</label>
+							</div>
+						</td>
+
+						<td>
+							<button id="btn" onclick="fn_save_enquiery();" class="btn btn-primary">
+								<i class="fa fa-save"></i>
+								&nbsp;Save Enquiry
+							</button>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}
