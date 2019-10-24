@@ -30,15 +30,21 @@ def home(request):
                     user_obj = UserLogin.objects.get(
                         id=request.session['userId'])
                     context = {
-                        "username": user_obj.username
+                        "username": user_obj.username,
                     }
+                    user_details_obj = UserDetails.objects.filter(fk_login_id=user_obj).exists()
+                    if user_details_obj:
+                        user_obj = UserDetails.objects.get(fk_login_id=user_obj)
+                        context['user_obj'] = user_obj
+                    else:
+                        context['user_obj'] = 0
                     return render(request, 'home.html', context)
                 return redirect('/trackapp')
             return redirect('/trackapp')
         return redirect('/trackapp')
     except Exception as identifier:
         print(identifier)
-        return redirect('/trackapp')
+        return render(request, 'index.html', {'msg': 'login failed'})
 
 
 def logoutUser(request):
@@ -151,7 +157,6 @@ def reports(request):
                 for report in report_list:
                     for lead_obj in leads:
                         if report['product_name'] == lead_obj.fk_product_id.product_name:
-                            print('founct')
                             report['pro_count'] = report['pro_count'] + 1
                 context['reports'] = report_list
             if report_kind == 's':
