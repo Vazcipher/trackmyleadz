@@ -2,7 +2,9 @@
 
 {% block head %}
 <title>reports</title>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+<script src="{% static 'js/reports.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -19,10 +21,10 @@
     <div class="card col-lg-12 col-md-12">
       <div class="card-body">
 
-        <form action="" method="POST">
+        <form action="" method="POST" onsubmit="return validate();">
           <div class="row">
 
-            <select name="report" class="form-control col-lg-3 ml-lg-1">
+            <select name="report" class="form-control col-lg-3 ml-lg-1" id="leadid">
               <option value="e">Enquiry</option>
               <option value="s">Lead source</option>
             </select>
