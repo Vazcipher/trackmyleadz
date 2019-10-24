@@ -32,9 +32,11 @@ def home(request):
                     context = {
                         "username": user_obj.username,
                     }
-                    user_details_obj = UserDetails.objects.filter(fk_login_id=user_obj).exists()
+                    user_details_obj = UserDetails.objects.filter(
+                        fk_login_id=user_obj).exists()
                     if user_details_obj:
-                        user_obj = UserDetails.objects.get(fk_login_id=user_obj)
+                        user_obj = UserDetails.objects.get(
+                            fk_login_id=user_obj)
                         context['user_obj'] = user_obj
                     else:
                         context['user_obj'] = 0
@@ -148,7 +150,8 @@ def reports(request):
             leads = LeadDetails.objects.filter(
                 fk_lead_id__fk_company_id=company_obj, fk_lead_id__created_date__range=(from_date, to_date))
             if report_kind == 'e':
-                products = Product.objects.filter(fk_company_id=company_obj).values('product_name')
+                products = Product.objects.filter(
+                    fk_company_id=company_obj).values('product_name')
                 report_list = []
                 for product_obj in products:
                     product_obj['pro_name'] = product_obj['product_name']
@@ -514,14 +517,16 @@ def fn_edit_enquiry(req):
 
 def fn_view_consumer(req):
     try:
-        consumer_id = req.GET['id']
         user_obj = UserLogin.objects.get(id=req.session['userId'])
+        consumer_obj = Consumer.objects.get(id=req.GET['id'])
         context = {
-            "username": user_obj.username
-        }    
+            "username": user_obj.username,
+            "consumer_obj": consumer_obj
+        }
         return render(req, 'view_consumer.html', context)
     except Exception as identifier:
         print(identifier)
+        return render(req, 'view_consumer.html', {'msg': 'an error occurred'})
 
 
 def fn_edit_consumer(req):
@@ -530,13 +535,14 @@ def fn_edit_consumer(req):
         company_obj = Company.objects.get(id=request.session['companyId'])
         cons_obj = Consumer.objects.filter(fk_company_id=company_obj)
         if req.method == 'POST':
-            consumer.object.filter(id=req.POST['consumer_id']).update(fistname=req.POST['fistname'],lastname=req.POST['lastname'],email=req.POST['email'],phone=req.POST['phone'],address=req.POST['address'],gender=req.POST['gender'])
+            consumer.object.filter(id=req.POST['consumer_id']).update(fistname=req.POST['fistname'], lastname=req.POST['lastname'],
+                                                                      email=req.POST['email'], phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
             return HttpResponse('consumer updated')
-        consumer_obj=Consumer.object.get(consumer_id=req.GET['id'])
-        context ={
-            "consumer_obj" : consumer_obj
+        consumer_obj = Consumer.object.get(consumer_id=req.GET['id'])
+        context = {
+            "consumer_obj": consumer_obj
         }
-        return render(req,'editconsumer.html',context)
+        return render(req, 'editconsumer.html', context)
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')

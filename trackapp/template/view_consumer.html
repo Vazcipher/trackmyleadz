@@ -2,50 +2,89 @@
 
 {% block head %}
 <title>consumer</title>
-
-{% load staticfiles %}
-
-<script src="{% static 'js/consumer.js' %}"></script>
-
 {% endblock %}
 
 {% block body %}
 <div class="container">
 
-	<div class="row mt-3">
-		<h3>View Consumer</h3>
+
+    <div class="row mt-3">
+
+        <div class="card col-lg-12 col-md-12">
+            <div class="card-body">
+                <h4><u>Consumer details</u></h4>
+                <div class="row mt-3">
+                    <div class="form-group col-lg-4">
+                        <label>Firstname</label>
+                        <input type="text" value="{{ consumer_obj.fistname }}" readonly class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Lastname</label>
+                        <input type="text" value="{{ consumer_obj.lastname }}" readonly class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Email</label>
+                        <input type="text" value="{{ consumer_obj.email }}" readonly class="form-control">
+                    </div>
+
+                </div>
+
+                <hr style="width: 70%;">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <span style="color: rgb(155, 155, 155);">
+                                            Created by
+                                        </span>
+                                        <div>
+                                            <i class="fa fa-address-card"></i>
+                                            <span style="color: green; font-weight: bold;">
+                                                {{ consumer_obj.fk_created_user_id.username }}
+                                            </span>
+                                            <div style="font-size: 10px;">at {{ consumer_obj.created_time }} on
+                                                {{ consumer_obj.created_date }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-lg-12 mt-3">
+                                    <div class="col-lg-4">
+                                        <i class="fa fa-phone mr-1"></i>
+                                        {{ consumer_obj.phone }}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <i class="fa fa-map-marker mr-1"></i>
+                                        {{ consumer_obj.address }}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <i class="fa fa-users mr-1"></i>
+                                        {{ consumer_obj.gender }}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-    <div id="view_cons">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>SL.No</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-    
-                {% if consmr_obj.count == 0 %}
-                <tr>
-                    <td colspan="5">
-                        <div class="alert alert-info">You don't have any consumer</div>
-                    </td>
-                </tr>
-                {% endif %}
-    
-                {% for consumer in consmr_obj %}
-                <tr>
-                    <td> {{ consumer.id }} </td>
-                    <td> {{ consumer.fistname }} </td>
-                    <td> {{ consumer.lastname }} </td>
-                    <td> {{ consumer.email }} </td>
-                </tr>
-                {% endfor %}
-    
-            </tbody>
-        </table>
+
+    <div class="row mt-3">
+        <div class="card col-md-12 col-lg-12">
+            <div class="card-body">
+                <h4><u>Consumer enquires</u></h4>
+            </div>
+        </div>
     </div>
+
 </div>
 {% endblock %}
