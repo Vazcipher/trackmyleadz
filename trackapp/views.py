@@ -493,8 +493,9 @@ def fn_edit_enquiry(req):
         emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
         if req.method == 'POST':
             product_obj = Product.objects.get(id=req.POST['product'])
+            lead_source_obj = LeadSource.objects.get(id=req.POST['lead_source'])
             LeadDetails.objects.filter(fk_lead_id__id=req.POST['lead_id']).update(
-                fk_product_id=product_obj, description=req.POST['desc'], lead_source=req.POST['lead_source'], lead_stage=req.POST['lead_stage'])
+                fk_product_id=product_obj, description=req.POST['desc'], fk_lead_source=lead_source_obj, lead_stage=req.POST['lead_stage'])
             emp_obj = UserLogin.objects.get(id=req.POST['employee'])
             Leads.objects.filter(id=req.POST['lead_id']).update(
                 fk_assigned_user_id=emp_obj, updated_date=datetime.datetime.now().date())
@@ -503,11 +504,13 @@ def fn_edit_enquiry(req):
                 email=req.POST['email'], phone=req.POST['phone'])
             return HttpResponse('Enquiry updated')
         lead_obj = LeadDetails.objects.get(fk_lead_id=req.GET['id'])
+        lead_sources = LeadSource.objects.filter(fk_company_id=company_obj)
         context = {
             "username": user_obj.username,
             "lead_obj": lead_obj,
             "products": product_obj,
-            "employees": emp_obj
+            "employees": emp_obj,
+            "lead_sources": lead_sources
         }
         return render(req, 'edit.html', context)
     except Exception as identifier:
@@ -519,9 +522,11 @@ def fn_view_consumer(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         consumer_obj = Consumer.objects.get(id=req.GET['id'])
+        leads_obj = LeadDetails.objects.filter(fk_lead_id__fk_consumer_id=consumer_obj)
         context = {
             "username": user_obj.username,
-            "consumer_obj": consumer_obj
+            "consumer_obj": consumer_obj,
+            "leads": leads_obj
         }
         return render(req, 'view_consumer.html', context)
     except Exception as identifier:
