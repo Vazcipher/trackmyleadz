@@ -493,7 +493,8 @@ def fn_edit_enquiry(req):
         emp_obj = UserLogin.objects.filter(fk_company_id=company_obj)
         if req.method == 'POST':
             product_obj = Product.objects.get(id=req.POST['product'])
-            lead_source_obj = LeadSource.objects.get(id=req.POST['lead_source'])
+            lead_source_obj = LeadSource.objects.get(
+                id=req.POST['lead_source'])
             LeadDetails.objects.filter(fk_lead_id__id=req.POST['lead_id']).update(
                 fk_product_id=product_obj, description=req.POST['desc'], fk_lead_source=lead_source_obj, lead_stage=req.POST['lead_stage'])
             emp_obj = UserLogin.objects.get(id=req.POST['employee'])
@@ -522,7 +523,8 @@ def fn_view_consumer(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         consumer_obj = Consumer.objects.get(id=req.GET['id'])
-        leads_obj = LeadDetails.objects.filter(fk_lead_id__fk_consumer_id=consumer_obj)
+        leads_obj = LeadDetails.objects.filter(
+            fk_lead_id__fk_consumer_id=consumer_obj)
         context = {
             "username": user_obj.username,
             "consumer_obj": consumer_obj,
@@ -536,15 +538,14 @@ def fn_view_consumer(req):
 
 def fn_edit_consumer(req):
     try:
-        user_obj = UserLogin.objects.get(id=request.session['userId'])
-        company_obj = Company.objects.get(id=request.session['companyId'])
-        cons_obj = Consumer.objects.filter(fk_company_id=company_obj)
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
         if req.method == 'POST':
             consumer.object.filter(id=req.POST['consumer_id']).update(fistname=req.POST['fistname'], lastname=req.POST['lastname'],
                                                                       email=req.POST['email'], phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
             return HttpResponse('consumer updated')
-        consumer_obj = Consumer.object.get(consumer_id=req.GET['id'])
+        consumer_obj = Consumer.objects.get(id=req.GET['id'])
         context = {
+            "username": user_obj.username,
             "consumer_obj": consumer_obj
         }
         return render(req, 'editconsumer.html', context)

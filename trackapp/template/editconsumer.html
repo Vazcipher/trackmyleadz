@@ -18,59 +18,54 @@
 
 	<div class="row">
 
-		<div class="card mt-2" style="width: 100%;">
+		<div class="card mt-2 col-lg-12 col-md-12">
 			<div class="card-body">
-				<table id="table" class="table table-borderless" cellpadding="4px">
 
-					<th>CONSUMER</th>
-					<tr>
-						<td>Firstname<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;<br>
-							<input readonly class="form-control" type="text" id="fistname"
-								value="{{consumer_id.fistname}} ">
-						</td>
-						<td>Lastname<span style="color:red;"></span>&nbsp;&nbsp;&nbsp;<br>
-							<input readonly class="form-control" type="text" id="lastname"
-								value="{{consumer_id.lastname}}">
-						</td>
-						<td>Email<br><input class="form-control" value="{{consumer_id.email}}" type="text"
-								id="email">{% for consumer in consumer_obj %}
-							{{ consumer.email }}{% endfor %}</td>
-						<td>Phone<br><input class="form-control" value="{{consumer_id.phone}}" type="text"
-								id="phone">{% for consumer in consumer_obj %}
-							{{ consumer.phone }}{% endfor %}</td>
-						<td>Address<br><input class="form-control" value="{{consumer_id.address}}" type="text"
-								id="address">{% for consumer in consumer_obj %}
-							{{ consumer.phone }}{% endfor %}</td>
-						<td>Gender<br>
-							<div class="form-check-inline">
-								<label class="form-check-label">
-									<input type="radio" class="form-check-input" value="{{consumer_id.male}}"
-										name="gender">
-									<span id="g1">male</span>
-								</label>
-							</div>
+				<div class="row">
+					<div class="form-group col-lg-4">
+						<label>Firstname</label>
+						<input type="text" value="{{ consumer_obj.fistname }}" class="form-control">
+					</div>
+					<div class="form-group col-lg-4">
+						<label>Lastname</label>
+						<input type="text" value="{{ consumer_obj.lastname }}" class="form-control">
+					</div>
+					<div class="form-group col-lg-4">
+						<label>Email</label>
+						<input type="text" value="{{ consumer_obj.email }}" class="form-control">
+					</div>
+				</div>
 
-							<div class="form-check-inline">
-								<label class="form-check-label">
-									<input type="radio" class="form-check-input" name="gender"
-										value="{{consumer_id.female}}">
-									<span id="g2">female</span>
-								</label>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button id="btn"
-								onclick="fn_edit_consumer('{{ consumer_obj.consumer_id.id }}', '{{ csrf_token }}');"
-								class="btn btn-primary">
-								<i class="fa fa-save"></i>
-								&nbsp;Save consumer
-							</button>
-						</td>
-					</tr>
+				<hr style="width: 60%;">
 
-				</table>
+				<div class="row">
+					<div class="col-md-12 col-lg-12">
+						<label>Address</label>
+						<textarea class="form-control">{{ consumer_obj.address }}</textarea>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<div class="col-lg-6">
+						<label>Phone</label>
+						<input type="text" value="{{ consumer_obj.phone }}" class="form-control">
+					</div>
+					<div class="col-lg-6">
+						<div class="mt-4">
+							<input type="radio" {% if consumer_obj.gender == 'Male' %} checked {% endif %} name="gender"
+								value="Male"> Male
+							<input type="radio" {% if consumer_obj.gender == 'Female' %} checked {% endif %}
+								name="gender" value="Female"> Female
+						</div>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<div class="col-lg-12">
+						<button class="btn btn-primary">Save</button>
+					</div>
+				</div>
+
 			</div>
 		</div>
 
