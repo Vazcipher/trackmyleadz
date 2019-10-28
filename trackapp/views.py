@@ -380,6 +380,15 @@ def fn_delete_product(request):
     except Exception:
         return HttpResponse('an error occurred')
 
+@csrf_exempt
+def fn_delete_consumer(request):
+    try:
+        if request.method == 'POST':
+            Consumer.objects.get(id=request.POST['consumer_id']).delete()
+            return HttpResponse('Consumer successfully deleted')
+    except Exception:
+        return HttpResponse('An error occured')
+
 
 @csrf_exempt
 def fn_delete_enquiry(request):
@@ -393,6 +402,19 @@ def fn_delete_enquiry(request):
     except Exception:
         return HttpResponse('an error occurred')
 
+
+@csrf_exempt
+def fn_delete_employee(request):
+    try:
+        if request.method == 'POST':
+            user_id = request.POST['user_id']
+            user_obj = UserLogin.objects.get(id=user_id)
+            UserDetails.objects.get(fk_login_id=user_obj).delete()
+            UserLogin.objects.get(id=user_id).delete()
+            return HttpResponse('employee deleted')
+    except Exception:
+        return HttpResponse('an error occurred')
+          
 
 def fn_follow_up(request):
     try:
@@ -550,6 +572,26 @@ def fn_edit_consumer(req):
             "consumer_obj": consumer_obj
         }
         return render(req, 'editconsumer.html', context)
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occured')
+
+def fn_edit_employee(req):
+    try:
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        user = req.GET.get('id')
+    
+        print(user)
+        if req.method == 'POST' :
+            UserDetails.objects.filter(id=user).update(firstname=req.POST['firstname'],lastname=req.POST['lastname'],
+            email=req.POST['email'],mobile=req.POST['mobile'],dob=req.POST['dob'],address=req.POST['address'],gender=req.POST['gender'])
+        #    return HttpResponse('employee updated')
+        emp_obj = UserDetails.objects.get(id=req.GET['id'])
+        context = {
+            "username": user_obj.username,
+            "emp_obj": emp_obj
+        }
+        return render(req, 'editemployee.html', context)
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
