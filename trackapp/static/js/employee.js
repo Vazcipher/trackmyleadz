@@ -106,6 +106,7 @@ function validate() {
         return false;
     }
 }
+
 function validate() {
 
     let flag = 0;
@@ -199,9 +200,6 @@ function validate() {
     }
 }
 
-
-
-
 function fn_save_employee() {
     const isValid = validate();
     if (isValid) {
@@ -266,6 +264,7 @@ function fn_save_employee() {
         console.log('not valid')
     }
 }
+
 function fn_edit_employee() {
     const isValid = validate();
     if (isValid) {
@@ -330,6 +329,7 @@ function fn_edit_employee() {
         console.log('not valid')
     }
 }
+
 function fn_delete_employee(user_id) {
     const check = confirm('Are you sure you want to delete this employee')
     if (check) {
@@ -337,7 +337,7 @@ function fn_delete_employee(user_id) {
             url: 'http://127.0.0.1:8000/trackapp/delete_employee/',
             type: 'POST',
             data: {
-               user_id: user_id
+                user_id: user_id
             },
             success: del => {
                 $.toast({
@@ -355,8 +355,8 @@ function fn_delete_employee(user_id) {
                 });
                 setTimeout(() => {
                     location.reload(true);
-                },1500)
-                
+                }, 1500)
+
             },
             error: e => {
                 $.toast({
@@ -374,6 +374,5 @@ function fn_delete_employee(user_id) {
                 });
             }
         });
-    } 
-    
+    }
 }

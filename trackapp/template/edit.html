@@ -55,7 +55,8 @@
 							lead source
 							<select class="form-control" id="lead_source">
 								{% for source in lead_sources %}
-								<option {% if lead_obj.fk_lead_source.id == source.id %} selected {% endif %} value="{{ source.id }}">
+								<option {% if lead_obj.fk_lead_source.id == source.id %} selected {% endif %}
+									value="{{ source.id }}">
 									{{ source.source_title }} </option>
 								{% endfor %}
 							</select>

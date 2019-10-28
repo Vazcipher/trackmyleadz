@@ -40,6 +40,8 @@ def home(request):
                         context['user_obj'] = user_obj
                     else:
                         context['user_obj'] = 0
+                    leads = LeadDetails.objects.filter(fk_lead_id__fk_assigned_user_id=user_obj, lead_stage='Open')
+                    context['leads'] = leads
                     return render(request, 'home.html', context)
                 return redirect('/trackapp')
             return redirect('/trackapp')
@@ -380,6 +382,7 @@ def fn_delete_product(request):
     except Exception:
         return HttpResponse('an error occurred')
 
+
 @csrf_exempt
 def fn_delete_consumer(request):
     try:
@@ -414,7 +417,7 @@ def fn_delete_employee(request):
             return HttpResponse('employee deleted')
     except Exception:
         return HttpResponse('an error occurred')
-          
+
 
 def fn_follow_up(request):
     try:
@@ -576,16 +579,17 @@ def fn_edit_consumer(req):
         print(identifier)
         return HttpResponse('an error occured')
 
+
 def fn_edit_employee(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         user = req.GET.get('id')
-    
-        print(user)
-        if req.method == 'POST' :
-            UserDetails.objects.filter(id=user).update(firstname=req.POST['firstname'],lastname=req.POST['lastname'],
-            email=req.POST['email'],mobile=req.POST['mobile'],dob=req.POST['dob'],address=req.POST['address'],gender=req.POST['gender'])
-        #    return HttpResponse('employee updated')
+        if req.method == 'POST':
+            UserDetails.objects.filter(id=user).update(
+                firstname=req.POST['firstname'], lastname=req.POST['lastname'],
+                email=req.POST['email'], mobile=req.POST['mobile'], dob=req.POST['dob'],
+                address=req.POST['address'], gender=req.POST['gender'])
+            return HttpResponse('Employee successfully edited')
         emp_obj = UserDetails.objects.get(id=req.GET['id'])
         context = {
             "username": user_obj.username,
