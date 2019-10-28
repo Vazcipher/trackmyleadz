@@ -54,12 +54,10 @@
 						<td>
 							lead source
 							<select class="form-control" id="lead_source">
-								<option {% if lead_obj.lead_source == 'Website' %} selected {% endif %} value="Website">
-									Website</option>
-								<option {% if lead_obj.lead_source == 'Facebook' %} selected {% endif %}
-									value="Facebook">Facebook</option>
-								<option {% if lead_obj.lead_source == 'Reference' %} selected {% endif %}
-									value="Reference">Reference</option>
+								{% for source in lead_sources %}
+								<option {% if lead_obj.fk_lead_source.id == source.id %} selected {% endif %} value="{{ source.id }}">
+									{{ source.source_title }} </option>
+								{% endfor %}
 							</select>
 						</td>
 					</tr>
@@ -104,7 +102,9 @@
 						</td>
 
 						<td>
-							<button id="btn" onclick="fn_update_enquiery('{{ lead_obj.fk_lead_id.id }}', '{{ csrf_token }}');" class="btn btn-primary">
+							<button id="btn"
+								onclick="fn_update_enquiery('{{ lead_obj.fk_lead_id.id }}', '{{ csrf_token }}');"
+								class="btn btn-primary">
 								<i class="fa fa-save"></i>
 								&nbsp;Save Enquiry
 							</button>

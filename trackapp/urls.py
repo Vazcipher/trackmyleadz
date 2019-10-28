@@ -24,5 +24,7 @@ urlpatterns = [
     path('changePassword/', views.fn_change_password),
     path('editenquiry/', views.fn_edit_enquiry),
     path('createLeadSource/', views.fn_create_lead_source),
+    path('viewconsumer/',views.fn_view_consumer),
     path('editconsumer/', views.fn_edit_consumer),
+     path('editemployee/', views.fn_edit_employee),
 ]

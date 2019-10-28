@@ -1,6 +1,5 @@
-
 function validate() {
-   
+
     let flag = 0;
 
     if ($('#leadid').val().length > 0) {
@@ -26,12 +25,9 @@ function validate() {
         flag--;
         $('#tdatePickerId').css("border-color", "red");
     }
-    if (flag == 3 ) {
+    if (flag == 3) {
         return true;
     } else {
         return false;
     }
 }
-
-
-
