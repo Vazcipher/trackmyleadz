@@ -394,6 +394,19 @@ def fn_delete_enquiry(request):
         return HttpResponse('an error occurred')
 
 
+@csrf_exempt
+def fn_delete_employee(request):
+    try:
+        if request.method == 'POST':
+            user_id = request.POST['user_id']
+            user_obj = UserLogin.objects.get(id=user_id)
+            UserDetails.objects.get(fk_login_id=user_obj).delete()
+            UserLogin.objects.get(id=user_id).delete()
+            return HttpResponse('employee deleted')
+    except Exception:
+        return HttpResponse('an error occurred')
+          
+
 def fn_follow_up(request):
     try:
         user_obj = UserLogin.objects.get(id=request.session['userId'])
