@@ -380,6 +380,15 @@ def fn_delete_product(request):
     except Exception:
         return HttpResponse('an error occurred')
 
+@csrf_exempt
+def fn_delete_consumer(request):
+    try:
+        if request.method == 'POST':
+            Consumer.objects.get(id=request.POST['consumer_id']).delete()
+            return HttpResponse('Consumer successfully deleted')
+    except Exception:
+        return HttpResponse('An error occured')
+
 
 @csrf_exempt
 def fn_delete_enquiry(request):

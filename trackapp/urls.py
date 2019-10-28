@@ -16,6 +16,7 @@ urlpatterns = [
     path('createProduct/', views.fn_create_product),
     path('delete_product/', views.fn_delete_product),
     path('delete_enquiry/', views.fn_delete_enquiry),
+    path('delete_consumer/',views.fn_delete_consumer),
     path('followup', views.fn_follow_up),
     path('getNotification', views.fn_get_notifications),
     path('savefollowup/', views.fn_save_follow_up),
