@@ -564,16 +564,18 @@ def fn_edit_consumer(req):
 
 def fn_edit_employee(req):
     try:
-        user_obj = UserLogin.objects.get(id=request.session['userId'])
-        company_obj = Company.objects.get(id=request.session['companyId'])
-        role_obj = UserRole.objects.filter(fk_company_id=company_obj)
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        user = req.GET.get('id')
+    
+        print(user)
         if req.method == 'POST' :
-            UserDetails.object.filter(id=req.POST['employee_id']).update(firstname=req.POST[firstname],lastname=req.POST[lastname],email=req.POST[email],phone=req.POST[phone],dob=req.POST[dob],address=req.POST[address],gender=req.POST[gender])
-            return HttpResponse('employee updated')
-        emp_obj = UserDetails.objects.get(fk_login_id=req.POST['id'])
+            UserDetails.objects.filter(id=user).update(firstname=req.POST['firstname'],lastname=req.POST['lastname'],
+            email=req.POST['email'],mobile=req.POST['mobile'],dob=req.POST['dob'],address=req.POST['address'],gender=req.POST['gender'])
+        #    return HttpResponse('employee updated')
+        emp_obj = UserDetails.objects.get(id=req.GET['id'])
         context = {
             "username": user_obj.username,
-            "emp_obj":emp_obj
+            "emp_obj": emp_obj
         }
         return render(req, 'editemployee.html', context)
     except Exception as identifier:
