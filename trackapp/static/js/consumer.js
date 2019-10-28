@@ -130,9 +130,11 @@ function fn_save_consumer() {
     }
 }
 
-function delete_enquiry(consumer_id) {
+function fn_delete_consumer(consumer_id) {
+    const check = confirm('Are you sure you want to delete this consumer')
+    if (check) {
     $.ajax({
-        url: 'http://127.0.0.1:8000/trackapp/delete_enquiry/',
+        url: 'http://127.0.0.1:8000/trackapp/delete_consumer/',
         type: 'POST',
         data: {
             consumer_id: consumer_id
@@ -169,5 +171,7 @@ function delete_enquiry(consumer_id) {
         }
 
     });
+}
+
 
 }
