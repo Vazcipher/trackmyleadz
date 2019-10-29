@@ -565,8 +565,8 @@ def fn_edit_consumer(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         if req.method == 'POST':
-            consumer.object.filter(id=req.POST['consumer_id']).update(
-                fistname=req.POST['fistname'], lastname=req.POST['lastname'], email=req.POST['email'],
+            Consumer.objects.filter(id=req.POST['consumer_id']).update(
+                fistname=req.POST['fname'], lastname=req.POST['lname'], email=req.POST['email'],
                 phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
             return HttpResponse('consumer updated')
         consumer_obj = Consumer.objects.get(id=req.GET['id'])

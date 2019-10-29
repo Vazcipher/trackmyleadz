@@ -75,7 +75,7 @@ function validate() {
     }
 }
 
-function validate() {
+function edit_validate() {
     let flag = 0;
 
     if ($('#fistname').val().length > 0) {
@@ -118,8 +118,7 @@ function validate() {
         flag--;
     }
 
-
-    if ($("input[name='gender']:checked").length > 0) {
+    if ($("input[name='c_gender']:checked").length > 0) {
         $('#male').css("color", "black");
         $('#female').css("color", "black");
         flag++;
@@ -157,18 +156,13 @@ function fn_save_consumer() {
                     icon: 'success',
                     showHideTransition: 'fade',
                     allowToastClose: true,
-                    hideAfter: 3000,
+                    hideAfter: 1500,
                     stack: 5,
                     position: 'top-right',
                     textAlign: 'left',
                     loader: true,
                     loaderBg: '#9EC600',
                 });
-                $('#fn').val('');
-                $('#ln').val('');
-                $('#em').val('');
-                $('#ph').val('');
-                $('#ad').val('');
             },
             error: e => {
                 $.toast({
@@ -237,19 +231,21 @@ function fn_delete_consumer(consumer_id) {
 
 }
 
-function fn_edit_consumer() {
-    const isValid = validate()
+function fn_edit_consumer(consumer_id, csrfmiddlewaretoken) {
+    const isValid = edit_validate()
     if (isValid) {
         $.ajax({
             url: 'http://127.0.0.1:8000/trackapp/editconsumer/',
             type: 'POST',
             data: {
+                consumer_id,
+                csrfmiddlewaretoken,
                 fname: $('#fistname').val(),
                 lname: $('#lastname').val(),
                 email: $('#email').val(),
                 phone: $('#phone').val(),
                 address: $('#address').val(),
-                gender: $("input[name='gender']:checked").val()
+                gender: $("input[name='c_gender']:checked").val()
             },
             success: res => {
                 $.toast({

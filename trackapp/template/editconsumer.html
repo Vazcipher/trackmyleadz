@@ -3,7 +3,7 @@
 {% block head %}
 
 {% load staticfiles %}
-<script src="{% static 'js/editconsumer.js' %}"></script>
+<script src="{% static 'js/consumer.js' %}"></script>
 <title>edit consumer</title>
 
 {% endblock %}
@@ -24,15 +24,15 @@
 				<div class="row">
 					<div class="form-group col-lg-4">
 						<label>Firstname</label>
-						<input type="text" value="{{ consumer_obj.fistname }}" class="form-control">
+						<input type="text" id="fistname" value="{{ consumer_obj.fistname }}" class="form-control">
 					</div>
 					<div class="form-group col-lg-4">
 						<label>Lastname</label>
-						<input type="text" value="{{ consumer_obj.lastname }}" class="form-control">
+						<input type="text" id="lastname" value="{{ consumer_obj.lastname }}" class="form-control">
 					</div>
 					<div class="form-group col-lg-4">
 						<label>Email</label>
-						<input type="text" value="{{ consumer_obj.email }}" class="form-control">
+						<input id="email" type="text" value="{{ consumer_obj.email }}" class="form-control">
 					</div>
 				</div>
 
@@ -41,21 +41,21 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-12">
 						<label>Address</label>
-						<textarea class="form-control">{{ consumer_obj.address }}</textarea>
+						<textarea id="address" class="form-control">{{ consumer_obj.address }}</textarea>
 					</div>
 				</div>
 
 				<div class="row mt-2">
 					<div class="col-lg-6">
 						<label>Phone</label>
-						<input type="text" value="{{ consumer_obj.phone }}" class="form-control">
+						<input id="phone" type="text" value="{{ consumer_obj.phone }}" class="form-control">
 					</div>
 					<div class="col-lg-6">
 						<div class="mt-4">
-							<input type="radio" {% if consumer_obj.gender == 'Male' %} checked {% endif %} name="gender"
-								value="Male"> Male
+							<input type="radio" {% if consumer_obj.gender == 'Male' %} checked {% endif %} name="c_gender"
+								value="Male"> <span id="male">Male</span>
 							<input type="radio" {% if consumer_obj.gender == 'Female' %} checked {% endif %}
-								name="gender" value="Female"> Female
+								name="c_gender" value="Female"> <span id="female">Female</span>
 						</div>
 					</div>
 				</div>
