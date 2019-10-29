@@ -579,6 +579,24 @@ def fn_edit_consumer(req):
         print(identifier)
         return HttpResponse('an error occured')
 
+def fn_edit_product(req):
+    try:
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        if req.method == 'POST':
+            Product.objects.filter(id=req.POST['product_id']).update(
+                product_code=req.POST['pcode'], product_name=req.POST['pname'], product_cost=req.POST['cost'], 
+                product_desc=req.POST['desc'])
+            return HttpResponse('product updated')
+        product_obj = Product.objects.get(id=req.GET['id'])
+        context = {
+            "username": user_obj.username,
+            "product_obj": product_obj
+        }
+        return render(req, 'editproduct.html',context)
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occured')
+        
 
 def fn_edit_employee(req):
     try:
@@ -599,3 +617,6 @@ def fn_edit_employee(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
+
+
+            
