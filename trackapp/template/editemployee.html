@@ -3,8 +3,8 @@
 {% block head %}
 
 {% load staticfiles %}
-<script src="{% static 'js/editemployee.js' %}"></script>
-<title>edit consumer</title>
+<script src="{% static 'js/employee.js' %}"></script>
+<title>edit employee</title>
 
 {% endblock %}
 
@@ -24,24 +24,15 @@
 				<div class="row">
 					<div class="form-group col-lg-4">
 						<label>Firstname</label>
-						<input type="text" value="{{ employee_obj.fistname }}" class="form-control">
+						<input type="text" value="{{ emp_obj.firstname }}" class="form-control" id="firstname"> 
 					</div>
 					<div class="form-group col-lg-4">
 						<label>Lastname</label>
-						<input type="text" value="{{ employee_obj.lastname }}" class="form-control">
-                    </div>
-                    <div class="form-group col-lg-4">
-						<label>Username</label>
-						<input type="text" value="{{ userlogin.username }}" readonly class="form-control">
-                    </div>
-                    <div class="form-group col-lg-4">
-						<label>Password</label>
-						<input type="password" value="{{ userlogin.password }}" readonly class="form-control">
-                    </div>
-                    
+						<input type="text" value="{{ emp_obj.lastname }}" class="form-control" id="lastname">
+					</div>
 					<div class="form-group col-lg-4">
 						<label>Email</label>
-						<input type="text" value="{{ employee_obj.email }}" class="form-control">
+						<input type="text" value="{{ emp_obj.email }}" class="form-control" id="email">
 					</div>
 				</div>
 
@@ -51,34 +42,32 @@
 				<div class="row mt-2">
 					<div class="col-lg-6">
 						<label>Phone</label>
-						<input type="text" value="{{ employee_obj.phone }}" class="form-control">
-                    </div>
-                    <div class="col-lg-6">
-						<label>DOB</label>
-						<input type="text" value="{{ employee_obj.dob }}" class="form-control">
-                    </div>
-                    <div class="col-lg-6">
+						<input type="text" value="{{ emp_obj.mobile }}" class="form-control" id="mobile">
+					</div>
+					<div class="col-lg-6">
 						<label>Location</label>
-						<input type="text" value="{{ employee_obj.address }}" class="form-control">
-                    </div>
-                    
+						<input type="text" value="{{ emp_obj.address }}" class="form-control" id="address">
+					</div>
+					<div class="col-lg-6">
+						<label>dob</label>
+						<input type="date" value="{{ emp_obj.dob }}" class="form-control" id="dob">
+					</div>
+
 					<div class="col-lg-6">
 						<div class="mt-4">
-							<input type="radio" {% if employee_obj.gender == 'Male' %} checked {% endif %} name="gender"
-								value="Male"> Male
-							<input type="radio" {% if employee_obj.gender == 'Female' %} checked {% endif %}
-								name="gender" value="Female"> Female
+							<input type="radio" {% if emp_obj.gender == 'male' %} checked {% endif %} name="e_gender"
+								value="Male"> <span id="male">Male</span>
+							<input type="radio" {% if emp_obj.gender == 'female' %} checked {% endif %} name="e_gender"
+								value="Female"><span id="female"> Female</span>
 						</div>
-                    </div>
-                    <div class="col-lg-6">
-						<label>Role</label>
-						<input type="text" value="{{ user_obj.role }}" readonly class="form-control">
-                    </div>
+					</div>
 				</div>
 
 				<div class="row mt-2">
 					<div class="col-lg-12">
-						<button class="btn btn-primary" onclick="fn_edit_employee('{{ employee.id }}', '{{ csrf_token }}');">Save</button>
+						<button id="btn" onclick="fn_edit_employee('{{ emp_obj.id }}', '{{ csrf_token }}');" class="btn btn-primary" >
+							<i class="fa fa-save"></i> Save
+						</button>
 					</div>
 				</div>
 

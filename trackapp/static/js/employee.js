@@ -108,6 +108,75 @@ function validate() {
 }
 
 
+function edit_validate() {
+
+    let flag = 0;
+
+    if ($('#firstname').val().length > 0) {
+        $('#firstname').css("border-color", "#ced4da");
+        flag++;
+    } else {
+        $('#firstname').css("border-color", "red");
+        flag--;
+    }
+
+    if ($('#lastname').val().length > 0) {
+        $('#lastname').css("border-color", "#ced4da");
+        flag++;
+    } else {
+        $('#lastname').css("border-color", "red");
+        flag--;
+    }
+
+    if ($('#email').val().length > 0) {
+        $('#emai').css("border-color", "#ced4da");
+        flag++;
+    } else {
+        $('#email').css("border-color", "red");
+        flag--;
+    }
+
+    if ($('#mobile').val().length > 0) {
+        $('#mobile').css("border-color", "#ced4da");
+        flag++;
+    } else {
+        $('#mobile').css("border-color", "red");
+        flag--;
+    }
+
+    if ($('#dob').val().length > 0) {
+        $('#dob').css("border-color", "#ced4da");
+        flag++;
+    } else {
+        $('#dob').css("border-color", "red");
+        flag--;
+    }
+
+    if ($('#address').val().length > 0) {
+        $('#address').css("border-color", "#ced4da");
+        flag++;
+    } else {
+        $('#address').css("border-color", "red");
+        flag--;
+    }
+
+    if ($("input[name='e_gender']:checked").length > 0) {
+        $('#male').css("color", "black");
+        $('#female').css("color", "black");
+        flag++;
+    } else {
+        $('#male').css("color", "red");
+        $('#female').css("color", "red");
+        flag--;
+    }
+
+    if (flag == 7) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function fn_save_employee() {
     const isValid = validate();
     if (isValid) {
@@ -170,5 +239,106 @@ function fn_save_employee() {
         });
     } else {
         console.log('not valid')
+    }
+}
+
+function fn_edit_employee(id, csrfmiddlewaretoken) {
+    const isValid = edit_validate();
+    if (isValid) {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/trackapp/editemployee/',
+            type: 'POST',
+            data: {
+                id,
+                csrfmiddlewaretoken,
+                firstname: $('#firstname').val(),
+                lastname: $('#lastname').val(),
+                email: $('#email').val(),
+                mobile: $('#mobile').val(),
+                dob: $('#dob').val(),
+                location: $('#address').val(),
+                gender: $("input[name='e_gender']:checked").val()
+            },
+            success: res => {
+                $.toast({
+                    text: res,
+                    heading: 'Note',
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 2000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
+              
+            },
+            error: e => {
+                $.toast({
+                    text: e,
+                    heading: 'Note',
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
+            }
+        });
+    } else {
+        console.log('not valid')
+    }
+}
+
+function fn_delete_employee(user_id) {
+    const check = confirm('Are you sure you want to delete this employee')
+    if (check) {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/trackapp/delete_employee/',
+            type: 'POST',
+            data: {
+                user_id: user_id
+            },
+            success: del => {
+                $.toast({
+                    text: del,
+                    heading: 'Note',
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 1500,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
+
+            },
+            error: e => {
+                $.toast({
+                    text: e,
+                    heading: 'Note',
+                    icon: 'error',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 3000,
+                    stack: 5,
+                    position: 'top-right',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#9EC600',
+                });
+            }
+        });
     }
 }

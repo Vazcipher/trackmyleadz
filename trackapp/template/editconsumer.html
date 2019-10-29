@@ -3,7 +3,7 @@
 {% block head %}
 
 {% load staticfiles %}
-<script src="{% static 'js/editconsumer.js' %}"></script>
+<script src="{% static 'js/consumer.js' %}"></script>
 <title>edit consumer</title>
 
 {% endblock %}
@@ -62,12 +62,11 @@
 
 				<div class="row mt-2">
 					<div class="col-lg-12">
-						<button id="btn"
-								onclick="fn_edit_consumer('{{ consumer.id }}', '{{ csrf_token }}');"
-								class="btn btn-primary">
-								<i class="fa fa-save"></i>
-								&nbsp;Save
-							</button>
+						<button id="btn" onclick="fn_edit_consumer('{{consumer_obj.id }}', '{{ csrf_token }}');"
+							class="btn btn-primary">
+							<i class="fa fa-save"></i>
+							&nbsp;Save
+						</button>
 					</div>
 				</div>
 

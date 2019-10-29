@@ -13,6 +13,7 @@ urlpatterns = [
     path('createEnquiry/', views.fn_create_enquiry),
     path('createConsumer/', views.fn_create_consumer),
     path('createEmployee/', views.fn_create_employee),
+    path('delete_employee/', views.fn_delete_employee),
     path('createProduct/', views.fn_create_product),
     path('delete_product/', views.fn_delete_product),
     path('delete_enquiry/', views.fn_delete_enquiry),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('createLeadSource/', views.fn_create_lead_source),
     path('viewconsumer/',views.fn_view_consumer),
     path('editconsumer/', views.fn_edit_consumer),
+    path('editemployee/',views.fn_edit_employee)
 ]
