@@ -33,10 +33,6 @@ function validate() {
         flag--;
         $('#lead_stage').css("border-color", "red");
     }
-
-    if ($('#lead_source').val().length > 0) {
-        flag++;
-        $('#lead_source').css("border-color", "#ced4da");
     } else {
         flag--;
         $('#lead_source').css("border-color", "red");
@@ -67,6 +63,31 @@ function validate() {
     }
 
     if (flag == 6) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function fn_save_lead_source() {
+    let flag = 0;
+    if ($('#lead_source').val().length > 0) {
+        flag++;
+        $('#lead_source').css("border-color", "#ced4da");
+        if ($('#source_title').val().length > 0) {
+            flag++;
+            $('#source_title').css("border-color", "#ced4da");
+        } else {
+            flag--;
+            $('#source_title').css("border-color", "red");
+        } if ($('#source_desc').val().length > 0) {
+            flag++;
+            $('#source_desc').css("border-color", "#ced4da");
+        } else {
+            flag--;
+            $('#source_desc').css("border-color", "red");
+        }
+    if (flag=2) {
         return true;
     } else {
         return false;
