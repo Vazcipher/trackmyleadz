@@ -577,7 +577,7 @@ def fn_edit_consumer(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
-
+    
 def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
@@ -593,6 +593,8 @@ def fn_view_product(req):
     except Exception as identifier:
         print(identifier)
         return render(req, 'view_product.html', {'msg': 'an error occurred'})
+
+
         
         
 
