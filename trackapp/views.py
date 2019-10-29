@@ -35,12 +35,14 @@ def home(request):
                     user_details_obj = UserDetails.objects.filter(
                         fk_login_id=user_obj).exists()
                     if user_details_obj:
-                        user_obj = UserDetails.objects.get(
+                        user_obj_ = UserDetails.objects.get(
                             fk_login_id=user_obj)
-                        context['user_obj'] = user_obj
+                        context['user_obj'] = user_obj_
                     else:
                         context['user_obj'] = 0
-                    leads = LeadDetails.objects.filter(fk_lead_id__fk_assigned_user_id=user_obj, lead_stage='Open')
+                    leads = LeadDetails.objects.filter(
+                        fk_lead_id__fk_assigned_user_id=user_obj, lead_stage='Open')
+                    print(leads)
                     context['leads'] = leads
                     return render(request, 'home.html', context)
                 return redirect('/trackapp')
@@ -219,6 +221,7 @@ def fn_create_enquiry(request):
             company_obj = Company(id=request.session['companyId'])
             ass_user_obj = UserLogin.objects.get(
                 id=request.POST['assigned'])
+            print(ass_user_obj)
             lead_source_obj = LeadSource.objects.get(
                 id=request.POST['lead_source'])
             consumer_obj = Consumer.objects.get(id=request.POST['consumer'])
@@ -437,7 +440,7 @@ def fn_follow_up(request):
         return HttpResponse('an error occurred')
 
 
-@csrf_exempt 
+@csrf_exempt
 def fn_save_follow_up(req):
     try:
         if req.method == 'POST':
@@ -566,7 +569,7 @@ def fn_edit_consumer(req):
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         if req.method == 'POST':
             consumer.object.filter(id=req.POST['consumer_id']).update(fistname=req.POST['fistname'], lastname=req.POST['lastname'],
-               email=req.POST['email'], phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
+                                                                      email=req.POST['email'], phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
             return HttpResponse('consumer updated')
         consumer_obj = Consumer.objects.get(id=req.GET['id'])
         context = {
@@ -577,7 +580,8 @@ def fn_edit_consumer(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
-    
+
+
 def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
@@ -594,18 +598,18 @@ def fn_view_product(req):
             "product_obj": product_obj,
             "leads": leads_obj
         }
-        return render(req, 'view_product.html',context)
+        return render(req, 'view_product.html', context)
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
 
-<<<<<<< HEAD
+
 def fn_edit_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         if req.method == 'POST':
             Product.objects.filter(id=req.POST['product_id']).update(
-                product_code=req.POST['pcode'], product_name=req.POST['pname'], product_cost=req.POST['cost'], 
+                product_code=req.POST['pcode'], product_name=req.POST['pname'], product_cost=req.POST['cost'],
                 product_desc=req.POST['desc'])
             return HttpResponse('product updated')
         product_obj = Product.objects.get(id=req.GET['id'])
@@ -613,12 +617,12 @@ def fn_edit_product(req):
             "username": user_obj.username,
             "product_obj": product_obj
         }
-        return render(req, 'editproduct.html',context)
+        return render(req, 'editproduct.html', context)
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
-        
-=======
+
+
 @csrf_exempt
 def fn_save_profile(req):
     try:
@@ -632,27 +636,27 @@ def fn_save_profile(req):
             mobile = req.POST.get('phone')
             print(mobile)
             gender = req.POST['gender']
-            user_id=req.session['userId']
-            user_obj= UserLogin.objects.get(id=user_id)
+            user_id = req.session['userId']
+            user_obj = UserLogin.objects.get(id=user_id)
             print(user_obj)
-            userdet_obj=UserDetails(fk_login_id=user_obj,firstname=fname,lastname=lname,address=address,
-                                    dob=dob,email=email,mobile=mobile,gender=gender)
+            userdet_obj = UserDetails(fk_login_id=user_obj, firstname=fname, lastname=lname, address=address,
+                                      dob=dob, email=email, mobile=mobile, gender=gender)
             userdet_obj.save()
-            if userdet_obj.id>0:
+            if userdet_obj.id > 0:
                 return HttpResponse('new profile added')
     except Exception as identifier:
-        print (identifier)
+        print(identifier)
         return HttpResponse('error occured')
->>>>>>> 4b05688970f925b3797f59a226ba80abdd311c56
+
 
 def fn_edit_employee(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
-        user = req.GET.get('id')
         if req.method == 'POST':
-            UserDetails.objects.filter(id=user).update(
+            print(req.POST['id'])
+            UserDetails.objects.filter(id=req.POST['id']).update(
                 firstname=req.POST['firstname'], lastname=req.POST['lastname'],
-                email=req.POST['email'], mobile=req.POST['mobile'], dob=req.POST['dob'],
+                email=req.POST['email'], mobile=req.POST['mobile'],
                 address=req.POST['location'], gender=req.POST['gender'])
             return HttpResponse('Employee successfully edited')
         emp_obj = UserDetails.objects.get(id=req.GET['id'])
@@ -664,12 +668,3 @@ def fn_edit_employee(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
-<<<<<<< HEAD
-
-
-            
-=======
-            
-            
-
->>>>>>> 4b05688970f925b3797f59a226ba80abdd311c56
