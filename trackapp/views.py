@@ -40,6 +40,8 @@ def home(request):
                         context['user_obj'] = user_obj
                     else:
                         context['user_obj'] = 0
+                    leads = LeadDetails.objects.filter(fk_lead_id__fk_assigned_user_id=user_obj, lead_stage='Open')
+                    context['leads'] = leads
                     return render(request, 'home.html', context)
                 return redirect('/trackapp')
             return redirect('/trackapp')
@@ -380,6 +382,7 @@ def fn_delete_product(request):
     except Exception:
         return HttpResponse('an error occurred')
 
+
 @csrf_exempt
 def fn_delete_consumer(request):
     try:
@@ -399,6 +402,19 @@ def fn_delete_enquiry(request):
             LeadDetails.objects.get(fk_lead_id=lead_obj).delete()
             Leads.objects.get(id=lead_id).delete()
             return HttpResponse('enquiry deleted')
+    except Exception:
+        return HttpResponse('an error occurred')
+
+
+@csrf_exempt
+def fn_delete_employee(request):
+    try:
+        if request.method == 'POST':
+            user_id = request.POST['user_id']
+            user_obj = UserLogin.objects.get(id=user_id)
+            UserDetails.objects.get(fk_login_id=user_obj).delete()
+            UserLogin.objects.get(id=user_id).delete()
+            return HttpResponse('employee deleted')
     except Exception:
         return HttpResponse('an error occurred')
 
@@ -562,12 +578,12 @@ def fn_edit_consumer(req):
         print(identifier)
         return HttpResponse('an error occured')
 
-
 def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         product_obj = Product.objects.get(id=req.GET['id'])
-        leads_obj = LeadDetails.objects.filter(fk_product_id=product_obj)
+        leads_obj = LeadDetails.objects.filter(
+            fk_product_id=product_obj)
         context = {
             "username": user_obj.username,
             "product_obj": product_obj,
@@ -576,4 +592,9 @@ def fn_view_product(req):
         return render(req, 'view_product.html',context)
     except Exception as identifier:
         print(identifier)
-        return render(req, 'view_product.html', {'msg': 'an error occurer'})
+        return render(req, 'view_product.html', {'msg': 'an error occurred'})
+        
+        
+
+
+
