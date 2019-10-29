@@ -437,7 +437,7 @@ def fn_follow_up(request):
         return HttpResponse('an error occurred')
 
 
-@csrf_exempt
+@csrf_exempt 
 def fn_save_follow_up(req):
     try:
         if req.method == 'POST':
@@ -599,3 +599,32 @@ def fn_edit_employee(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
+
+@csrf_exempt
+def fn_save_profile(req):
+    try:
+        if req.method == 'POST':
+            fname = req.POST['fname']
+            lname = req.POST['lname']
+            email = req.POST['email']
+            address = req.POST['address']
+            dob = req.POST['date1']
+            print(dob)
+            mobile = req.POST.get('phone')
+            print(mobile)
+            gender = req.POST['gender']
+            user_id=req.session['userId']
+            user_obj= UserLogin.objects.get(id=user_id)
+            print(user_obj)
+            userdet_obj=UserDetails(fk_login_id=user_obj,firstname=fname,lastname=lname,address=address,
+                                    dob=dob,email=email,mobile=mobile,gender=gender)
+            userdet_obj.save()
+            if userdet_obj.id>0:
+                return HttpResponse('new profile added')
+    except Exception as identifier:
+        print (identifier)
+        return HttpResponse('error occured')
+            
+            
+            
+

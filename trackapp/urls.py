@@ -29,4 +29,5 @@ urlpatterns = [
     path('viewconsumer/',views.fn_view_consumer),
     path('editconsumer/', views.fn_edit_consumer),
     path('editemployee/', views.fn_edit_employee),
+    path('saveprofile/',views.fn_save_profile)
 ]
