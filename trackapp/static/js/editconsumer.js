@@ -91,7 +91,7 @@ function fn_edit_consumer() {
                 $('#lastname').val('');
                 $('#email').val('');
                 $('#phone').val('');
-                $('#adddress').val('');
+                $('#address').val('');
             },
             error: e => {
                 $.toast({
