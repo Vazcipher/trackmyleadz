@@ -240,6 +240,7 @@ function fn_save_employee() {
     } else {
         console.log('not valid')
     }
+<<<<<<< HEAD
 }
 
 function fn_edit_employee(id, csrfmiddlewaretoken) {
@@ -341,4 +342,6 @@ function fn_delete_employee(user_id) {
             }
         });
     }
+=======
+>>>>>>> 7449b364fc606cd3b2ad59dfedb2733ac6cd6e61
 }
