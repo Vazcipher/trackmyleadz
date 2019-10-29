@@ -107,93 +107,70 @@ function validate() {
     }
 }
 
-function validate() {
+
+function edit_validate() {
 
     let flag = 0;
 
-    if ($('#fn').val().length > 0) {
-        $('#fn').css("border-color", "#ced4da");
+    if ($('#firstname').val().length > 0) {
+        $('#firstname').css("border-color", "#ced4da");
         flag++;
     } else {
-        $('#fn').css("border-color", "red");
+        $('#firstname').css("border-color", "red");
         flag--;
     }
 
-    if ($('#ln').val().length > 0) {
-        $('#ln').css("border-color", "#ced4da");
+    if ($('#lastname').val().length > 0) {
+        $('#lastname').css("border-color", "#ced4da");
         flag++;
     } else {
-        $('#ln').css("border-color", "red");
+        $('#lastname').css("border-color", "red");
         flag--;
     }
 
-    if ($('#un').val().length > 0) {
-        $('#un').css("border-color", "#ced4da");
+    if ($('#email').val().length > 0) {
+        $('#emai').css("border-color", "#ced4da");
         flag++;
     } else {
-        $('#un').css("border-color", "red");
+        $('#email').css("border-color", "red");
         flag--;
     }
 
-    if ($('#pw').val().length > 0) {
-        $('#pw').css("border-color", "#ced4da");
+    if ($('#mobile').val().length > 0) {
+        $('#mobile').css("border-color", "#ced4da");
         flag++;
     } else {
-        $('#pw').css("border-color", "red");
+        $('#mobile').css("border-color", "red");
         flag--;
     }
 
-    if ($('#em').val().length > 0) {
-        $('#em').css("border-color", "#ced4da");
+    if ($('#dob').val().length > 0) {
+        $('#dob').css("border-color", "#ced4da");
         flag++;
     } else {
-        $('#em').css("border-color", "red");
+        $('#dob').css("border-color", "red");
         flag--;
     }
 
-    if ($('#ph').val().length > 0) {
-        $('#ph').css("border-color", "#ced4da");
+    if ($('#address').val().length > 0) {
+        $('#address').css("border-color", "#ced4da");
         flag++;
     } else {
-        $('#ph').css("border-color", "red");
+        $('#address').css("border-color", "red");
         flag--;
     }
 
-    if ($('#dd').val().length > 0) {
-        $('#dd').css("border-color", "#ced4da");
+    if ($("input[name='e_gender']:checked").length > 0) {
+        $('#male').css("color", "black");
+        $('#female').css("color", "black");
         flag++;
     } else {
-        $('#dd').css("border-color", "red");
+        $('#male').css("color", "red");
+        $('#female').css("color", "red");
         flag--;
     }
 
-    if ($('#loc').val().length > 0) {
-        $('#loc').css("border-color", "#ced4da");
-        flag++;
-    } else {
-        $('#loc').css("border-color", "red");
-        flag--;
-    }
-
-    if ($("input[name='gender']:checked").length > 0) {
-        $('#g1').css("color", "black");
-        $('#g2').css("color", "black");
-        flag++;
-    } else {
-        $('#g1').css("color", "red");
-        $('#g2').css("color", "red");
-        flag--;
-    }
-
-    if ($('#role').val().length > 0) {
-        $('#role').css("border-color", "#ced4da");
-        flag++
-    } else {
-        flag--;
-        $('#role').css("border-color", "red");
-    }
-
-    if (flag == 10) {
+    if (flag == 7) {
         return true;
     } else {
         return false;
@@ -263,25 +240,25 @@ function fn_save_employee() {
     } else {
         console.log('not valid')
     }
+<<<<<<< HEAD
 }
 
-function fn_edit_employee() {
-    const isValid = validate();
+function fn_edit_employee(id, csrfmiddlewaretoken) {
+    const isValid = edit_validate();
     if (isValid) {
         $.ajax({
-            url: 'http://127.0.0.1:8000/trackapp/createEmployee/',
+            url: 'http://127.0.0.1:8000/trackapp/editemployee/',
             type: 'POST',
             data: {
-                fname: $('#fn').val(),
-                lname: $('#ln').val(),
-                uname: $('#un').val(),
-                password: $('#pw').val(),
-                email: $('#em').val(),
-                phone: $('#ph').val(),
-                dob: $('#dd').val(),
-                location: $('#loc').val(),
-                gender: $("input[name='gender']:checked").val(),
-                role: $('#role').val()
+                id,
+                csrfmiddlewaretoken,
+                firstname: $('#firstname').val(),
+                lastname: $('#lastname').val(),
+                email: $('#email').val(),
+                mobile: $('#mobile').val(),
+                dob: $('#dob').val(),
+                location: $('#address').val(),
+                gender: $("input[name='e_gender']:checked").val()
             },
             success: res => {
                 $.toast({
@@ -297,17 +274,7 @@ function fn_edit_employee() {
                     loader: true,
                     loaderBg: '#9EC600',
                 });
-                $('#fn').val("");
-                $('#ln').val("");
-                $('#un').val("");
-                $('#pw').val("");
-                $('#em').val("");
-                $('#ph').val("");
-                $('#dd').val("");
-                $('#loc').val("");
-                $("input[name='gender']").prop('checked', false);
-                $('#role').val("")
-
+              
             },
             error: e => {
                 $.toast({
@@ -375,4 +342,6 @@ function fn_delete_employee(user_id) {
             }
         });
     }
+=======
+>>>>>>> 7449b364fc606cd3b2ad59dfedb2733ac6cd6e61
 }

@@ -1,0 +1,131 @@
+#New {
+    background-color: blue;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 12%;
+}
+
+#View {
+    background-color: blue;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 12%;
+}
+
+.input {
+    margin-left: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 12%;
+}
+
+#view_emp {
+    border: 2px;
+    background-color: white;
+    margin-top: -200px;
+    margin-left: 250px;
+    padding-left: 50px;
+    height: 500px;
+}
+.e {
+    background-color: white;
+    color: #006666;
+    padding-right: 100px;
+    padding-left: 50px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    font-size: 20px;
+}
+
+#f {
+    color:black;
+    text-decoration: none;
+    font-style: bold;
+}
+
+#f:hover {
+    color:blue;
+    text-decoration: none;
+}
+
+#b {
+    background-color: #f2f2f2;
+}
+
+#tb {
+    width: 80%;
+}
+
+.list-group-item {
+    color: white;
+    float: right;
+    padding: 10px;
+}
+ 
+#search {
+    color: darkgreen;
+}
+
+#table {
+    border: 2px;
+    background-color: white;
+    margin-top: -270px;
+    margin-left: 250px;
+    padding-left: 50px;
+    height: 500px;
+    width: 1000px;
+}
+
+#input {
+    text-decoration: none;
+    background-color:white;
+    color: blue;
+    font-size: 20px;
+    border: 100px;
+    margin-left: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#input:hover {
+    text-decoration: none;
+    background-color: skyblue;
+}
+
+#h {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+#btn {
+    color:white;
+    background-color: skyblue;
+    padding: 10px;
+}
+
+th {
+    color: green;
+    text-align: left;
+}
+
+select {
+    padding-left: 30px;
+    padding-right: 60px;
+}
+
+a {
+  text-decoration: none;
+}
+#view_emp{
+    border:2px;
+    background-color: white;
+    margin-top: -200px;
+    margin-left: 100px;
+    padding-left: 50px;
+    height:500px;
+    width: 1000px;
+
+}

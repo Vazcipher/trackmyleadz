@@ -437,7 +437,7 @@ def fn_follow_up(request):
         return HttpResponse('an error occurred')
 
 
-@csrf_exempt
+@csrf_exempt 
 def fn_save_follow_up(req):
     try:
         if req.method == 'POST':
@@ -565,9 +565,8 @@ def fn_edit_consumer(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         if req.method == 'POST':
-            Consumer.objects.filter(id=req.POST['consumer_id']).update(
-                fistname=req.POST['fname'], lastname=req.POST['lname'], email=req.POST['email'],
-                phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
+            consumer.object.filter(id=req.POST['consumer_id']).update(fistname=req.POST['fistname'], lastname=req.POST['lastname'],
+               email=req.POST['email'], phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
             return HttpResponse('consumer updated')
         consumer_obj = Consumer.objects.get(id=req.GET['id'])
         context = {
@@ -578,7 +577,29 @@ def fn_edit_consumer(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
+    
+def fn_view_product(req):
+    try:
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        user = req.GET.get('id')
+        if req.method == 'POST':
+            UserDetails.objects.filter(id=user).update(
+                firstname=req.POST['firstname'], lastname=req.POST['lastname'],
+                email=req.POST['email'], mobile=req.POST['mobile'], dob=req.POST['dob'],
+                address=req.POST['location'], gender=req.POST['gender'])
+            return HttpResponse('Employee successfully edited')
+        emp_obj = UserDetails.objects.get(id=req.GET['id'])
+        context = {
+            "username": user_obj.username,
+            "product_obj": product_obj,
+            "leads": leads_obj
+        }
+        return render(req, 'view_product.html',context)
+    except Exception as identifier:
+        print(identifier)
+        return HttpResponse('an error occured')
 
+<<<<<<< HEAD
 def fn_edit_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
@@ -597,6 +618,32 @@ def fn_edit_product(req):
         print(identifier)
         return HttpResponse('an error occured')
         
+=======
+@csrf_exempt
+def fn_save_profile(req):
+    try:
+        if req.method == 'POST':
+            fname = req.POST['fname']
+            lname = req.POST['lname']
+            email = req.POST['email']
+            address = req.POST['address']
+            dob = req.POST['date1']
+            print(dob)
+            mobile = req.POST.get('phone')
+            print(mobile)
+            gender = req.POST['gender']
+            user_id=req.session['userId']
+            user_obj= UserLogin.objects.get(id=user_id)
+            print(user_obj)
+            userdet_obj=UserDetails(fk_login_id=user_obj,firstname=fname,lastname=lname,address=address,
+                                    dob=dob,email=email,mobile=mobile,gender=gender)
+            userdet_obj.save()
+            if userdet_obj.id>0:
+                return HttpResponse('new profile added')
+    except Exception as identifier:
+        print (identifier)
+        return HttpResponse('error occured')
+>>>>>>> 4b05688970f925b3797f59a226ba80abdd311c56
 
 def fn_edit_employee(req):
     try:
@@ -606,7 +653,7 @@ def fn_edit_employee(req):
             UserDetails.objects.filter(id=user).update(
                 firstname=req.POST['firstname'], lastname=req.POST['lastname'],
                 email=req.POST['email'], mobile=req.POST['mobile'], dob=req.POST['dob'],
-                address=req.POST['address'], gender=req.POST['gender'])
+                address=req.POST['location'], gender=req.POST['gender'])
             return HttpResponse('Employee successfully edited')
         emp_obj = UserDetails.objects.get(id=req.GET['id'])
         context = {
@@ -617,6 +664,12 @@ def fn_edit_employee(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
+<<<<<<< HEAD
 
 
             
+=======
+            
+            
+
+>>>>>>> 4b05688970f925b3797f59a226ba80abdd311c56
