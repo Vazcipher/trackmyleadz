@@ -565,9 +565,8 @@ def fn_edit_consumer(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         if req.method == 'POST':
-            consumer.object.filter(id=req.POST['consumer_id']).update(
-                fistname=req.POST['fistname'], lastname=req.POST['lastname'], email=req.POST['email'],
-                phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
+            consumer.object.filter(id=req.POST['consumer_id']).update(fistname=req.POST['fistname'], lastname=req.POST['lastname'],
+               email=req.POST['email'], phone=req.POST['phone'], address=req.POST['address'], gender=req.POST['gender'])
             return HttpResponse('consumer updated')
         consumer_obj = Consumer.objects.get(id=req.GET['id'])
         context = {
@@ -578,24 +577,19 @@ def fn_edit_consumer(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
-
-
-def fn_edit_employee(req):
+    
+def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
-        user = req.GET.get('id')
-        if req.method == 'POST':
-            UserDetails.objects.filter(id=user).update(
-                firstname=req.POST['firstname'], lastname=req.POST['lastname'],
-                email=req.POST['email'], mobile=req.POST['mobile'], dob=req.POST['dob'],
-                address=req.POST['address'], gender=req.POST['gender'])
-            return HttpResponse('Employee successfully edited')
-        emp_obj = UserDetails.objects.get(id=req.GET['id'])
+        product_obj = Product.objects.get(id=req.GET['id'])
+        leads_obj = LeadDetails.objects.filter(
+            fk_product_id=product_obj)
         context = {
             "username": user_obj.username,
-            "emp_obj": emp_obj
+            "product_obj": product_obj,
+            "leads": leads_obj
         }
-        return render(req, 'editemployee.html', context)
+        return render(req, 'view_product.html',context)
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')

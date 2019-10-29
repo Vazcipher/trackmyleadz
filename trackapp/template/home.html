@@ -201,10 +201,14 @@
 
 						<div class="alert alert-info">
 							Your profile is not setup
+<<<<<<< HEAD
 							<span class="float-right">
 								<button data-toggle="modal" data-target="#profile" class="btn btn-sm btn-info" >click
 									here to setup profile</button>
 							</span>
+=======
+							<span class="small float-right mt-2"><a href="#">click here to setup profile</a></span>
+>>>>>>> b83c0b4fb6a46b4d1ae1497c2b04747cfe79705c
 						</div>
 
 						{% else %}
@@ -263,35 +267,7 @@
 						<h5>Pending task</h5>
 					</div>
 					<div class="card-body">
-
-						{% for lead in leads %}
-						<div class="row view overlay">
-
-							<div class="alert alert-primary col-md-12 col-lg-12">
-
-								<div class="row">
-									<div class="col-md-1 col-lg-1">
-										<a href="http://127.0.0.1:8000/trackapp/editenquiry?id={{lead.fk_lead_id.id}}">
-											{{ lead.fk_lead_id.lead_title }}
-										</a>
-									</div>
-									<div class="col-md-1">
-										<span class="badge badge-light">
-											{{ lead.fk_product_id.product_name }}
-										</span>
-									</div>
-									<div class="col-md-1 ml-md-auto">
-										<span class="badge badge-warning">
-											{{ lead.lead_stage }}
-										</span>
-									</div>
-								</div>
-
-							</div>
-
-						</div>
-						{% endfor %}
-
+						test
 					</div>
 				</div>
 			</div>
