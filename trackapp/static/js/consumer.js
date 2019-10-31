@@ -133,63 +133,15 @@ function fn_save_consumer() {
 function fn_delete_consumer(consumer_id) {
     const check = confirm('Are you sure you want to delete this consumer')
     if (check) {
-    $.ajax({
-        url: 'http://127.0.0.1:8000/trackapp/delete_consumer/',
-        type: 'POST',
-        data: {
-            consumer_id: consumer_id
-        },
-        success: del => {
-            $.toast({
-                text: del,
-                heading: 'Note',
-                icon: 'success',
-                showHideTransition: 'fade',
-                allowToastClose: true,
-                hideAfter: 3000,
-                stack: 5,
-                position: 'top-right',
-                textAlign: 'left',
-                loader: true,
-                loaderBg: '#9EC600'
-            });
-        },
-        error: e => {
-            $.toast({
-                text: e,
-                heading: 'Note',
-                icon: 'error',
-                showHideTransition: 'fade',
-                allowToastClose: true,
-                hideAfter: 3000,
-                stack: 5,
-                position: 'top-right',
-                textAlign: 'left',
-                loader: true,
-                loaderBg: '#9EC600',
-            });
-        }
-
-    });
-}
-
-function fn_edit_consumer() {
-    const isValid = validate()
-    if (isValid) {
         $.ajax({
-            url: 'http://127.0.0.1:8000/trackapp/editconsumer/',
+            url: 'http://127.0.0.1:8000/trackapp/delete_consumer/',
             type: 'POST',
             data: {
-                fname: $('#fistname').val(),
-                lname: $('#lastname').val(),
-                email: $('#email').val(),
-                phone: $('#phone').val(),
-                address: $('#address').val(),
-                gender: $("input[name='e_gender']:checked").val()
+                consumer_id: consumer_id
             },
-            success: res => {
+            success: del => {
                 $.toast({
-                    text: res,
+                    text: del,
                     heading: 'Note',
                     icon: 'success',
                     showHideTransition: 'fade',
@@ -199,13 +151,8 @@ function fn_edit_consumer() {
                     position: 'top-right',
                     textAlign: 'left',
                     loader: true,
-                    loaderBg: '#9EC600',
+                    loaderBg: '#9EC600'
                 });
-                $('#fistname').val('');
-                $('#lastname').val('');
-                $('#email').val('');
-                $('#phone').val('');
-                $('#address').val('');
             },
             error: e => {
                 $.toast({
@@ -222,8 +169,62 @@ function fn_edit_consumer() {
                     loaderBg: '#9EC600',
                 });
             }
+
         });
-    } else {
-        console.log('not valid')
+    }
+
+    function fn_edit_consumer() {
+        const isValid = validate()
+        if (isValid) {
+            $.ajax({
+                url: 'http://127.0.0.1:8000/trackapp/editconsumer/',
+                type: 'POST',
+                data: {
+                    fname: $('#fistname').val(),
+                    lname: $('#lastname').val(),
+                    email: $('#email').val(),
+                    phone: $('#phone').val(),
+                    address: $('#address').val(),
+                    gender: $("input[name='e_gender']:checked").val()
+                },
+                success: res => {
+                    $.toast({
+                        text: res,
+                        heading: 'Note',
+                        icon: 'success',
+                        showHideTransition: 'fade',
+                        allowToastClose: true,
+                        hideAfter: 3000,
+                        stack: 5,
+                        position: 'top-right',
+                        textAlign: 'left',
+                        loader: true,
+                        loaderBg: '#9EC600',
+                    });
+                    $('#fistname').val('');
+                    $('#lastname').val('');
+                    $('#email').val('');
+                    $('#phone').val('');
+                    $('#address').val('');
+                },
+                error: e => {
+                    $.toast({
+                        text: e,
+                        heading: 'Note',
+                        icon: 'error',
+                        showHideTransition: 'fade',
+                        allowToastClose: true,
+                        hideAfter: 3000,
+                        stack: 5,
+                        position: 'top-right',
+                        textAlign: 'left',
+                        loader: true,
+                        loaderBg: '#9EC600',
+                    });
+                }
+            });
+        } else {
+            console.log('not valid')
+        }
     }
 }

@@ -201,14 +201,10 @@
 
 						<div class="alert alert-info">
 							Your profile is not setup
-<<<<<<< HEAD
 							<span class="float-right">
-								<button data-toggle="modal" data-target="#profile" class="btn btn-sm btn-info" >click
+								<button data-toggle="modal" data-target="#profile" class="btn btn-sm btn-info">click
 									here to setup profile</button>
 							</span>
-=======
-							<span class="small float-right mt-2"><a href="#">click here to setup profile</a></span>
->>>>>>> b83c0b4fb6a46b4d1ae1497c2b04747cfe79705c
 						</div>
 
 						{% else %}
@@ -267,7 +263,41 @@
 						<h5>Pending task</h5>
 					</div>
 					<div class="card-body">
-						test
+
+						{% if leads.count == 0 %}
+						<div class="alert alert-info">
+							You don't have any assigned enquires
+						</div>
+						{% endif %}
+
+						{% for lead in leads %}
+						<div class="row view overlay">
+
+							<div class="alert alert-primary col-md-12 col-lg-12">
+
+								<div class="row">
+									<div class="col-md-1 col-lg-1">
+										<a href="http://127.0.0.1:8000/trackapp/editenquiry?id={{lead.fk_lead_id.id}}">
+											{{ lead.fk_lead_id.lead_title }}
+										</a>
+									</div>
+									<div class="col-md-1">
+										<span class="badge badge-light">
+											{{ lead.fk_product_id.product_name }}
+										</span>
+									</div>
+									<div class="col-md-1 ml-md-auto">
+										<span class="badge badge-warning">
+											{{ lead.lead_stage }}
+										</span>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+						{% endfor %}
+
 					</div>
 				</div>
 			</div>
@@ -294,7 +324,7 @@
 						</div>
 						<div class="col-md-6 col-lg-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Lastname" id="lname">
+								<input type="text" class="form-control" placeholder="Lastname" id="lastname">
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12">
@@ -319,8 +349,10 @@
 						</div>
 						<div class="col-lg-6 col-md-6">
 							<div class="form-group">
-								<input type="radio" name="gender" value="male"> Male
-								<input type="radio" name="gender" value="female"> Female
+								<input type="radio" name="gender" value="male" >
+								<span id="g1"> Male</span>
+								<input type="radio" name="gender" value="female">
+								<span id="g2"> Female</span>
 							</div>
 						</div>
 					</div>

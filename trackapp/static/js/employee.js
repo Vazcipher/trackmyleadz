@@ -144,14 +144,6 @@ function edit_validate() {
         flag--;
     }
 
-    if ($('#dob').val().length > 0) {
-        $('#dob').css("border-color", "#ced4da");
-        flag++;
-    } else {
-        $('#dob').css("border-color", "red");
-        flag--;
-    }
-
     if ($('#address').val().length > 0) {
         $('#address').css("border-color", "#ced4da");
         flag++;
@@ -170,7 +162,7 @@ function edit_validate() {
         flag--;
     }
 
-    if (flag == 7) {
+    if (flag == 6) {
         return true;
     } else {
         return false;
@@ -240,7 +232,6 @@ function fn_save_employee() {
     } else {
         console.log('not valid')
     }
-<<<<<<< HEAD
 }
 
 function fn_edit_employee(id, csrfmiddlewaretoken) {
@@ -256,7 +247,7 @@ function fn_edit_employee(id, csrfmiddlewaretoken) {
                 lastname: $('#lastname').val(),
                 email: $('#email').val(),
                 mobile: $('#mobile').val(),
-                dob: $('#dob').val(),
+               // dob: $('#dob').val(),
                 location: $('#address').val(),
                 gender: $("input[name='e_gender']:checked").val()
             },
@@ -342,6 +333,4 @@ function fn_delete_employee(user_id) {
             }
         });
     }
-=======
->>>>>>> 7449b364fc606cd3b2ad59dfedb2733ac6cd6e61
 }

@@ -11,7 +11,19 @@ function fn_get_notification() {
             }
         },
         error: err => {
-            console.log(err);
+            $.toast({
+                text: 'Network failure',
+                heading: 'Error',
+                icon: 'error',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: 1,
+                position: 'bottom-left',
+                textAlign: 'left',
+                loader: false,
+                loaderBg: '#9EC600',
+            });
         }
     })
 }
