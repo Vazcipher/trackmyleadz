@@ -247,7 +247,6 @@ function fn_edit_employee(id, csrfmiddlewaretoken) {
                 lastname: $('#lastname').val(),
                 email: $('#email').val(),
                 mobile: $('#mobile').val(),
-               // dob: $('#dob').val(),
                 location: $('#address').val(),
                 gender: $("input[name='e_gender']:checked").val()
             },
