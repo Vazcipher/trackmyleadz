@@ -144,14 +144,6 @@ function edit_validate() {
         flag--;
     }
 
-   /* if ($('#dob').val().length > 0) {
-        $('#dob').css("border-color", "#ced4da");
-        flag++;
-    } else {
-        $('#dob').css("border-color", "red");
-        flag--;
-    }*/
-
     if ($('#address').val().length > 0) {
         $('#address').css("border-color", "#ced4da");
         flag++;
@@ -255,7 +247,6 @@ function fn_edit_employee(id, csrfmiddlewaretoken) {
                 lastname: $('#lastname').val(),
                 email: $('#email').val(),
                 mobile: $('#mobile').val(),
-                //dob: $('#dob').val(),
                 location: $('#address').val(),
                 gender: $("input[name='e_gender']:checked").val()
             },

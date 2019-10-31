@@ -28,5 +28,6 @@ urlpatterns = [
     path('createLeadSource/', views.fn_create_lead_source),
     path('viewconsumer/',views.fn_view_consumer),
     path('editconsumer/', views.fn_edit_consumer),
-    path('editemployee/',views.fn_edit_employee)
+    path('editemployee/', views.fn_edit_employee),
+    path('editproduct/', views.fn_edit_product)
 ]

@@ -49,15 +49,10 @@
 						<input type="text" value="{{ emp_obj.address }}" class="form-control" id="address">
 					</div>
 					<div class="col-lg-6">
-						<label>dob</label>
-						<input type="date" value="{{ emp_obj.dob }}" class="form-control" id="dob">
-					</div>
-
-					<div class="col-lg-6">
 						<div class="mt-4">
-							<input type="radio" {% if emp_obj.gender == 'male' %} checked {% endif %} name="e_gender"
+							<input type="radio" {% if emp_obj.gender|lower == 'Male'|lower %} checked {% endif %} name="e_gender"
 								value="Male"> <span id="male">Male</span>
-							<input type="radio" {% if emp_obj.gender == 'female' %} checked {% endif %} name="e_gender"
+							<input type="radio" {% if emp_obj.gender|lower == 'Female'|lower %} checked {% endif %} name="e_gender"
 								value="Female"><span id="female"> Female</span>
 						</div>
                     </div>

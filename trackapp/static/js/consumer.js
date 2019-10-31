@@ -247,9 +247,9 @@ function fn_edit_consumer(consumer_id, csrfmiddlewaretoken) {
                 address: $('#address').val(),
                 gender: $("input[name='c_gender']:checked").val()
             },
-            success: res => {
+            success: del => {
                 $.toast({
-                    text: res,
+                    text: del,
                     heading: 'Note',
                     icon: 'success',
                     showHideTransition: 'fade',
@@ -259,7 +259,7 @@ function fn_edit_consumer(consumer_id, csrfmiddlewaretoken) {
                     position: 'top-right',
                     textAlign: 'left',
                     loader: true,
-                    loaderBg: '#9EC600',
+                    loaderBg: '#9EC600'
                 });
             },
             error: e => {
@@ -277,8 +277,7 @@ function fn_edit_consumer(consumer_id, csrfmiddlewaretoken) {
                     loaderBg: '#9EC600',
                 });
             }
+
         });
-    } else {
-        console.log('not valid')
     }
 }

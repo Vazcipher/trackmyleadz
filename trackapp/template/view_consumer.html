@@ -84,6 +84,14 @@
                 <h4><u>Consumer enquires</u></h4>
 
                 <div class="row mt-2">
+
+                    {% if leads.count == 0 %}
+                    <div class="alert alert-info col-lg-12 col-md-12 mt-2">
+                        No enquires found on <span class="badge badge-light">{{ consumer_obj.fistname }}
+                            {{ consumer_obj.lastname }}</span>
+                    </div>
+                    {% endif %}
+
                     {% for lead in leads %}
                     <div class="col-lg-12 col-md-12 mt-1">
                         <div class="card">
