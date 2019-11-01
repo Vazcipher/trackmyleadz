@@ -670,3 +670,35 @@ def fn_edit_employee(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
+
+
+def fn_edit_profile(req):
+    try:
+        user_obj=UserLogin.objects.get(id=req.session['userId'])
+        if req.method == 'POST':
+            UserDetails.objects.filter(id=req.POST['id']).update( firstname=req.POST['fname'], lastname=req.POST['lname'], address=req.POST['address'],
+                                       email=req.POST['email'], mobile=req.POST['mobile'], gender=req.POST['gender'])
+            return HttpResponse('profile edited successfully')
+        users_obj = UserDetails.objects.get(fk_login_id_id=req.GET['id'])
+        context = {
+            "users_obj" : users_obj
+        }
+        return render(req,'editprofile.html',context)
+    except Exception as identifier :
+        print (identifier)
+        return HttpResponse('an error occured')
+
+def fn_view_employee(req):
+    try:
+        user_obj=UserLogin.objects.get(id=req.session['userId'])
+        emp_obj=UserDetails.objects.get(id=req.GET['id'])
+        lead_obj=LeadDetails.objects.filter(fk_lead_id_fk_login_id=emp_obj)
+        context={
+            "username":user_obj,
+            "emp_obj":emp_obj,
+            "leads":lead_obj
+        }
+        return render(req,'view_employee.html',context)
+    except Exception as  identifier:
+        print(identifier)
+        return render(req,'view_employee.html',{'msg':'error'})
