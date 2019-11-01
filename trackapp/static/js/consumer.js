@@ -235,7 +235,7 @@ function fn_edit_consumer(consumer_id, csrfmiddlewaretoken) {
     const isValid = edit_validate()
     if (isValid) {
         $.ajax({
-            url: 'http://127.0.0.1:8000/trackapp/delete_consumer/',
+            url: 'http://127.0.0.1:8000/trackapp/editconsumer/',
             type: 'POST',
             data: {
                 consumer_id,

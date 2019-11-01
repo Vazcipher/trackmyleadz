@@ -149,8 +149,9 @@ function fn_save_profile(){
         url: 'http://127.0.0.1:8000/trackapp/saveprofile/',
         type: 'POST',
         data: {
+            
             fname: $('#fname').val(),
-            lname: $('#lname').val(),
+            lname: $('#lastname').val(),
             email: $('#email').val(),
             address: $('#address').val(),
             mobile: $('#phone').val(),

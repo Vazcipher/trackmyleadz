@@ -178,6 +178,17 @@ def reports(request):
                     for lead_obj in leads:
                         if report['source_title'] == lead_obj.fk_lead_source.source_title:
                             report['pro_count'] = report['pro_count'] + 1
+            if report_kind == 'ls':
+                lead_stages =LeadDetails.objects.filter(fk_company_id= company_obj).values('lead_stage')
+                report_list=[]
+                for stage_obj in lead_stages :
+                    stage_obj['lead'] =stage_obj['lead_stage']
+                    stage_obj['lead_count'] = 0
+                    report_list.append(stage_obj)
+                for report in report_list:
+                    for lead_stage_obj in leaddetails:
+                        report['lead_count'] = report['lead_count'] + 1
+                    
                 context['reports'] = report_list
         return render(request, 'reports.html', context)
     except Exception as identifier:
@@ -586,18 +597,11 @@ def fn_edit_consumer(req):
 def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
-        user = req.GET.get('id')
-        if req.method == 'POST':
-            UserDetails.objects.filter(id=user).update(
-                firstname=req.POST['firstname'], lastname=req.POST['lastname'],
-                email=req.POST['email'], mobile=req.POST['mobile'], dob=req.POST['dob'],
-                address=req.POST['location'], gender=req.POST['gender'])
-            return HttpResponse('Employee successfully edited')
-        emp_obj = UserDetails.objects.get(id=req.GET['id'])
+        pro_obj=Product.objects.get(id=req.GET['id'])
+        product_obj=Product.objects.filter(id=pro_obj)
         context = {
             "username": user_obj.username,
-            "product_obj": product_obj,
-            "leads": leads_obj
+            "product_obj": product_obj
         }
         return render(req, 'view_product.html', context)
     except Exception as identifier:
@@ -632,14 +636,11 @@ def fn_save_profile(req):
             lname = req.POST['lname']
             email = req.POST['email']
             address = req.POST['address']
-            dob = req.POST['date1']
-            print(dob)
-            mobile = req.POST.get('phone')
-            print(mobile)
+            dob = req.POST['dob']
+            mobile = req.POST.get('mobile')
             gender = req.POST['gender']
             user_id = req.session['userId']
             user_obj = UserLogin.objects.get(id=user_id)
-            print(user_obj)
             userdet_obj = UserDetails(fk_login_id=user_obj, firstname=fname, lastname=lname, address=address,
                                       dob=dob, email=email, mobile=mobile, gender=gender)
             userdet_obj.save()
