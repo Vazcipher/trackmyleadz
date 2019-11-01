@@ -237,13 +237,14 @@
 										<div class="row">
 											<div class="col-lg-3 col-md-3 col-sm-12">
 												<i class="fa fa-user-circle"></i>
-												<span>{{ user_obj.fk_login_id.role.role_title }}</span>
+												<span>{{ user_obj.fk_login_id.username }}</span>
 											</div>
 										</div>
 
 										<div class="row">
 											<div class="col-lg-3 col-md-3">
-												<span class="small">Edit profile</span>
+                            </button>
+												<span class="small"><a href="http://127.0.0.1:8000/trackapp/editprofile?id={{user.id}}">Edit profile</a></span>
 											</div>
 										</div>
 									</div>
@@ -324,7 +325,7 @@
 						</div>
 						<div class="col-md-6 col-lg-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Lastname" id="lname">
+								<input type="text" class="form-control" placeholder="Lastname" id="lastname">
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12">
@@ -349,8 +350,10 @@
 						</div>
 						<div class="col-lg-6 col-md-6">
 							<div class="form-group">
-								<input type="radio" name="gender" value="male"> Male
-								<input type="radio" name="gender" value="female"> Female
+								<input type="radio" name="gender" value="male" >
+								<span id="g1"> Male</span>
+								<input type="radio" name="gender" value="female">
+								<span id="g2"> Female</span>
 							</div>
 						</div>
 					</div>
@@ -358,7 +361,7 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn" data-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-info" id="btn" onclick="fn_save_profile();">Save</button>
+					<button type="submit" class="btn btn-info" id="btn" onclick="fn_save_profile('{{ fk_login_id.id }}');">Save</button>
 				</div>
 
 			</div>
