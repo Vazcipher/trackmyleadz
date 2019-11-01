@@ -31,5 +31,7 @@ urlpatterns = [
     path('editemployee/', views.fn_edit_employee),
     path('editproduct/', views.fn_edit_product),
     path('saveprofile/',views.fn_save_profile),
-    path('viewproduct/',views.fn_view_product)
+    path('viewproduct/',views.fn_view_product),
+    path('editprofile/',views.fn_edit_profile),
+    path('viewemployee/',views.fn_view_employee)
 ]
