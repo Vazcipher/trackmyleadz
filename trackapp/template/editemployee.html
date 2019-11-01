@@ -42,7 +42,6 @@
 				<div class="row mt-2">
 					<div class="col-lg-6">
 						<label>Phone</label>
-<<<<<<< HEAD
 						<input type="text" value="{{ emp_obj.mobile }}" class="form-control" id="mobile">
 					</div>
 					<div class="col-lg-6">
@@ -50,52 +49,20 @@
 						<input type="text" value="{{ emp_obj.address }}" class="form-control" id="address">
 					</div>
 					<div class="col-lg-6">
-						<label>dob</label>
-						<input type="date" value="{{ emp_obj.dob }}" class="form-control" id="dob">
-					</div>
-
-					<div class="col-lg-6">
 						<div class="mt-4">
-							<input type="radio" {% if emp_obj.gender == 'male' %} checked {% endif %} name="e_gender"
+							<input type="radio" {% if emp_obj.gender|lower == 'Male'|lower %} checked {% endif %} name="e_gender"
 								value="Male"> <span id="male">Male</span>
-							<input type="radio" {% if emp_obj.gender == 'female' %} checked {% endif %} name="e_gender"
+							<input type="radio" {% if emp_obj.gender|lower == 'Female'|lower %} checked {% endif %} name="e_gender"
 								value="Female"><span id="female"> Female</span>
-=======
-						<input type="text" value="{{ employee_obj.phone }}" class="form-control">
-                    </div>
-                    <div class="col-lg-6">
-						<label>DOB</label>
-						<input type="text" value="{{ employee_obj.dob }}" class="form-control">
-                    </div>
-                    <div class="col-lg-6">
-						<label>Location</label>
-						<input type="text" value="{{ employee_obj.address }}" class="form-control">
-                    </div>
-                    
-					<div class="col-lg-6">
-						<div class="mt-4">
-							<input type="radio" {% if employee_obj.gender == 'Male' %} checked {% endif %} name="gender"
-								value="Male"> Male
-							<input type="radio" {% if employee_obj.gender == 'Female' %} checked {% endif %}
-								name="gender" value="Female"> Female
->>>>>>> 7449b364fc606cd3b2ad59dfedb2733ac6cd6e61
 						</div>
-                    </div>
-                    <div class="col-lg-6">
-						<label>Role</label>
-						<input type="text" value="{{ user_obj.role }}" readonly class="form-control">
                     </div>
 				</div>
 
 				<div class="row mt-2">
 					<div class="col-lg-12">
-<<<<<<< HEAD
 						<button id="btn" onclick="fn_edit_employee('{{ emp_obj.id }}', '{{ csrf_token }}');" class="btn btn-primary" >
 							<i class="fa fa-save"></i> Save
 						</button>
-=======
-						<button class="btn btn-primary" onclick="fn_edit_employee('{{ employee.id }}', '{{ csrf_token }}');">Save</button>
->>>>>>> 7449b364fc606cd3b2ad59dfedb2733ac6cd6e61
 					</div>
 				</div>
 
