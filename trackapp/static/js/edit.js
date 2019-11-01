@@ -15,9 +15,35 @@ function fn_update_enquiery(lead_id, csrfmiddlewaretoken) {
             phone: $('#phone').val()
         },
         success: res => {
+            $.toast({
+                text: res,
+                heading: 'Note',
+                icon: 'success',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: 5,
+                position: 'top-right',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+            });
             console.log(res);
         },
         error: err => {
+            $.toast({
+                text: err,
+                heading: 'Note',
+                icon: 'error',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: 5,
+                position: 'top-right',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+            });
             console.log(err);
         }
     });
