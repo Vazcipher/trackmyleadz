@@ -599,7 +599,6 @@ def fn_view_product(req):
         print(identifier)
         return HttpResponse('an error occured')
 
-<<<<<<< HEAD
 def fn_edit_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
@@ -618,32 +617,6 @@ def fn_edit_product(req):
         print(identifier)
         return HttpResponse('an error occured')
         
-=======
-@csrf_exempt
-def fn_save_profile(req):
-    try:
-        if req.method == 'POST':
-            fname = req.POST['fname']
-            lname = req.POST['lname']
-            email = req.POST['email']
-            address = req.POST['address']
-            dob = req.POST['date1']
-            print(dob)
-            mobile = req.POST.get('phone')
-            print(mobile)
-            gender = req.POST['gender']
-            user_id=req.session['userId']
-            user_obj= UserLogin.objects.get(id=user_id)
-            print(user_obj)
-            userdet_obj=UserDetails(fk_login_id=user_obj,firstname=fname,lastname=lname,address=address,
-                                    dob=dob,email=email,mobile=mobile,gender=gender)
-            userdet_obj.save()
-            if userdet_obj.id>0:
-                return HttpResponse('new profile added')
-    except Exception as identifier:
-        print (identifier)
-        return HttpResponse('error occured')
->>>>>>> 4b05688970f925b3797f59a226ba80abdd311c56
 
 def fn_edit_employee(req):
     try:
@@ -664,12 +637,6 @@ def fn_edit_employee(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
-<<<<<<< HEAD
 
 
             
-=======
-            
-            
-
->>>>>>> 4b05688970f925b3797f59a226ba80abdd311c56
