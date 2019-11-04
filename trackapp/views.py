@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
 import datetime
+from .sms_gateway import sendSMS
 # Create your views here.
 
 
@@ -300,6 +301,8 @@ def fn_create_consumer(request):
                     notification_obj = Notification(
                         fk_company_id=company_obj, notification_title=notification_title, content_object=consumer_obj)
                     notification_obj.save()
+                    sms_message = 'Welcome {} to {}'.format(consumer_obj.fistname, company_obj.company_name)
+                    sendSMS(consumer_obj.phone, sms_message)
                     return HttpResponse('new consumer created')
                 return HttpResponse('failed to create consumer')
             return HttpResponse('consumer already exist')
@@ -598,7 +601,8 @@ def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         pro_obj=Product.objects.get(id=req.GET['id'])
-        product_obj=Product.objects.filter(id=pro_obj)
+        company_obj=Company.objects.get(id=req.GET['id'])
+        product_obj=Product.objects.filter(fk_company_id=pro_obj)
         context = {
             "username": user_obj.username,
             "product_obj": product_obj
@@ -692,11 +696,10 @@ def fn_view_employee(req):
     try:
         user_obj=UserLogin.objects.get(id=req.session['userId'])
         emp_obj=UserDetails.objects.get(id=req.GET['id'])
-        lead_obj=LeadDetails.objects.filter(fk_lead_id_fk_login_id=emp_obj)
+        consumer_obj=Consumer.objects.filter()
         context={
-            "username":user_obj,
+            "username":user_obj.username,
             "emp_obj":emp_obj,
-            "leads":lead_obj
         }
         return render(req,'view_employee.html',context)
     except Exception as  identifier:

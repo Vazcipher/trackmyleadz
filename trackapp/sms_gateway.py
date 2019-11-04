@@ -1,7 +1,9 @@
 import urllib.request
 import urllib.parse
  
-def sendSMS(apikey, numbers, sender, message):
+def sendSMS(numbers, message):
+    apikey='V+CnFVrIf/E-r7OVG45o2OH4wsYhyrTouivYHLa6ts'
+    sender='TXTLCL'
     data =  urllib.parse.urlencode({'apikey': apikey, 'numbers': numbers,
         'message' : message, 'sender': sender})
     data = data.encode('utf-8')
@@ -19,5 +21,5 @@ def getGroups(apikey):
     fr = f.read()
     return(fr)
 
-resp =  sendSMS('V+CnFVrIf/E-r7OVG45o2OH4wsYhyrTouivYHLa6ts', '916282516951', 'TXTLCL', 'This is your message')
-print(resp)
+# sender_name = getGroups('V+CnFVrIf/E-r7OVG45o2OH4wsYhyrTouivYHLa6ts')
+# print(sender_name)
