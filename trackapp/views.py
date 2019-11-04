@@ -4,9 +4,7 @@ from .models import *
 from django.views.decorators.csrf import csrf_exempt
 import datetime
 from .sms_gateway import sendSMS
-import smtplib
-from email.mime.text import MIMEText
-from django.conf import settings
+from .mail_gateway import sendMail
 # Create your views here.
 
 
@@ -305,19 +303,9 @@ def fn_create_consumer(request):
                     notification_obj = Notification(
                         fk_company_id=company_obj, notification_title=notification_title, content_object=consumer_obj)
                     notification_obj.save()
-                    sms_message = 'Welcome {} to {}'.format(consumer_obj.fistname, company_obj.company_name)
-                    sendSMS(consumer_obj.phone, sms_message)
-                    msg = MIMEText('your enquiry is created,will initiate shortly')
-                    print(msg)
-                    msg['Subject'] = 'message from company'
-                    print(msg['Subject'])
-                    msg['From'] = settings.EMAIL_HOST_USER
-                    print(msg['From'])
-                    msg['To'] =  Consumer.object.all().filter(fk_created_user_id_id.email)
-                    
-                    s = smtplib.SMTP('smtp.mailgun.org', 587)
-                    s.sendmail(msg['From'], msg['To'], msg.as_string())
-                    s.quit()
+                    message = 'Welcome {} to {}'.format(consumer_obj.fistname, company_obj.company_name)
+                    sendSMS(consumer_obj.phone, message)
+                    sendMail('Hello {}'.format(consumer_obj.fistname), message, [consumer_obj.email])
                     return HttpResponse('new consumer created')
                 return HttpResponse('failed to create consumer')
             return HttpResponse('consumer already exist')
