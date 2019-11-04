@@ -262,6 +262,7 @@ function editvalidate(){
 
     }
 
+    
 function fn_edit_profile(id,csrfmiddlewaretoken,){
 
      const isValid =editvalidate()
