@@ -131,3 +131,9 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+#for mail
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER ='postmaster@sandbox96226cbc91fd49caa366bdf07eb35359.mailgun.org'
+EMAIL_HOST_PASSWORD =' af31dc6d1cab789d2d4f12a387eeacf4-f696beb4-1c214be4'
