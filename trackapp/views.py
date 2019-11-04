@@ -700,7 +700,7 @@ def fn_view_employee(req):
         consumer_obj=Consumer.objects.filter()
         context={
             "username":user_obj.username,
-            "emp_obj":emp_obj,
+            "emp_obj":emp_obj
         }
         return render(req,'view_employee.html',context)
     except Exception as  identifier:
