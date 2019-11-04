@@ -154,7 +154,7 @@ function fn_delete_enquiry(lead_id) {
                 allowToastClose: true,
                 hideAfter: 1500,
                 stack: 5,
-                position: 'top-right',
+                position: 'top-right', 
                 textAlign: 'left',
                 loader: true,
                 loaderBg: '#9EC600'
