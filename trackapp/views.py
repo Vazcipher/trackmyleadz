@@ -260,6 +260,7 @@ def fn_create_enquiry(request):
                     notification_obj = Notification(
                         fk_company_id=company_obj, notification_title=notification_title, content_object=lead_detail_obj)
                     notification_obj.save()
+                    
                     return HttpResponse('New enquiry created')
             return HttpResponse('failed')
 
