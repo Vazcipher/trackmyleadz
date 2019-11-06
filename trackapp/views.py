@@ -261,7 +261,6 @@ def fn_create_enquiry(request):
                     notification_obj = Notification(
                         fk_company_id=company_obj, notification_title=notification_title, content_object=lead_detail_obj)
                     notification_obj.save()
-
                     return HttpResponse('New enquiry created')
             return HttpResponse('failed')
 
@@ -604,11 +603,10 @@ def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
         pro_obj=Product.objects.get(id=req.GET['id'])
-        company_obj=Company.objects.get(id=req.GET['id'])
-        product_obj=Product.objects.filter(fk_company_id=pro_obj)
+       
         context = {
             "username": user_obj.username,
-            "product_obj": product_obj
+            "product_obj": pro_obj
         }
         return render(req, 'view_product.html', context)
     except Exception as identifier:
@@ -698,7 +696,6 @@ def fn_view_employee(req):
     try:
         user_obj=UserLogin.objects.get(id=req.session['userId'])
         emp_obj=UserDetails.objects.get(id=req.GET['id'])
-        consumer_obj=Consumer.objects.filter()
         context={
             "username":user_obj.username,
             "emp_obj":emp_obj,

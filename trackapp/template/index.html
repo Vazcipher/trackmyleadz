@@ -24,13 +24,10 @@
 		}
 
 		form {
-			background-color: white;
-			margin-top: 100px;
-			margin-left: 500px;
-			margin-bottom: 100px;
-			margin-right: 100px;
-			width: 500px;
-			height: 400px;
+			background-clip:padding-box;
+		       border:5px solid lightblue;
+		       border-radius:5px;
+		       padding-bottom: 100px;
 		}
 
 		input {
@@ -44,11 +41,17 @@
 		}
 
 		h1 {
-			margin-left: 170px;
+			margin-left: 200px;
 		}
 
 		#btn {
-			background-color: rgb(5 148 124);
+			background-color:rgb(5 148 124);
+			color:white;
+			width:420px;
+			font-size:15px;
+			padding-left:10px;
+			padding-right: 10px;
+			
 		}
 
 		a {
@@ -59,22 +62,36 @@
 		span {
 			padding-left: 50px;
 		}
+		#div{
+			border-radius:8px;
+               background-color: #fff;
+               padding-top:7px;
+               padding-bottom:7px;
+               padding-left:7px;
+               padding-right: 7px;
+               margin-bottom: 500px;
+               margin-top: 100px;
+               margin-left: 350px;
+               margin-right: 300px;
+		}
 		
-		
+		#ff{
+			margin-left:150px;
+		}
 	</style>
 </head>
 
 <body>
 
-	<div>
+	<div id=div>
 		<form action="/trackapp/" method="POST">
 			{%csrf_token%}
 			<div id="ff">
 				<h1>SIGN IN</h1><br><br>
-				<span style="color: red" id="un">(*mandatory)</span>
+				<span style="color: red" id="un">(*mandatory)</span><br>
 				<input type="text" name="uname" placeholder="Username" id="nn">
 				<br><br>
-				<span style="color: red" id="pp">(*mandatory)</span>
+				<span style="color: red" id="pp">(*mandatory)</span><br>
 				<input type="password" name="password" placeholder="Password" id="pp">
 				<br><br>
 				<input type="submit" value="Log In" id="btn"  onclick="userdata();">

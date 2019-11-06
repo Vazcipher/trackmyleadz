@@ -32,7 +32,7 @@ class Consumer(models.Model):
     fk_company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
     fistname = models.CharField(max_length=25)
     lastname = models.CharField(max_length=25)
-    email = models.CharField(max_length=30)
+    email = models.CharField(max_length=50)
     phone = models.CharField(max_length=15)
     address = models.CharField(max_length=30)
     gender = models.CharField(max_length=10)
@@ -46,7 +46,7 @@ class UserDetails(models.Model):
     lastname = models.CharField(max_length=25)
     address = models.CharField(max_length=25)
     dob = models.DateField()
-    email = models.CharField(max_length=25)
+    email = models.CharField(max_length=50)
     mobile = models.CharField(max_length=25)
     gender = models.CharField(max_length=10)
 
