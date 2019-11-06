@@ -81,15 +81,16 @@ function validate(){
     if ($('#fname').val().length > 0) {
         $('#fname').css("border-color",'#ced4da');
         flag++;
-    } else {
+    }
+    else {
         $('#fname').css("border-color",'red'); 
     }
-    if ($('#lname').val()>length>0){
-        $('#lname').css("border-color",'#ced4da');
+    if ($('#lastname').val().length > 0) {
+        $('#lastname').css("border-color",'#ced4da');
         flag++;
     }
     else{
-        $('#lname').css("border-color",'#ced4da');
+        $('#lastname').css("border-color",'red');
     }
     if ($('#email').val().length > 0) {
         $('#email').css("border-color",'#ced4da');
@@ -123,17 +124,16 @@ function validate(){
         $('#date1').css("border-color",'red'); 
     
     }
-    if ($("input[name='gender']:checked").length>0){
-        $('#male').css("color","black");
-        $('#female').css("color","black");
+    if ($("input[name='gender']:checked").length > 0) {
+        $('#g1').css("color", "black");
+        $('#g2').css("color", "black");
         flag++;
-    }
-    else{
-        $('#male').css("color","red");
-        $('#female').css("color","red");
+    } 
+    else {
+        $('#g1').css("color", "red");
+        $('#g2').css("color", "red");
     
-       }
-
+    }
      if(flag>0){
          return true;
         }
@@ -143,15 +143,15 @@ function validate(){
 function fn_save_profile(){
 
      const isValid =validate()
-     console.log(isValid)
      if(isValid){
 
         $.ajax({
         url: 'http://127.0.0.1:8000/trackapp/saveprofile/',
         type: 'POST',
         data: {
+            
             fname: $('#fname').val(),
-            lname: $('#lname').val(),
+            lname: $('#lastname').val(),
             email: $('#email').val(),
             address: $('#address').val(),
             mobile: $('#phone').val(),
@@ -180,6 +180,121 @@ function fn_save_profile(){
             $('#phone').val();
             $('#date1').val();
             $("input[name='gender]:checked").val();
+
+        },
+        error: e => {
+            $.toast({
+                text: e,
+                heading: 'Note',
+                icon: 'error',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 3000,
+                stack: 5,
+                position: 'top-right',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+            });
+       
+        }
+    });
+
+    }
+    else{
+        console.log('not valid')
+    }
+}
+function editvalidate(){
+    let flag = 0;
+    if ($('#firstname').val().length > 0) {
+        $('#firstname').css("border-color",'#ced4da');
+        flag++;
+    }
+    else {
+        $('#firstname').css("border-color",'red'); 
+    }
+    if ($('#lastname').val().length > 0) {
+        $('#lastname').css("border-color",'#ced4da');
+        flag++;
+    }
+    else{
+        $('#lastname').css("border-color",'red');
+    }
+    if ($('#email').val().length > 0) {
+        $('#email').css("border-color",'#ced4da');
+        flag++;
+    } 
+    else {
+        $('#email').css("border-color",'red'); 
+        
+    }
+    if ($('#address').val().length > 0) {
+        $('#address').css("border-color",'#ced4da');
+        flag++;
+    } 
+    else {
+        $('#address').css("border-color",'red'); 
+    
+    }
+    if ($('#phone').val().length > 0) {
+        $('#phone').css("border-color",'#ced4da');
+        flag++;
+    } 
+    else {
+        $('#phone').css("border-color",'red'); 
+        
+    }
+    
+    if ($("input[name='u_gender']:checked").length > 0) {
+        $('#male').css("color", "black");
+        $('#female').css("color", "black");
+        flag++;
+    } 
+    else {
+        $('#male').css("color", "red");
+        $('#female').css("color", "red");
+    
+    }
+     if(flag>0){
+         return true;
+        }
+
+    }
+
+    
+function fn_edit_profile(id,csrfmiddlewaretoken,){
+
+     const isValid =editvalidate()
+     if(isValid){
+
+        $.ajax({
+        url: 'http://127.0.0.1:8000/trackapp/editprofile/',
+        type: 'POST',
+        data: {
+            id,
+            csrfmiddlewaretoken,
+            fname: $('#firstname').val(),
+            lname: $('#lastname').val(),
+            email: $('#email').val(),
+            address: $('#address').val(),
+            mobile: $('#phone').val(),
+            gender:$("input[name='u_gender']:checked").val()
+       },
+        success: res => {
+            $.toast({
+                text: res,
+                heading: 'Note',
+                icon: 'success',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 1500,
+                stack: 5,
+                position: 'top-right',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+            }); 
 
         },
         error: e => {

@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
 import datetime
+from .sms_gateway import sendSMS
+from .mail_gateway import sendMail
 # Create your views here.
 
 
@@ -178,6 +180,17 @@ def reports(request):
                     for lead_obj in leads:
                         if report['source_title'] == lead_obj.fk_lead_source.source_title:
                             report['pro_count'] = report['pro_count'] + 1
+            if report_kind == 'ls':
+                lead_stages =LeadDetails.objects.filter(fk_company_id= company_obj).values('lead_stage')
+                report_list=[]
+                for stage_obj in lead_stages :
+                    stage_obj['lead'] =stage_obj['lead_stage']
+                    stage_obj['lead_count'] = 0
+                    report_list.append(stage_obj)
+                for report in report_list:
+                    for lead_stage_obj in leaddetails:
+                        report['lead_count'] = report['lead_count'] + 1
+                    
                 context['reports'] = report_list
         return render(request, 'reports.html', context)
     except Exception as identifier:
@@ -248,6 +261,7 @@ def fn_create_enquiry(request):
                     notification_obj = Notification(
                         fk_company_id=company_obj, notification_title=notification_title, content_object=lead_detail_obj)
                     notification_obj.save()
+
                     return HttpResponse('New enquiry created')
             return HttpResponse('failed')
 
@@ -289,6 +303,9 @@ def fn_create_consumer(request):
                     notification_obj = Notification(
                         fk_company_id=company_obj, notification_title=notification_title, content_object=consumer_obj)
                     notification_obj.save()
+                    message = 'Welcome {} to {}'.format(consumer_obj.fistname, company_obj.company_name)
+                    sendSMS(consumer_obj.phone, message)
+                    sendMail('Hello {}'.format(consumer_obj.fistname), message, [consumer_obj.email])
                     return HttpResponse('new consumer created')
                 return HttpResponse('failed to create consumer')
             return HttpResponse('consumer already exist')
@@ -586,18 +603,12 @@ def fn_edit_consumer(req):
 def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
-        user = req.GET.get('id')
-        if req.method == 'POST':
-            UserDetails.objects.filter(id=user).update(
-                firstname=req.POST['firstname'], lastname=req.POST['lastname'],
-                email=req.POST['email'], mobile=req.POST['mobile'], dob=req.POST['dob'],
-                address=req.POST['location'], gender=req.POST['gender'])
-            return HttpResponse('Employee successfully edited')
-        emp_obj = UserDetails.objects.get(id=req.GET['id'])
+        pro_obj=Product.objects.get(id=req.GET['id'])
+        company_obj=Company.objects.get(id=req.GET['id'])
+        product_obj=Product.objects.filter(fk_company_id=pro_obj)
         context = {
             "username": user_obj.username,
-            "product_obj": product_obj,
-            "leads": leads_obj
+            "product_obj": product_obj
         }
         return render(req, 'view_product.html', context)
     except Exception as identifier:
@@ -631,14 +642,11 @@ def fn_save_profile(req):
             lname = req.POST['lname']
             email = req.POST['email']
             address = req.POST['address']
-            dob = req.POST['date1']
-            print(dob)
-            mobile = req.POST.get('phone')
-            print(mobile)
+            dob = req.POST['dob']
+            mobile = req.POST.get('mobile')
             gender = req.POST['gender']
             user_id = req.session['userId']
             user_obj = UserLogin.objects.get(id=user_id)
-            print(user_obj)
             userdet_obj = UserDetails(fk_login_id=user_obj, firstname=fname, lastname=lname, address=address,
                                       dob=dob, email=email, mobile=mobile, gender=gender)
             userdet_obj.save()
@@ -668,3 +676,34 @@ def fn_edit_employee(req):
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
+
+
+def fn_edit_profile(req):
+    try:
+        user_obj=UserLogin.objects.get(id=req.session['userId'])
+        if req.method == 'POST':
+            UserDetails.objects.filter(id=req.POST['id']).update( firstname=req.POST['fname'], lastname=req.POST['lname'], address=req.POST['address'],
+                                       email=req.POST['email'], mobile=req.POST['mobile'], gender=req.POST['gender'])
+            return HttpResponse('profile edited successfully')
+        users_obj = UserDetails.objects.get(fk_login_id_id=req.GET['id'])
+        context = {
+            "users_obj" : users_obj
+        }
+        return render(req,'editprofile.html',context)
+    except Exception as identifier :
+        print (identifier)
+        return HttpResponse('an error occured')
+
+def fn_view_employee(req):
+    try:
+        user_obj=UserLogin.objects.get(id=req.session['userId'])
+        emp_obj=UserDetails.objects.get(id=req.GET['id'])
+        consumer_obj=Consumer.objects.filter()
+        context={
+            "username":user_obj.username,
+            "emp_obj":emp_obj,
+        }
+        return render(req,'view_employee.html',context)
+    except Exception as  identifier:
+        print(identifier)
+        return render(req,'view_employee.html',{'msg':'error'})

@@ -223,11 +223,7 @@ function fn_edit_product(product_id, csrfmiddlewaretoken) {
                     loader: true,
                     loaderBg: '#9EC600',
                 });
-                $('#productcode').val('');
-                $('#productname').val('');
-                $('#cost').val('');
-                $('#desc').val('');
-                
+               
             },
             error: e => {
                 $.toast({

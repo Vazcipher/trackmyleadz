@@ -1,7 +1,7 @@
 {% extends 'home.html' %}
 
 {% block head %}
-<title>consumer</title>
+<title>employee</title>
 {% endblock %}
 
 {% block body %}
@@ -12,19 +12,19 @@
 
         <div class="card col-lg-12 col-md-12">
             <div class="card-body">
-                <h4><u>Consumer details</u></h4>
+                <h4><u>Employee details</u></h4>
                 <div class="row mt-3">
                     <div class="form-group col-lg-4">
                         <label>Firstname</label>
-                        <input type="text" value="{{ consumer_obj.fistname }}" readonly class="form-control">
+                        <input type="text" value="{{ emp_obj.firstname }}" readonly class="form-control">
                     </div>
                     <div class="form-group col-lg-4">
                         <label>Lastname</label>
-                        <input type="text" value="{{ consumer_obj.lastname }}" readonly class="form-control">
+                        <input type="text" value="{{ emp_obj.lastname }}" readonly class="form-control">
                     </div>
                     <div class="form-group col-lg-4">
                         <label>Email</label>
-                        <input type="text" value="{{ consumer_obj.email }}" readonly class="form-control">
+                        <input type="text" value="{{ emp_obj.email }}" readonly class="form-control">
                     </div>
 
                 </div>
@@ -56,15 +56,15 @@
                                 <div class="row col-lg-12 mt-3">
                                     <div class="col-lg-4">
                                         <i class="fa fa-phone mr-1"></i>
-                                        {{ consumer_obj.phone }}
+                                        {{ emp_obj.mobile }}
                                     </div>
                                     <div class="col-lg-4">
                                         <i class="fa fa-map-marker mr-1"></i>
-                                        {{ consumer_obj.address }}
+                                        {{ emp_obj.address }}
                                     </div>
                                     <div class="col-lg-4">
                                         <i class="fa fa-users mr-1"></i>
-                                        {{ consumer_obj.gender }}
+                                        {{ emp_obj.gender }}
                                     </div>
                                 </div>
 
@@ -81,14 +81,14 @@
     <div class="row mt-3 mb-1">
         <div class="card col-md-12 col-lg-12">
             <div class="card-body">
-                <h4><u>Consumer enquires</u></h4>
+                <h4><u>Employee created enquires</u></h4>
 
                 <div class="row mt-2">
 
                     {% if leads.count == 0 %}
                     <div class="alert alert-info col-lg-12 col-md-12 mt-2">
-                        No enquires found on <span class="badge badge-light">{{ consumer_obj.fistname }}
-                            {{ consumer_obj.lastname }}</span>
+                        No enquires found on <span class="badge badge-light">{{ emp_obj.firstname }}
+                            {{ emp_obj.lastname }}</span>
                     </div>
                     {% endif %}
 
@@ -101,7 +101,7 @@
                                         {{ lead.fk_lead_id.lead_title }}
                                     </div>
                                     <div class="col-md-1 btn-sm btn btn-info small ml-md-auto">
-                                        <a href="http://127.0.0.1:8000/trackapp/editenquiry?id={{lead.fk_lead_id.id}}"
+                                        <a href="http://127.0.0.1:8000/trackapp/editemployee?id={{user_id}}"
                                             style="color: inherit;">
                                             <i class="fa fa-edit"></i> edit
                                         </a>
