@@ -167,7 +167,6 @@ def reports(request):
                     for lead_obj in leads:
                         if report['product_name'] == lead_obj.fk_product_id.product_name:
                             report['pro_count'] = report['pro_count'] + 1
-                context['reports'] = report_list
             if report_kind == 's':
                 lead_sources = LeadSource.objects.filter(
                     fk_company_id=company_obj).values('source_title')
@@ -181,17 +180,20 @@ def reports(request):
                         if report['source_title'] == lead_obj.fk_lead_source.source_title:
                             report['pro_count'] = report['pro_count'] + 1
             if report_kind == 'ls':
-                lead_stages =LeadDetails.objects.filter(fk_company_id= company_obj).values('lead_stage')
-                report_list=[]
-                for stage_obj in lead_stages :
-                    stage_obj['lead'] =stage_obj['lead_stage']
-                    stage_obj['lead_count'] = 0
-                    report_list.append(stage_obj)
-                for report in report_list:
-                    for lead_stage_obj in leaddetails:
-                        report['lead_count'] = report['lead_count'] + 1
-                    
-                context['reports'] = report_list
+                report_list = [
+                    {'pro_name': 'Won', 'pro_count': 0},
+                    {'pro_name': 'Open', 'pro_count': 0},
+                    {'pro_name': 'Close', 'pro_count': 0}
+                ]
+                for obj in report_list:
+                    for lead_obj in leads:
+                        if obj['pro_name'] == 'Open':
+                            obj['pro_count'] += 1
+                        if obj['pro_name'] == 'Close':
+                            obj['pro_count'] += 1
+                        if obj['pro_name'] == 'Won':
+                            obj['pro_count'] += 1
+            context['reports'] = report_list
         return render(request, 'reports.html', context)
     except Exception as identifier:
         print(identifier)
@@ -603,17 +605,17 @@ def fn_edit_consumer(req):
 def fn_view_product(req):
     try:
         user_obj = UserLogin.objects.get(id=req.session['userId'])
-        pro_obj=Product.objects.get(id=req.GET['id'])
-       
+        pro_obj = Product.objects.get(id=req.GET['id'])
+        pro_leads = LeadDetails.objects.filter(fk_product_id=pro_obj)
         context = {
             "username": user_obj.username,
-            "product_obj": pro_obj
+            "product_obj": pro_obj,
+            "pro_leads": pro_leads
         }
         return render(req, 'view_product.html', context)
     except Exception as identifier:
         print(identifier)
         return HttpResponse('an error occured')
-
 
 def fn_edit_product(req):
     try:
@@ -696,13 +698,29 @@ def fn_edit_profile(req):
 
 def fn_view_employee(req):
     try:
-        user_obj=UserLogin.objects.get(id=req.session['userId'])
-        emp_obj=UserDetails.objects.get(id=req.GET['id'])
-        context={
-            "username":user_obj.username,
-            "emp_obj":emp_obj
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        emp_obj = UserDetails.objects.get(id=req.GET['id'])
+        emp_leads = LeadDetails.objects.filter(fk_lead_id__fk_created_user_id=emp_obj.fk_login_id)
+        context = {
+            "username": user_obj.username,
+            "emp_obj": emp_obj,
+            "emp_leads": emp_leads
         }
-        return render(req,'view_employee.html',context)
-    except Exception as  identifier:
+        return render(req, 'view_employee.html', context)
+    except Exception as identifier:
         print(identifier)
-        return render(req,'view_employee.html',{'msg':'error'})
+        return render(req, 'view_employee.html', {'msg':'error'})
+
+
+def fn_forgotpass(req):
+    try:
+        if req.method == 'POST':
+            user_obj = UserDetails.objects.get(email=req.POST['email'])
+            message = 'Your password is {}'.format(user_obj.fk_login_id.password)
+            sendMail('Hello {}'.format(user_obj.firstname), message, [user_obj.email])
+            return render(req, 'forgot_password.html', {'msg': 'Please check your email'})    
+        return render(req, 'forgot_password.html')
+    except Exception as e:
+        print(e)
+        return render(req, 'forgot_password.html', {'msg': 'Email does not exist'}) 
+        return render(req, 'view_employee.html', {'msg':'error'})
