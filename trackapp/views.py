@@ -705,3 +705,16 @@ def fn_view_employee(req):
     except Exception as  identifier:
         print(identifier)
         return render(req,'view_employee.html',{'msg':'error'})
+
+
+def fn_forgotpass(req):
+    try:
+        if req.method == 'POST':
+            user_obj = UserDetails.objects.get(email=req.POST['email'])
+            message = 'Your password is {}'.format(user_obj.fk_login_id.password)
+            sendMail('Hello {}'.format(user_obj.firstname), message, [user_obj.email])
+            return render(req, 'forgot_password.html', {'msg': 'Please check your email'})    
+        return render(req, 'forgot_password.html')
+    except Exception as e:
+        print(e)
+        return render(req, 'forgot_password.html', {'msg': 'Email does not exist'})
