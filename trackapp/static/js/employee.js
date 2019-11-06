@@ -211,6 +211,7 @@ function fn_save_employee() {
                 $('#loc').val("");
                 $("input[name='gender']").prop('checked', false);
                 $('#role').val("")
+                
 
             },
             error: e => {

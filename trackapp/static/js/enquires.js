@@ -58,7 +58,7 @@ function validate() {
         $('#des').css("border-color", "red");
     }
 
-    if (flag == 6) {
+    if (flag == 5) {
         return true;
     } else {
         return false;
@@ -67,7 +67,6 @@ function validate() {
 
 function fn_save_enquiery() {
     const isValid = validate()
-    console.log(isValid);
     if (isValid) {
         $.ajax({
             url: 'http://127.0.0.1:8000/trackapp/createEnquiry/',

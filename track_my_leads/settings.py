@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'track_my_leads.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'track',
+        'NAME': 'track_db',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -136,5 +136,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'theerthakp95@gmail.com'
-EMAIL_HOST_PASSWORD = 'theerthasisa'
+EMAIL_HOST_USER = 'trackmyleadz@gmail.com'
+EMAIL_HOST_PASSWORD = 'trackmyleadz2019'

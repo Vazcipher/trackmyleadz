@@ -163,6 +163,12 @@ function fn_save_consumer() {
                     loader: true,
                     loaderBg: '#9EC600',
                 });
+                $('#fn').val('');
+                $('#ln').val('');
+                $('#em').val('');
+                $('#ph').val('');
+                $('#ad').val('');
+                $("input[name='gender']").prop('checked', false);
             },
             error: e => {
                 $.toast({
