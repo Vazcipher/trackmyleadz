@@ -227,7 +227,7 @@ function editvalidate(){
     } 
     else {
         $('#email').css("border-color",'red'); 
-        
+
     }
     if ($('#address').val().length > 0) {
         $('#address').css("border-color",'#ced4da');
@@ -235,7 +235,7 @@ function editvalidate(){
     } 
     else {
         $('#address').css("border-color",'red'); 
-    
+
     }
     if ($('#phone').val().length > 0) {
         $('#phone').css("border-color",'#ced4da');
@@ -243,9 +243,9 @@ function editvalidate(){
     } 
     else {
         $('#phone').css("border-color",'red'); 
-        
+
     }
-    
+
     if ($("input[name='u_gender']:checked").length > 0) {
         $('#male').css("color", "black");
         $('#female').css("color", "black");
@@ -254,7 +254,7 @@ function editvalidate(){
     else {
         $('#male').css("color", "red");
         $('#female').css("color", "red");
-    
+
     }
      if(flag>0){
          return true;
@@ -262,7 +262,6 @@ function editvalidate(){
 
     }
 
-    
 function fn_edit_profile(id,csrfmiddlewaretoken,){
 
      const isValid =editvalidate()
@@ -311,7 +310,7 @@ function fn_edit_profile(id,csrfmiddlewaretoken,){
                 loader: true,
                 loaderBg: '#9EC600',
             });
-       
+
         }
     });
 

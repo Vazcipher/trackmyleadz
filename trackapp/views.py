@@ -221,6 +221,7 @@ def fn_create_lead_source(request):
 
 
 @csrf_exempt
+
 def fn_create_enquiry(request):
     try:
         if request.method == 'POST':
