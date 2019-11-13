@@ -169,6 +169,7 @@ function edit_validate() {
     }
 }
 
+
 function fn_save_employee() {
     const isValid = validate();
     if (isValid) {

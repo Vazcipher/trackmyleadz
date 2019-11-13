@@ -16,7 +16,7 @@ $(document).ready(() => {
 
 function validate() {
     let flag = 0;
-
+    
     if ($('#fn').val().length > 0) {
         $('#fn').css("border-color", "#ced4da");
         flag++;
