@@ -13,6 +13,34 @@ $(document).ready(() => {
 
 });
 
+function fvalidate() {
+    let flag = 0 ;
+    if ($('#fdatePickerId').val().length > 0) {
+        $('#fdatePickerId').css("border-color", "#ced4da");
+        flag++;
+    } 
+    else {
+        $('#fdatePickerId').css("border-color", "red");
+        flag--;
+    }
+    if ($('#tdatePickerId').val().length > 0) {
+        $('#tdatePickerId').css("border-color", "#ced4da");
+        flag++;
+    } 
+    else {
+        $('#tdatePickerId').css("border-color", "red");
+        flag--;
+    }
+    if (flag == 2) {
+        return true;
+    } 
+    else {
+        return false;
+    }
+
+}
+
+
 
 function fn_delete_followup(followup_id) {
     $.ajax({
@@ -63,7 +91,7 @@ function fn_finish_followup(followup_id) {
         url: 'http://127.0.0.1:8000/trackapp/finishFollowup/',
         type: 'POST',
         data: {
-            followup_id
+            followup_id 
         },
         success: res => {
             $.toast({
