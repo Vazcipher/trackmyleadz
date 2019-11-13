@@ -33,5 +33,7 @@ urlpatterns = [
     path('saveprofile/',views.fn_save_profile),
     path('viewproduct/',views.fn_view_product),
     path('editprofile/',views.fn_edit_profile),
-    path('viewemployee/',views.fn_view_employee)
+    path('viewemployee/',views.fn_view_employee),
+    path('forgotpass/', views.fn_forgotpass)
+    
 ]
