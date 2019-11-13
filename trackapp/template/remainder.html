@@ -1,0 +1,90 @@
+{% extends 'home.html' %}
+
+{% block head %}
+<title>remainder</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    
+    <div class="row mt-4">
+        <h1>Task assign</h1>
+        <div class="card col-lg-12">
+            <div class="card-body">
+            
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <select class="form-control" name="assgn_emp">
+                            <option value="assign">assign</option>
+                            {% for emp in employees %}
+                            <option value="{{emp.id}}"> {{ emp.username }} </option>
+                            {% endfor %}
+                        </select>
+                        <textarea name="desc" class="md-textarea form-control mt-4" placeholder="description"></textarea>
+                        <input name="date" type="date" class="mt-4 form-control">
+                        <button class="btn btn-primary mt-4 float-right">submit</button>   
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    {% for task in remainders %}
+
+    <div class="row mt-2">
+        <div class="card col-lg-12">
+            <div class="card-header mt-1">
+                <span>Assigned to: </span>
+                <div>
+                    <i class="fa fa-address-card"></i>
+                    <span style="color: green; font-weight:bold;">
+                    {{ task.fk_assigned_user_id.username}}</span>
+                    <div style="font-size: 10px;">at {{ task.created_time }} on
+                            {{ task.created_date }}
+                    </div>
+                    <div style="font-size: 10px;">task complete on {{task.finish_on}}
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body">
+
+                {% if remainders.count == 0 %}
+                <div class="row">
+                    <div class="alert alert-info col-lg-12">
+                        No task to do
+                    </div>
+                </div>
+                {% endif %}
+
+                
+                <div class="row mt-1">
+                    <div class="card col-lg-12">
+                        <div class="card-body">
+                            {{ task.remainder_title }}
+                            <form action="http://127.0.0.1:8000/trackapp/task_complete/" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="taskid" value="{{task.id}}">
+                                <div class="align-self-end ml-auto">
+                                    <button type="submit" class="btn btn-success float-right">
+                                        <i class="fa fa-check"> success</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

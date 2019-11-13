@@ -16,8 +16,7 @@ $(document).ready(() => {
 
 function validate() {
 
-    let flag = 0;
-
+    let flag = 0; 
     if ($('#fn').val().length > 0) {
         $('#fn').css("border-color", "#ced4da");
         flag++;
@@ -41,15 +40,6 @@ function validate() {
         $('#un').css("border-color", "red");
         flag--;
     }
-
-    if ($('#pw').val().length > 0) {
-        $('#pw').css("border-color", "#ced4da");
-        flag++;
-    } else {
-        $('#pw').css("border-color", "red");
-        flag--;
-    }
-
     if ($('#em').val().length > 0) {
         $('#em').css("border-color", "#ced4da");
         flag++;
@@ -57,7 +47,6 @@ function validate() {
         $('#em').css("border-color", "red");
         flag--;
     }
-
     if ($('#ph').val().length > 0) {
         $('#ph').css("border-color", "#ced4da");
         flag++;
@@ -66,6 +55,13 @@ function validate() {
         flag--;
     }
 
+    if ($('#pw').val().length > 0) {
+        $('#pw').css("border-color", "#ced4da");
+        flag++;
+    } else {
+        $('#pw').css("border-color", "red");
+        flag--;
+    }
     if ($('#dd').val().length > 0) {
         $('#dd').css("border-color", "#ced4da");
         flag++;
@@ -99,19 +95,40 @@ function validate() {
         flag--;
         $('#role').css("border-color", "red");
     }
-
-    if (flag == 10) {
+    
+    if(flag > 0) {
         return true;
-    } else {
-        return false;
-    }
+       }
+
+}
+function mvalidate(){
+    var mobile = document.getElementById("ph").value;
+    var email =document.getElementById("em").value;
+    var pattern = /^\d{10}$/;
+    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (pattern.test(mobile) && regex.test(email)) {
+        //alert("Your mobile number : " + mobile);
+        
+         return true;
+        }
+        else if (pattern.test(mobile) == false) {
+            //alert("It is not valid mobile number.input 10 digits number!");
+            alert("enter valid mobile");
+            $('#ph').css("border-color", "red");
+            
+            return false;
+        }
+        else{
+            alert("enter valid email");
+            $('#em').css("border-color", "red");
+        }
+
 }
 
 
 function edit_validate() {
 
     let flag = 0;
-
     if ($('#firstname').val().length > 0) {
         $('#firstname').css("border-color", "#ced4da");
         flag++;
@@ -168,10 +185,33 @@ function edit_validate() {
         return false;
     }
 }
+function editm_validate(){
+    var mobile1 = document.getElementById("mobile").value;
+    var email1 =document.getElementById("email").value;
+    var pattern = /^\d{10}$/;
+    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (pattern.test(mobile1) && regex.test(email1)) {
+        //alert("Your mobile number : " + mobile);
+        
+         return true;
+        }
+        else if (pattern.test(mobile1) == false) {
+            //alert("It is not valid mobile number.input 10 digits number!");
+            alert("enter valid mobile");
+            $('#mobile').css("border-color", "red");
+            
+            return false;
+        }
+        else{
+            alert("enter valid email");
+            $('#email').css("border-color", "red");
+        }
+}
 
 function fn_save_employee() {
     const isValid = validate();
-    if (isValid) {
+    const isValid1= mvalidate();
+    if (isValid && isValid1) {
         $.ajax({
             url: 'http://127.0.0.1:8000/trackapp/createEmployee/',
             type: 'POST',
@@ -236,7 +276,8 @@ function fn_save_employee() {
 
 function fn_edit_employee(id, csrfmiddlewaretoken) {
     const isValid = edit_validate();
-    if (isValid) {
+    const isValid1 =editm_validate();
+    if (isValid && isValid1) {
         $.ajax({
             url: 'http://127.0.0.1:8000/trackapp/editemployee/',
             type: 'POST',
@@ -264,6 +305,13 @@ function fn_edit_employee(id, csrfmiddlewaretoken) {
                     loader: true,
                     loaderBg: '#9EC600',
                 });
+                $('#firstname').val("");
+                $('#lastname').val("");
+                $('#email').val("");
+                $('#mobile').val("");
+                $('#address').val("");
+                $("input[name='e_gender']").prop('checked', false);
+                $('#role').val("")
               
             },
             error: e => {

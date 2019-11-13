@@ -29,6 +29,14 @@ function fn_update_enquiery(lead_id, csrfmiddlewaretoken) {
                 loaderBg: '#9EC600',
             });
             console.log(res);
+            $('#consumer').val(""),
+            $('#lead_stage').val(""),
+            $('#lead_source').val(""),
+            $('#product').val(""),
+            $('#employee').val(""),
+            $('#desc').val(""),
+            $('#email').val(""),
+            $('#phone').val("")
         },
         error: err => {
             $.toast({

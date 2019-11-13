@@ -115,3 +115,13 @@ class Notification(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
     created_date = models.DateField(auto_now_add=True)
     created_time = models.TimeField(auto_now_add=True)
+
+
+class Remainder(models.Model):
+    fk_created_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE, related_name='fk_created_user')
+    fk_assigned_user_id = models.ForeignKey(UserLogin, on_delete=models.CASCADE, related_name='fk_assigned_user')
+    remainder_title = models.TextField()
+    finish_on = models.DateField()
+    completed_status = models.BooleanField(default=False)
+    created_date = models.DateField(auto_now_add=True)
+    created_time = models.TimeField(auto_now_add=True)
