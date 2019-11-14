@@ -223,6 +223,7 @@ def fn_create_lead_source(request):
 
 
 @csrf_exempt
+
 def fn_create_enquiry(request):
     try:
         if request.method == 'POST':
@@ -501,9 +502,7 @@ def fn_finish_followup(req):
             return HttpResponse('Followup completed')
     except expression as identifier:
         print(identifier)
-        return HttpResponse('an error occurred')
-
-
+        return HttpResponse('an error occurred')  
 @csrf_exempt
 def fn_get_notifications(request):
     try:
@@ -681,7 +680,7 @@ def fn_edit_employee(req):
 
 def fn_edit_profile(req):
     try:
-        user_obj=UserLogin.objects.get(id=req.session['userId'])
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
         if req.method == 'POST':
             UserDetails.objects.filter(id=req.POST['id']).update( firstname=req.POST['fname'], lastname=req.POST['lname'], address=req.POST['address'],
                                        email=req.POST['email'], mobile=req.POST['mobile'], gender=req.POST['gender'])
@@ -722,4 +721,57 @@ def fn_forgotpass(req):
     except Exception as e:
         print(e)
         return render(req, 'forgot_password.html', {'msg': 'Email does not exist'}) 
-        return render(req, 'view_employee.html', {'msg':'error'})
+
+
+def fn_all_followup(req):
+    try:
+        user_obj = UserLogin.objects.get(id=req.session['userId'])
+        if req.method == 'POST':
+            from_date = req.POST['from']
+            to_date = req.POST['to']
+            follow_ups = FollowUp.objects.filter(fk_created_user_id=user_obj, completed_status=False, created_date__range=(from_date, to_date))
+        else:
+            follow_ups = FollowUp.objects.filter(fk_created_user_id=user_obj, completed_status=False).order_by('-id')[:10]
+        context = {
+            "username": user_obj.username,
+            "follow_ups": follow_ups
+        }
+        return render(req, 'all_followup.html', context)
+    except Exception as e:
+        print(e)
+        return render(req, 'all_followup.html', {'msg': 'an error occurred'})
+
+
+def fn_remainder(req):
+    try:
+        user_obj = UserLogin.objects.get(id=req.session['userId']) 
+        if req.method == 'POST':
+            assign = req.POST['assgn_emp']
+            description = req.POST['desc']
+            finish_date = req.POST['date']
+            ass_emp_obj = UserLogin.objects.get(id=assign)
+            remainder_obj = Remainder(fk_created_user_id=user_obj, fk_assigned_user_id=ass_emp_obj,
+                                       remainder_title=description, finish_on=finish_date)
+            remainder_obj.save()
+        company_obj = Company.objects.get(id=req.session['companyId'])
+        employees = UserLogin.objects.filter(fk_company_id=company_obj)
+        remainders = Remainder.objects.filter(fk_assigned_user_id=user_obj, completed_status=False)
+        context = {
+            'remainders': remainders,
+            'employees': employees,
+            "username": user_obj.username,
+        }
+        return render(req, 'remainder.html', context)
+    except Exception as e:
+        print(e)
+        return HttpResponse('error')
+
+
+def fn_task_complete(req):
+    try:
+        if req.method =='POST':
+            Remainder.objects.filter(id=req.POST['taskid']).update(completed_status=True)
+            return redirect('/trackapp/remainder/')
+    except Exception as e:
+            print(e)
+            return redirect('/trackapp/remainder/')

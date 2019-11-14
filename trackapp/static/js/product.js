@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-    $("#view_product").hide();
+    $("#table").hide();
 
     $("#New").click(() => {
         $("#table").show();
@@ -173,6 +173,9 @@ function fn_delete_product(pro_id) {
                     loader: true,
                     loaderBg: '#9EC600'
                 });
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
             },
 
             error: e => {
@@ -223,6 +226,10 @@ function fn_edit_product(product_id, csrfmiddlewaretoken) {
                     loader: true,
                     loaderBg: '#9EC600',
                 });
+                $('#productcode').val(""),
+                $('#productname').val(""),
+                $('#cost').val(""),
+                $('#desc').val("")
                
             },
             error: e => {

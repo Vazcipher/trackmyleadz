@@ -21,5 +21,5 @@ def getGroups(apikey):
     fr = f.read()
     return(fr)
 
-# sender_name = getGroups('V+CnFVrIf/E-r7OVG45o2OH4wsYhyrTouivYHLa6ts')
-# print(sender_name)
+#sender_name = getGroups('EsIjzzHxEDQ-tdk8phvleAwNHQYM7huAFGgOQEvd2c')
+#print(sender_name)

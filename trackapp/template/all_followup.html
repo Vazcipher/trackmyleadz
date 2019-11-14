@@ -1,0 +1,98 @@
+{% extends 'home.html' %}
+
+{% block head %}
+
+{% load staticfiles %}
+<script src="{% static 'js/followup.js' %}"></script>
+<title>Followup</title>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    
+    <div class="row mt-2">
+
+        <div class="card col-lg-12">
+            <div class="card-body">
+                <form action="" method="POST" onsubmit=" return fvalidate();">
+                    {% csrf_token %}
+                    <div class="row">
+                        <input name="from" type="date" id="fdatePickerId" class="form-control col-lg-4 ml-lg-1">
+                        <input name="to" id="tdatePickerId" type="date" class="form-control col-lg-4 ml-lg-5">
+                        <script>
+                        fdatePickerId.max = new Date().toISOString().split("T")[0];
+                        tdatePickerId.max = new Date().toISOString().split("T")[0];
+                        </script>
+                        <button type="submit" class="form-control btn btn-primary col-lg-2 ml-lg-5">
+                                Get Follow up
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-1">
+        <div class="card col-lg-12">                
+            <h3 class="card-title mt-1">Followup</h3>
+                
+                {% if follow_ups.count == 0 %}
+                <div class="row m-2">
+                    <div class="alert alert-info col-lg-12">
+                        No followups found
+                    </div>
+                </div>
+                {% endif %}
+
+                {% for followup in follow_ups %}
+
+                <div class="row m-2">
+                    <div class="card col-lg-12">
+                        <div class="card-header mt-1">
+                            <span>Created to: </span>
+                            
+                            <div>
+                                <i class="fa fa-address-card"></i>
+                                <span style="color: green; font-weight: bold;">
+                                    {{ followup.fk_lead_id.fk_consumer_id.fistname }}
+                                </span>
+                                <div style="font-size: 10px;">at {{ followup.created_time }} on
+                                    {{ followup.created_date }}
+                                       <div class=" float-right col-md-2 btn-sm btn btn-info small ml-md-auto">
+                                            <a href="http://127.0.0.1:8000/trackapp/editenquiry?id={{followup.fk_lead_id.id}}"
+                                                    style="color: inherit;">
+                                                    <i class="fa fa-edit"></i> view enquiry
+                                            </a>
+                                        </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span>Plan</span>
+                            <div class="card">    
+                                <div class="card-body">
+                                    {{ followup.followup_description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="align-self-end ml-auto">
+                        <button class="btn btn-success" onclick="fn_finish_followup('{{ followup.id }} ')">
+                            <i class="fa fa-check"> success</i>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

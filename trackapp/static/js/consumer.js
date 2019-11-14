@@ -16,7 +16,7 @@ $(document).ready(() => {
 
 function validate() {
     let flag = 0;
-
+    
     if ($('#fn').val().length > 0) {
         $('#fn').css("border-color", "#ced4da");
         flag++;
@@ -68,11 +68,32 @@ function validate() {
         flag--;
     }
 
-    if (flag == 6) {
+    if (flag > 0) {
         return true;
-    } else {
-        return false;
-    }
+    } 
+}
+function mvalidate(){
+    var mobile = document.getElementById("ph").value;
+    var email =document.getElementById("em").value;
+    var pattern = /^\d{10}$/;
+    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (pattern.test(mobile) && regex.test(email)) {
+        //alert("Your mobile number : " + mobile);
+        
+         return true;
+        }
+        else if (pattern.test(mobile) == false) {
+            //alert("It is not valid mobile number.input 10 digits number!");
+            alert("enter valid mobile");
+            $('#ph').css("border-color", "red");
+            
+            return false;
+        }
+        else{
+            alert("enter valid email");
+            $('#em').css("border-color", "red");
+        }
+
 }
 
 function edit_validate() {
@@ -128,16 +149,38 @@ function edit_validate() {
         flag--;
     }
 
-    if (flag == 6) {
+    if (flag > 0) {
         return true;
-    } else {
-        return false;
-    }
+    } 
+}
+function editm_validate(){
+    var mobile = document.getElementById("phone").value;
+    var email1 =document.getElementById("email").value;
+    var pattern = /^\d{10}$/;
+    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (pattern.test(mobile) && regex.test(email1)) {
+        //alert("Your mobile number : " + mobile);
+        
+         return true;
+        }
+        else if (pattern.test(mobile) == false) {
+            //alert("It is not valid mobile number.input 10 digits number!");
+            alert("enter valid mobile");
+            $('#phone').css("border-color", "red");
+            
+            return false;
+        }
+        else{
+            alert("enter valid email");
+            $('#email').css("border-color", "red");
+        }
+
 }
 
 function fn_save_consumer() {
     const isValid = validate()
-    if (isValid) {
+    const isValid1 = mvalidate();
+    if (isValid && isValid1) {
         $.ajax({
             url: 'http://127.0.0.1:8000/trackapp/createConsumer/',
             type: 'POST',
@@ -163,6 +206,12 @@ function fn_save_consumer() {
                     loader: true,
                     loaderBg: '#9EC600',
                 });
+                $('#fn').val('');
+                $('#ln').val('');
+                $('#em').val('');
+                $('#ph').val('');
+                $('#ad').val('');
+                $("input[name='gender']").prop('checked', false);
             },
             error: e => {
                 $.toast({
@@ -208,6 +257,10 @@ function fn_delete_consumer(consumer_id) {
                     loader: true,
                     loaderBg: '#9EC600'
                 });
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
+
             },
             error: e => {
                 $.toast({
@@ -232,8 +285,9 @@ function fn_delete_consumer(consumer_id) {
 }
 
 function fn_edit_consumer(consumer_id, csrfmiddlewaretoken) {
-    const isValid = edit_validate()
-    if (isValid) {
+    const isValid = edit_validate();
+    const isValid1 =editm_validate();
+    if (isValid && isValid1)  {
         $.ajax({
             url: 'http://127.0.0.1:8000/trackapp/editconsumer/',
             type: 'POST',
@@ -261,6 +315,13 @@ function fn_edit_consumer(consumer_id, csrfmiddlewaretoken) {
                     loader: true,
                     loaderBg: '#9EC600'
                 });
+                $('#fistname').val(""),
+                $('#lastname').val(""),
+                $('#email').val(""),
+                $('#phone').val(""),
+                $('#address').val(""),
+                $("input[name='c_gender']:checked").val("")
+
             },
             error: e => {
                 $.toast({

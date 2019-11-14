@@ -134,6 +134,15 @@
 						<i class="fa fa-bar-chart"></i>
 						<a href="/trackapp/reports">Reports</a>
 					</li>
+					<li class="list-inline nav-item">
+						<i class="fa fa-comments"></i>
+						<a href="/trackapp/allFollowup">Followup</a>
+					</li>
+					<li class="list-inline nav-item">
+							<i class="fa fa-calendar"></i>
+							<a href="/trackapp/remainder">Remainder</a>
+						</li>
+					
 				</ul>
 			</span>
 		</nav>
@@ -231,8 +240,7 @@
 
 										<div class="row">
 											<div class="col-lg-3 col-md-3">
-                            </button>
-												<span class="small"><a href="http://127.0.0.1:8000/trackapp/editprofile?id={{user.id}}">Edit profile</a></span>
+												<span class="small"><a href="http://127.0.0.1:8000/trackapp/editprofile?id={{user_obj.fk_login_id.id}}">Edit profile</a></span>
 											</div>
 										</div>
 									</div>
