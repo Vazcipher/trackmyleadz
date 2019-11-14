@@ -32,7 +32,7 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Consumer_Id</th>
+				<th>sl no</th>
 				<th>Firstname</th>
 				<th>Lastname</th>
 				<th>Email</th>
@@ -50,7 +50,7 @@
 
 			{% for consumer in consmr_obj %}
 			<tr>
-				<td> {{ consumer.id }} </td>
+				<td> {{ forloop.counter }} </td>
 				<td> {{ consumer.fistname }} </td>
 				<td> {{ consumer.lastname }} </td>
 				<td> {{ consumer.email }} </td>

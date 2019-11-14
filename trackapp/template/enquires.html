@@ -36,7 +36,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Lead_Id</th>
+					<th>sl no</th>
 					<th>lead title</th>
 					<th>product</th>
 					<th>lead stage</th>
@@ -55,7 +55,7 @@
 
 				{% for lead in leads %}
 				<tr>
-					<td> {{ lead.id }} </td>
+					<td> {{ forloop.counter }} </td>
 					<td> {{ lead.fk_lead_id.lead_title }} </td>
 					<td> {{ lead.fk_product_id.product_name }} </td>
 					<td> {{ lead.lead_stage }} </td>

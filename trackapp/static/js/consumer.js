@@ -212,6 +212,10 @@ function fn_save_consumer() {
                 $('#ph').val('');
                 $('#ad').val('');
                 $("input[name='gender']").prop('checked', false);
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
+                
             },
             error: e => {
                 $.toast({
@@ -321,6 +325,9 @@ function fn_edit_consumer(consumer_id, csrfmiddlewaretoken) {
                 $('#phone').val(""),
                 $('#address').val(""),
                 $("input[name='c_gender']:checked").val("")
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
 
             },
             error: e => {

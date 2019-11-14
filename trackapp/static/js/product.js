@@ -230,6 +230,9 @@ function fn_edit_product(product_id, csrfmiddlewaretoken) {
                 $('#productname').val(""),
                 $('#cost').val(""),
                 $('#desc').val("")
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
                
             },
             error: e => {

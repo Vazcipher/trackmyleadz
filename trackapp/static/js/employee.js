@@ -1,3 +1,4 @@
+
 $(document).ready(() => {
 
     $("#table").hide();
@@ -252,6 +253,9 @@ function fn_save_employee() {
                 $('#loc').val("");
                 $("input[name='gender']").prop('checked', false);
                 $('#role').val("")
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
                 
 
             },
@@ -314,6 +318,9 @@ function fn_edit_employee(id, csrfmiddlewaretoken) {
                 $('#address').val("");
                 $("input[name='e_gender']").prop('checked', false);
                 $('#role').val("")
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1500)
               
             },
             error: e => {

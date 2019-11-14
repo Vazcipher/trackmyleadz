@@ -48,7 +48,7 @@
 						<table id="view_emp" class="table">
 							<thead>
 								<tr>
-									<th>Employee_id</th>
+									<th>sl no</th>
 									<th>Firstname</th>
 									<th>Lastname</th>
 									<th>Username</th>
@@ -67,7 +67,7 @@
 
 								{% for user in userdetail %}
 								<tr>
-									<td> {{ user.id }} </td>
+									<td> {{ forloop.counter }} </td>
 									<td> {{ user.firstname }} </td>
 									<td> {{ user.lastname }} </td>
 									<td> {{ user.fk_login_id.username }} </td>
@@ -117,7 +117,7 @@
 								</td>
 								<td>
 									<span style="color:red;"></span><br><input class="form-control" type="date"
-										placeholder="DOB" id="dd">
+										placeholder="DOB" id="dd" min ="2000-11-22"  max="2019-11-22" >
 								</td>
 							</tr>
 
