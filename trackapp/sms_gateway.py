@@ -2,7 +2,7 @@ import urllib.request
 import urllib.parse
  
 def sendSMS(numbers, message):
-    apikey='V+CnFVrIf/E-r7OVG45o2OH4wsYhyrTouivYHLa6ts'
+    apikey='api key-VxL+paM+fvA-LiPZ7Olfis96j3oEq4QqJqhaRhL5h'
     sender='TXTLCL'
     data =  urllib.parse.urlencode({'apikey': apikey, 'numbers': numbers,
         'message' : message, 'sender': sender})
